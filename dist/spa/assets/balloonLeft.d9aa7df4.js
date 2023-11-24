@@ -1,0 +1,1 @@
+import{d as t,_ as a,o,aa as n,e as r,ab as s}from"./index.14a7c722.js";const l=t({name:"BallonLeft",props:{text:{type:String,requered:!0}},setup(){return{}}}),_={class:"balloon2-left"};function p(e,c,i,d,f,u){return o(),n("div",_,[r("p",null,s(e.text),1)])}var b=a(l,[["render",p]]);export{b};

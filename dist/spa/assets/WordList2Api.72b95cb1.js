@@ -1,0 +1,1 @@
+import{A as r}from"./BaseApi.ab9ec937.js";class o extends r{search(t){const s="/wordList2/search",e=this.combineUrl(s);return this.httpPost(e,t)}save(t){const s="/wordList2/save",e=this.combineUrl(s);return this.httpPost(e,t)}delete(t){const s="/wordList2/delete",e=this.combineUrl(s);return this.httpPost(e,t)}}const h=new o;export{h as a};
