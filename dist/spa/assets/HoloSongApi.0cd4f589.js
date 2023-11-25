@@ -1,1 +1,0 @@
-import{A as s}from"./BaseApi.ab9ec937.js";class n extends s{search(){const t="/holoSong/search",o=this.combineUrl(t);return this.httpGet(o)}ori(){const t="/holoSong/ori",o=this.combineUrl(t);return this.httpGet(o)}holoList(){const t="/holoSong/hololist",o=this.combineUrl(t);return this.httpGet(o)}}const i=new n;export{i as a};

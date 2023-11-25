@@ -1,1 +1,0 @@
-import{Q as e}from"./QPage.82e76fcb.js";import{_ as a,d as t,o as s,c as r,w as o,e as c}from"./index.14a7c722.js";const n=t({name:"IndexPage",setup(){}}),p=c("div",{class:"q-pa-md text-primary text-h6"},"hello scraper",-1);function d(_,i,f,m,l,x){return s(),r(e,{class:""},{default:o(()=>[p]),_:1})}var $=a(n,[["render",d]]);export{$ as default};
