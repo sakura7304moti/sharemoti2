@@ -3,10 +3,10 @@ import { useRoute } from 'vue-router';
 //API呼び出しのためのクラス
 export class APIClient {
   public route = useRoute();
-  
+
   public apiEndpoint = function () {
     const path = location.origin.replace(':9000', ''); //http:xxx
-    return path + ':0000';
+    return path + ':5000';
   };
   public config = {
     headers: {

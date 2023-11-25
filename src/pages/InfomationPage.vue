@@ -159,8 +159,8 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import balloonLeft from 'src/components/balloonLeft.vue';
-import WordList2Api from 'src/api/WordList2Api';
-import HaikuListApi from 'src/api/HaikuListApi';
+import WordList2Api from 'src/api/main/WordList2Api';
+import HaikuListApi from 'src/api/main/HaikuListApi';
 import YouTube from 'vue3-youtube';
 export default defineComponent({
   name: 'InfoPage',
