@@ -108,7 +108,10 @@
           </div>
 
           <div v-else>
-            <div class="holosong-video-container" v-if="displayMode == 'table'">
+            <div
+              class="holosong-video-container"
+              v-if="!isLoading && displayMode == 'table'"
+            >
               <div class="holosong-video-placeholder">
                 <!-- 動画再生ボタンアイコン（例: フォントアイコンを使用） -->
                 <i class="holosong-play-icon">▶️</i>
@@ -317,6 +320,22 @@ export default defineComponent({
         filter.value = songInput.value;
         songInput.value = '';
       }
+    });
+    /*localstrage */
+    const KEY_LOCAL_STRAGE = 'holo-song';
+    const viewValue = localStorage.getItem(KEY_LOCAL_STRAGE);
+    if (viewValue) {
+      if (viewValue == 'gallery') {
+        displayMode.value = 'gallery';
+      } else {
+        displayMode.value = 'table';
+      }
+    } else {
+      localStorage.setItem(KEY_LOCAL_STRAGE, 'gallery');
+    }
+
+    watch(displayMode, () => {
+      localStorage.setItem(KEY_LOCAL_STRAGE, displayMode.value);
     });
 
     return {
