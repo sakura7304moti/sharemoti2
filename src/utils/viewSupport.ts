@@ -62,7 +62,13 @@ export const useViewSupport = function () {
     const resultString = formatDate(resultDate);
     return resultString;
   }
-  return { fileDownload, imageDownload, displayDate };
+  function formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+  return { fileDownload, imageDownload, displayDate, formatDate };
 };
 
 /*日付操作用 */
@@ -70,11 +76,4 @@ function addHours(date: Date, hours: number): Date {
   const result = new Date(date);
   result.setHours(result.getHours() + hours);
   return result;
-}
-
-function formatDate(date: Date): string {
-  const year = date.getFullYear();
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const day = date.getDate().toString().padStart(2, '0');
-  return `${year}-${month}-${day}`;
 }

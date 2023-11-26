@@ -32,6 +32,13 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/history',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/RenovationHistory.vue') },
+    ],
+  },
+  {
     path: '/yaki',
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('pages/YakiListPage.vue') }],

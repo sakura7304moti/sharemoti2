@@ -71,7 +71,7 @@
         <!--俳句-->
         <q-card class="index-page-card">
           <img
-            src="https://lh3.googleusercontent.com/fife/AK0iWDyNM5XMW3A-QtTa2YrnCdZ2baukj53298laEF52mYUQZ-U5PMi8yLyR19lnE3DN3t4szepcxHYh5xQNXMQiGuN6QVLUGfYQcrZkEEUVMXEek9u_Au2_0jWN_CXIv7RZK3vTILuKJQgdRD_D-Zq3_ufonLcxqdRqWG4i6YXKQQdFL4qOsqeJ_2HlaJ43X_eKOP7CiojRAfC056CeNZ4dsmzQEHhsjerMiq2vpvhnUj_2ek8aREUXVTUMEFDLk6J7-cuQUY30iaLg_J_pk4ZPIuEZn8DHsCBQd0aP5hUyDYnmA-dAt71fukNF0scVwR41d9zLDIt7Zwmo8TtA5HDmW6y_Pw9bnw5eECTlHSEo1xx4FMs075LR3r4hK37xkm4Yn6LoLmq1ZiA5GCorV05HiVk_6thuaWgJblynwVLNt2Y3IdR0zWgxlvgrs0nBzZHJ1kqEpAyb1Plh8Dt9TaNTmFa1KJ3RfJVzyGiwTuGccKrTzo80psQEkoWfEc5bebJ69hB3cgH680Ij2ShB14owpG3gIS9EX6sPiMu-uHaUXqwkrg00o5R-QjYwHWfYEUyojlFiyUCLl9r9NjglB2ivFfuqA6QBn5R0Mmm_exs_fmSfL0aqsFuSQ4z5u5H89trMdmGliA5h9pRleaRISgSzwgp7QwtiWwmmtVODX-17pj8eqWCew3h_6DFxmRspgnh-GyF_CfQQEejnostYmVXdryfDCkISGjWLU9du0T76p8mhsAhZDgDQGw7Qh1Mnr0D1oPsn-Rzqc7dkjo7YXYrFaDyFrCZ1uu-j9olEB6HdOoA-sLrN1TEFf47gfl0cy-0QXWYHOh0I5U9EI8-g3eht-lPG3kuEfZa6NRBGh7r8VJtEfaS9Cv8FHiH_8e3l_5W1Owg6xFwKB1vNy9HWmUQSZG9wPmjCw1yv9fmVdKCsTohQSlr_cy_7nhLpIzKbbQx-u6-iBQOP2rovq_qREEai9ucQ73ef1DFiJHIcdyPaRGPaej85rK7mlxSQ1moWAF154U0YM0hba7U36Te5fpVTZ89DAabRvLNR2U0t_NQMNlNUlbdVemn6omddP-KT6bXXaHBtnxaGsk0sk_6heRO4761PsmgZ4ssRj3Ke6S_kXddZq6GDTxczmYe7d24ccLoADnuKa87rwbx0ZE7qXrKlK6GEkyX9aXIShSWyqty4--0nvdUzeK4ZlErYdPPfe2--2GNPobMrB3HzBcMssDhazC82NfLECTs9S1grQMvwxrXtow1iRLvjbNX7CHtptW0EWOG26riy_OhRoB_bP3BCC6A04fOkMwgEfqUKSiR3xWSO52M_A175R1jhdHJ4uixtNuL5d7vmdGvFgklMxhfEl-RT5MtxIPXCUzLrTzlM5Vc-AjEPu3mFMqdpxYgf1WS4Cz-QXLJGoEHMS6_Ohovdgq4lzYxTOASFYTYOUKouDvlupdO1WwVSIXWHOKY0tyQFqVimu56KlZLx4wtno3qTMx8lGGoo6DCL-rFMFx-fO8hsnMVeNJI_vbcY2w=w1357-h934"
+            src="https://lh3.googleusercontent.com/fife/AK0iWDywx1PhzorK1eks-ZrT9Crz7uJnPcY6NTLgjBtNS1uvJrrnLpg-2w0WZdjgVGZevFY-eMWymRdXfZfk0Q2wXds-STsaieSstaE-mCwOEaHZS1Nofw4hAdMKT6U7ED7F3U42vhQuWTX3fka4kmi4aP2EDlpaeKtiGMcEEBA8CDNLZGI009bGC-VEQUDl-WLO1Si2DbToZfvbz8O6osA7W1XqAAdMZqiINI8kZjEHHEAs1R9p5W7rOHMFA9tl7zvddAqAY7_gysG3XkYpG2Ujpfkz0OZt37Xg9xyrTAxqRDp2nX-HPKzikIByGNh_v8tMDyDmuDTHuwcnth_z-4D9mC56KgfaPuJykajuYgyRY500Kokq74clPu0S8HpWL4M_Kd0II3aa6zbDB1X0i4gz5reTrFQtq_UlvNBX88nrh0rRRsLg7gAfTz_2SgkDkTZlDLND7NOXPz-nNM4uVJfxFaaVhSfaE7XJwOkG1NKh5tNosmDPqSGlfUjXjWLa8j4A85ARjR8gldFSk9SK1emqGviz-ZjIg23c8oQ29ljRUZlUbN-8xxEBpIyhep0Pkpq_WmF4lmcCIPdMSDknYVnHj_aZomfTtNs2hKFeo4C6pjcw9_EPS6vh2WEz_h6Hx-znKuZuBc22-9sTZSNEJU37XOiarlYkD5YEuBzjL537UXn5WQNhwkaM64Zx2a7Ry38yl6ZO0g6JrpQbDKe8DYhUwUMwdiTlEGqGtmE_oq3thGqcGpoOkkCbcZJTLSqwRa0AD9hSzdRgM8RirwOusg1I7pmC171m7hUV46JTW9WbMr0f9Wf5L9BluSHBdvabWPywe7s4bZEzs3XiQ0Z-R947hpQV-kD4OzO8rfnAr0Af02Vo_FM9r9pn-yOpkMBI1nPoqL42PhOZi3HzOnJItokJlazIiu93q1mjiEbWeD2r43-JbZPjdPOtrAwn2YpnkGBOcN2r-cb7vCgPvIq7WdqW10-pAxdUMjeLJisGUMHV20ZM3Cd9ITAOUWtdyYmaRu3pCgqpu0BHANjL5NnxYPaZwU-jiVioC8swdHWx_AByKPhBwCEjieT3dpwwm90egNUK9Lj4PvgpVZY_NRtnedadPOtvoGAbf81edeWmzKERyUinqKLg38SBhemoYm8BtGDWBkIRZZRsTJ-yxKjR60g3Z4eWQb1nkcSHosZuyLA7NF-SL1jx7SurUuWCkmaEPaF6PRvVnVt_WJd3m9nCwK9YMBkPoQNb7UNnBouJHJBNkwmUOugSpx2eGsl65hgU0Mm4RKpQzCGEyGJ8Aj8mVkiKmAu5EBWXAQXtIjg-4G9VKJIhwMlAnzFzLfQNLTUQ7SpWi0Uhlkyz5ISAzpEl6nk1ViLGlbvmOhJbR9CYiKsTD_ghUt-mNv2CFjnFNOZ13eOiz-7bBlQ6AJ9Vk6pzknX9y1QiXROXCvJnGG4dsQj2aDt-5-zDv_oaAMQJpLn6hVJlFeCXP8ybl7GE0DWQH5czm4l_xOZiSP0VZPVmb6aiZoFQfx8RT46AbvzAow=w1920-h934"
             style="cursor: pointer"
             @click="router.replace('/haiku')"
           />
@@ -79,7 +79,7 @@
           <q-card-section>
             <div class="text-h6">俳句王決定戦</div>
             <q-card-section class="q-pt-none">
-              これはもう言わなくてもわかるね？すき家にGOだ
+              そこにワビサビはあるんか？
             </q-card-section>
           </q-card-section>
         </q-card>
@@ -116,6 +116,25 @@
             </q-card-section>
           </q-card-section>
         </q-card>
+
+        <!--リフォーム履歴-->
+        <q-card class="index-page-card">
+          <img
+            src="https://lh3.googleusercontent.com/fife/AK0iWDx18IVVH9revKCu1jDMxuxgYozZngYDPCY72lvj_ni82uakmMM7MStk3ZxhP5j6zRogANctZ8pXouHrbAcyisPzlbGLWrZMEmlPZfbrBdYG3q-m9EfamIhK6wrORFtM4WI6KHUKvqpmlyan-vCAS8pYtbXDf6Irtyp_jEtiFucm_rYkEBy6LTFoKTaRsFD3TRL2bbEOPXkzELevL92BhKEo3n7EtcN8ty7hv_7DB_0VuTxtFzwp-cmbjALeRKWMGh4uHes0zNxHqJ25hZ7BPiE8_RQWIiVVy0_NXZrr-sndmbml9jG_pedg7odR4spZg9KN7lmL5QKUesFrG6lNdnokRgXRwVj5KCm4VCZng7Up8Sy2eT-YKWp6vYzim1OW2xbwDFMqfcZEOq5bMhKEukUtEi8_LrMZgHnA342mIMDfLBOXd40L5mheD1072z7hCGMr6yKKxtqWfQ1TtlHJKdDcicyqmMP0R61K99IavBFrDpnGTvcI-LzvKxbc02VIAq5Y3Q9Xd6FCvlA8zA2244flAsIHlBdAT9shwnOzCqjYhzP0A6Ll8APjoE46RVRiqXYRYt6gM2z_F0s9yzYZ4XXjctHeHAlKexTfZziAS6Y_uM5rEA-NQ0QTwSPy-fcLK56ZyFoxSUmjMEYqSMhJ7B4icJvTs8Hp0xNf7QLJr-tPHo-_07pGmGWRFJq-_og2GpvhsKXTndnzMOxN6Ux04j7FNLSvckp9tCxgi3OoGuVAgHJFQLQwPwLnkpjL30o9W5AlOjyv3Q-XJOXjGNOeVootbGtcCA4GR8WXH1oQyZivePTc-wBYyvCntZ2c1v8-lxHNL_bQ8k3T32bEu09321wJhVjggqhGbPLOWEEgnS_gZzGGV6eJt8v8bF3aUksYQc3JAKPN0_BEDZxRhyyFF7zBBbeC1qLe9F4rUYz01WrxQz8DcZ3IItX5n9L-uVEubUEANf1FG670U8u0M_-7G4mBKLtmiCgHQ2--02IlNz3dd0e-SE_fMlw9lMPiNxlkC80rxsdLBumvBdtNSz-ALFwXR3ZaFtdpXmk2mBrEhpIDGaH8PcCYy3_Wpa0p129BLvvIjBciy8IOZ_CF6luc4td61zlTbPQd2tjEjd1HGZFUkgbLmt5MEdhjq7b8kHRh5urePlj4VAbqFNMo8J6omLAVQlyyhmmMc7X8E0aY2r0LYcbYR26JD8lCASFW8oTsCCSN5s0T_3d-h5TxmUYoCg3M0ZvaC4tWRMd2NXWWVP7MmstdB6oeYZ4J2rK-GHZAz1-VQNNN7ZT59wFGysw5GiKa8jBp1T53nqnwaUnfDkHKUFR_9nJEZxUh2rNnMXyqGWtOrHPvbWOHj41Lx--VDQrc9g78CdvHiKVpz-Ma07uRaVF5DgzJWDdn9oZeCPELRnTtVngDqKaftxo6XUEdhI2KSh9-9DSyOG5-03ANJBWFpJbFNTOgRqjqkJoLnZk3dBTSp1CSUQntd0FUf71mFbTCLRzdvU7ltd0izC-UaH3C92nDLjR5eNOLvw=w1920-h934"
+            style="cursor: pointer"
+            @click="router.replace('/history')"
+          />
+
+          <q-card-section>
+            <div class="text-h6">リフォーム履歴</div>
+            <q-card-section class="q-pt-none">
+              リフォーム内容をここから見れるわよ。<br />
+              見ないと土井カービィが世界一汚いトンネルの餌食になるわよ！<br />
+              、、、まあ別にいっか<br />
+              ヴォーーーイオイ(泣)(土井カービィ)
+            </q-card-section>
+          </q-card-section>
+        </q-card>
       </div>
 
       <!--おみあげ-->
@@ -140,15 +159,15 @@
         <!--ボイス-->
         <q-card class="index-page-card">
           <img
-            src="https://lh3.googleusercontent.com/fife/AK0iWDzFfzlMHsQElSYitoa-nItsMjkw9VCywjuBeXMSxnT2uyv66o4e4GZuppqV1xVFJMGYY15bPNfaW1As7L38SultOGlwa6MsNfnQGwHQ5GogBfI-9kNeqphuP5r9BM29KEsH35Fi5FPV__JvREt4Y2Shi38rfdJzslw8s_VlQ3tD8RPJRelQKHpfOsLzNbtqL3Xj-vK8tCw8Ht560ec2xBLsDNYvhxTPck9bmmgrI14KsR8ZvKNfpxg4MF-yR7bbRGJrkcImLET1NbWBCLju5XspfTqAE4kHupDdLSKc1YvGq2zPwAG178fw4snsTWgQyYHvzXTyrtM84hKZreq70_WyFIiFr_qMSzcB0-EAXd2GovszYu_WzhBrnpUInMZ1K9cZsc6I1b6HRRMnWtxbzR68okM4KmFG67_1AUicdMT1sxueNmr9hfEd0VOFB4ol3vF1uGuzH5cUM_m-34PogmpjQvkH2AFgB0YQEXTOWnEjhgeMPhp7bodCXyL9OJD8_AgfpV1zGilwVnZ7Ol_Tsnx-jS08gUyRQdzPxaQKlACTuPfwk0q4IuvC3iOGcutbOVqEZMLSFKlU-I8swKt6P6oS4S51Y6cxzlsHKRgUw9gFEpCls3qAbYZJYoEKDhcyp2cryOp2G_aff3o7Hmc6tZ9WgJrrcEAduQl3OAOuOUZ-J65ohIEEzXFnKq0bNUVREyZHjpJ-g55a3h3sNLDi0xuMxYnVEqhfIYd3sERS1fiU4HKkdwkseFGV2sJfMa0b82HOQUSD3itsyJOlVzA5W62jXcluwt656kiW7IctbrXJvuczf4LD6MxG5r-lc64B4Iy05mUY7y0cHJYENBAOwhmuDq8b5zfQTX0bKWOrcL-fBZoODLh7ooIEpbqhbCooDzq24bk_REK0es3dk4FU-F3DGU_5GveqjkQaBdNe7Dvw7kqC39rdP0YW4wknW8Az7seSBTqFfYJaLXpDCi3WO44odRaszurWyTqrto3QwDATNe4J0LP5HUxzpd8LicmLR2JyHkieBbzlEa4hVRhOPAXF9-B_muTj16J9TceV8BLsEc9qpo_qwb0_9F2r9mYqQlGZ2O6F3_zIPruqoQJ9zgwIMOdG0ESmpvPtDEhKvQquMqA07DzHZfvD6bitbQzyWlAO71vQAw2B-dqbbM6lM6O2sI7IKRKU7NCAJwMe2UHZQXMKMGf2dJ95LZDxVZ0WHPhNmwTqroIMutxBJ3j3WERP8XKECB72-MANUeGmA8vaLzlhpuHLfrHpiDgtbaMScX1xj4yJnIBr-4F0BuY3MvM5wrKjro3xUXubofkDTax9vgRVweqVAX4DLWw-Hiqb7YAulrbDcdvQRR9FGq1MnRA3tuVJ3WLchvgNpB8rE4GGPzzr2FUAhAzNkENg4SMvDo7kPj690ZBqdbwKwHRttqeT4Ei6tJL2_hooPPWPmTDlRweaP-v9I4Tzdkr6xL2Q7p1pJkgW-qW2mN3EyWOIMCNiq1SXsSLllxoQLZ9iZYkNY-4htFOmbIINPA=w1357-h934"
+            src="https://lh3.googleusercontent.com/fife/AK0iWDyzCQkCMVD7vAG2c3Z2V1hpVNr1GGSTgNaO_8IXJu-7KKPFG3AeLDdpxbmMeoB91cpN1B_yzxkqG0bXImXzjF1j7hfCeAaNP_OtVEb4Z4gAbqbbzrrsg60eqeCT6dvBFfO9-WEZwR_1ICz0rOf92-f9gIQpy3-ESAKgRNISoxCWizbEsAEsg-QqinmdqHiPzszNHqlPY1EmFqB7vRv56-hQnK9kAS9qcwbvZ4hlg9C8Sgxa07zsv84BxPWOPFClLDyWJJ9FxemMjnaTVby3N6b3HOpuq1-ASVo_jC4d0Q8SruVHUN3DWkypKr62jDCe9R1r0uIvaoj18054990HezeUylJNQnLcjQzkDV6JRSgArg7PhQbPopwKogTN0ZiPOzuchrFOAdeLngEWQtarCmZcsC1f1c6yvqB4NwlSZvQi5RxtJzzIZzdY9zZ_idz0kM31UhUUqLX_QCD-P6IxNRifvekiSDV91JTAiSV48B9PR9L2rK6fzcY6ZnkiRTJedKzjsvZmUBxCsQ6fTFL2kMPKfJuIFA-MF3UjvLYXYkN5LPci2EXGhVuhqqvHoUVtic8D9oW_s7DaXsyfHeZDIB_K-xQGOw7f8lJW2GBDnhEGT-XVKgU1xBVsWxme5x1HFUvw_xD6-5VzxKqODkn_QEOEiz-LPR-RgsyfYVoRbPonrcmjmUavbnb08qGxmG-0ToKUcE3lbOwKi2f8nJbJv7bAj4m2FD6i2GnrFPk-wg9Qk436MgRAlj-vvtZ35yCYqCa7AwpSUnjVvww7szl_vVTRFm3EviUr0T5AsAyJwSlbxFGi4x_2g_RTdQZfXgy0Bsa_--20d6W3VZ7JLeu3bnCAq_zStdeqMfxgkuOsDtXrNKk99_oeX6K5-l4Kf9fwqU9m_Ph2lKGmYlN8zvRX4djgGE3cuzXMDd0gIhMBYzx5NgmtUzkR2XNmVWhhMcdb6DQKNyShdY9plygGwQJMZhj16v3ZAwYeo6Sxzd0kIhGQUHV8nTqGkbK9jVeYEhw-ZmLe1IdgWFcRXq-oX1eOhGQv3mv_NRY2smx3mREd_yDMaD3WY95OspVnUsYAxGETJEzelsroXZ8JrF61Zdnwo-U9lpAdZXdFW7hRXsRlTERCyxKAgDY-G-7D6siHOLkU_1gVBH2jof95fg81ERU_g_u2DRnn3l9ZtaicRAesTGp-NBaA3eAgRHU1XqdIg1YzQ_P3IweY0lvuD1XwO16IJUFHLt-_7P1G-SlLnTWhMmEbAZMek3ynHdqzP8ZmFcQA_JguYEkG5YDwrt5ox_cqsKyb0Aja1HTssyPZDQVB_ag6_UnhZDVjR6PHeex7yw-qnqwfqNDQNd0xHqz2RhBaXtQe22G6_WiBCSJ9AQtX3l2BncMNdsXOJtvn-99YbkhMjm7Jx18Wats2kt9YiTkR0NlrRSynI_AnYs7bim-Gj-6pOII6d7c-12SlmUPMrmwJ0sLXBv7pXfm2gqgMvVmYbo54upPnMQKAgN3Enx8-sMc7uKa6C9yylbInKw=w1357-h934"
             style="cursor: pointer"
             @click="router.replace('/voice')"
           />
 
           <q-card-section>
-            <div class="text-h6">2040年ボイス</div>
+            <div class="text-h6">ボイスまとめ</div>
             <q-card-section class="q-pt-none">
-              ここの画像募集中。それまではイチローで我慢しなさい。
+              あのときの思い出をもう一度
             </q-card-section>
           </q-card-section>
         </q-card>
