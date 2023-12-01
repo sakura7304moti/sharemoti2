@@ -3,11 +3,7 @@
     <!--あいさつ-->
     <div class="row q-gutter-md q-pt-md">
       <div>
-        <img
-          src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/obachan.jpg"
-          height="130"
-          id="oba-profile"
-        />
+        <img src="../assets/obachan.jpg" height="130" id="oba-profile" />
         <div class="profile-name" @click="router.replace('/imagelist')">
           韓国のおばあちゃん
         </div>
@@ -23,7 +19,7 @@
         <!--名言集-->
         <q-card class="index-page-card">
           <img
-            src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/turizao.jpg"
+            src="../assets/turizao.jpg"
             style="cursor: pointer"
             @click="router.replace('/wordList')"
           />
@@ -39,7 +35,7 @@
         <!--あだ名一覧-->
         <q-card class="index-page-card">
           <img
-            src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/god_tamori.jpg"
+            src="../assets/god_tamori.jpg"
             style="cursor: pointer"
             @click="router.replace('/nameList')"
           />
@@ -55,7 +51,7 @@
         <!--焼き直し条約-->
         <q-card class="index-page-card">
           <img
-            src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/yaki_doi.jpg"
+            src="../assets/yaki_doi.jpg"
             style="cursor: pointer"
             @click="router.replace('/yaki')"
           />
@@ -71,7 +67,7 @@
         <!--俳句-->
         <q-card class="index-page-card">
           <img
-            src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/senno_rikyu.png"
+            src="../assets/yoshi.jpg"
             style="cursor: pointer"
             @click="router.replace('/haiku')"
           />
@@ -79,7 +75,7 @@
           <q-card-section>
             <div class="text-h6">俳句王決定戦</div>
             <q-card-section class="q-pt-none">
-              そこにワビサビはあるんか？
+              これはもう言わなくてもわかるね？すき家にGOだ
             </q-card-section>
           </q-card-section>
         </q-card>
@@ -87,7 +83,7 @@
         <!--学校-->
         <q-card class="index-page-card">
           <img
-            src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/panda.jpg"
+            src="../assets/panda.jpg"
             style="cursor: pointer"
             @click="router.replace('/school')"
           />
@@ -103,8 +99,8 @@
         <!--共有リンクまとめ-->
         <q-card class="index-page-card">
           <img
-            src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/poddoman_white.jpg"
-            style="cursor: pointer; height: 300px"
+            src="../assets/matlix_cleanup.png"
+            style="cursor: pointer"
             @click="router.replace('/info')"
           />
 
@@ -116,25 +112,6 @@
             </q-card-section>
           </q-card-section>
         </q-card>
-
-        <!--リフォーム履歴-->
-        <q-card class="index-page-card">
-          <img
-            src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/omuko_ketu.jpg"
-            style="cursor: pointer"
-            @click="router.replace('/history')"
-          />
-
-          <q-card-section>
-            <div class="text-h6">リフォーム履歴</div>
-            <q-card-section class="q-pt-none">
-              リフォーム内容をここから見れるわよ。<br />
-              見ないと土井カービィが世界一汚いトンネルの餌食になるわよ！<br />
-              、、、まあ別にいっか<br />
-              ヴォーーーイオイ(泣)(土井カービィ)
-            </q-card-section>
-          </q-card-section>
-        </q-card>
       </div>
 
       <!--おみあげ-->
@@ -143,7 +120,7 @@
         <!--カラオケ-->
         <q-card class="index-page-card">
           <img
-            src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/mirai_osho.jpg"
+            src="../assets/mirai_osho.jpg"
             style="cursor: pointer"
             @click="router.replace('/karaoke')"
           />
@@ -159,15 +136,15 @@
         <!--ボイス-->
         <q-card class="index-page-card">
           <img
-            src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/kirin.jpg"
+            src="../assets/itiro.jpg"
             style="cursor: pointer"
             @click="router.replace('/voice')"
           />
 
           <q-card-section>
-            <div class="text-h6">ボイスまとめ</div>
+            <div class="text-h6">2040年ボイス</div>
             <q-card-section class="q-pt-none">
-              あのときの思い出をもう一度
+              ここの画像募集中。それまではイチローで我慢しなさい。
             </q-card-section>
           </q-card-section>
         </q-card>
@@ -191,7 +168,7 @@
         <!--オム子レイディオ-->
         <q-card class="index-page-card">
           <img
-            src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/omuko.jpg"
+            src="../assets/omuko.jpg"
             style="cursor: pointer"
             @click="router.replace('/radio')"
           />
@@ -210,7 +187,7 @@
         <!--画像-->
         <q-card class="index-page-card">
           <img
-            src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/ichiro2.jpg"
+            src="../assets/ichiro2.jpg"
             style="cursor: pointer"
             @click="router.replace('/img')"
           />
@@ -230,7 +207,7 @@
         <!--Twitter-->
         <q-card class="index-page-card">
           <img
-            src="https://pbs.twimg.com/media/Fu9FR54agAAXCma?format=jpg&name=orig"
+            src="../assets/aqua.jpg"
             style="cursor: pointer"
             @click="router.replace('/twitter')"
           />
@@ -245,7 +222,7 @@
         <!--YouTube-->
         <q-card class="index-page-card">
           <img
-            src="https://pbs.twimg.com/media/Ft1B542aMAAzixq?format=jpg&name=orig"
+            src="../assets/shion.jpg"
             style="cursor: pointer"
             @click="router.replace('/holosong')"
           />
@@ -261,7 +238,7 @@
         <!--Album-->
         <q-card class="index-page-card">
           <img
-            src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/koyori.jpg"
+            src="../assets/koyori.jpg"
             style="cursor: pointer"
             @click="router.replace('/holoalbum')"
           />
