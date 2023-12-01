@@ -94,6 +94,13 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/holomemory',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/HoloMemoryPage.vue') },
+    ],
+  },
+  {
     path: '/test',
     component: () => import('layouts/MainLayout.vue'),
     children: [
