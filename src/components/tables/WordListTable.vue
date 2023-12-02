@@ -19,14 +19,14 @@
       >
         <!--sub 1/3 オプション-->
         <template v-slot:top-right>
-          <div class="row q-gutter-md" style="width: 800px">
-            <div style="width: 75%">
+          <div class="row q-gutter-md word-list-table-header">
+            <div class="word-list-table-filter">
               <q-input
                 dense
                 debounce="300"
                 v-model="condition"
                 placeholder="検索"
-                style="width: 200px"
+                class="word-list-table-filter-input"
                 align="left"
               >
                 <template v-slot:append>
@@ -69,7 +69,7 @@
             <q-th v-for="col in props.cols" :key="col.name" :props="props">
               <div
                 v-if="col.label == '名言' || col.label == '詳細'"
-                style="width: 200px"
+                class="word-list-table-main-column"
               >
                 {{ col.label }}
               </div>
@@ -79,7 +79,7 @@
                   col.label == '更新日' ||
                   col.label == ''
                 "
-                style="width: 100px"
+                class="word-list-table-sub-column"
               >
                 {{ col.label }}
               </div>
@@ -122,23 +122,26 @@
           <div class="q-pa-md">
             <div class="text-subtitle1 row q-gutter-md">
               <div style="margin-right: auto">新規追加</div>
-              <q-btn icon="close" @click="saveModalShow = false" round flat />
+              <q-btn
+                text-color="primary"
+                @click="saveModalShow = false"
+                round
+                flat
+                label="閉じる"
+              />
             </div>
-            <hr />
-            <div class="row q-gutter-md" style="height: 150px">
-              <div style="height: 150px">
-                <q-input
-                  label="名言"
-                  type="textarea"
-                  v-model="insertCondition.word"
-                  class="form-model"
-                  dense
-                  outlined
-                  stack-label
-                  style="width: 250px"
-                  clearable
-                />
-              </div>
+            <div class="row q-gutter-md q-pa-md">
+              <q-input
+                label="名言"
+                type="textarea"
+                v-model="insertCondition.word"
+                class="form-model"
+                dense
+                outlined
+                stack-label
+                style="width: 250px; height: 150px"
+                clearable
+              />
 
               <q-input
                 label="詳細(省略可)"
@@ -148,11 +151,10 @@
                 dense
                 outlined
                 stack-label
-                style="width: 400px"
+                style="width: 400px; height: 150px"
                 clearable
               />
             </div>
-            <hr />
             <div class="row q-gutter-md">
               <q-btn
                 @click.prevent="
@@ -182,12 +184,17 @@
         <div class="q-pa-md">
           <div class="row q-gutter-md">
             <div class="text-h6" style="margin-right: auto">更新・削除</div>
-            <q-btn icon="close" @click="editModalShow = false" round flat />
+            <q-btn
+              label="閉じる"
+              text-color="primary"
+              @click="editModalShow = false"
+              round
+              flat
+            />
           </div>
 
-          <hr />
           <!--inputs-->
-          <div class="row q-gutter-md" style="height: 150px">
+          <div class="row q-gutter-md q-pa-md">
             <q-input
               label="名言"
               type="textarea"
@@ -196,7 +203,7 @@
               dense
               outlined
               stack-label
-              style="width: 250px"
+              style="width: 250px; height: 150px"
               readonly
             />
             <q-input
@@ -207,12 +214,11 @@
               dense
               outlined
               stack-label
-              style="width: 400px"
+              style="width: 400px; height: 150px"
               clearable
             />
           </div>
           <!--buttons-->
-          <hr />
           <div class="row q-gutter-md">
             <q-btn
               @click.prevent="
@@ -364,22 +370,29 @@ export default defineComponent({
   width: 200px;
   height: 40px;
 }
-/*テーブルのサイズ */
-.search-table {
-  word-break: break-word;
-  max-height: 600px;
-}
-.search-table q-markup-table {
-  table-layout: fixed; /* テーブルのレイアウト方式を固定に設定 */
-  width: 100%; /* テーブルの幅を100%に設定 */
-}
-.search-table td {
-  word-wrap: break-word; /* テキストの自動改行を設定 */
-  white-space: normal; /* 空白文字の扱いを設定 */
-}
 /*テーブルのstyle */
 .word-list-table {
   max-width: 800px;
+}
+
+.word-list-table-header {
+  width: 800px;
+}
+
+.word-list-table-main-column {
+  width: 200px;
+}
+
+.word-list-table-sub-column {
+  width: 100px;
+}
+
+.word-list-table-filter {
+  width: 70%;
+}
+
+.word-list-table-filter-input {
+  width: 200px;
 }
 
 .word-list-table .q-table__top,
@@ -408,5 +421,28 @@ export default defineComponent({
 .word-list-table tbody {
   /* height of all previous header rows */
   scroll-margin-top: 48px;
+}
+/*スマホ用 */
+@media only screen and (max-width: 400px) {
+  .word-list-table {
+    max-width: 350px;
+  }
+  .word-list-table-header {
+    max-width: 350px;
+  }
+  .word-list-table-main-column {
+    width: 50px;
+  }
+
+  .word-list-table-sub-column {
+    width: 30px;
+  }
+  .word-list-table-filter {
+    width: 50%;
+  }
+
+  .word-list-table-filter-input {
+    width: 170px;
+  }
 }
 </style>
