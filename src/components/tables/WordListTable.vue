@@ -15,7 +15,7 @@
         :pagination="{ rowsPerPage: 0 }"
         :rows-per-page-options="[0]"
         :filter="condition"
-        class="word-list-table"
+        class="word-list-table scroll-table"
       >
         <!--sub 1/3 オプション-->
         <template v-slot:top-right>
@@ -365,6 +365,7 @@ export default defineComponent({
 });
 </script>
 <style>
+@import '../../css/q-table.css';
 /*input 入力の横幅 */
 .form-model {
   width: 200px;
@@ -395,33 +396,6 @@ export default defineComponent({
   width: 200px;
 }
 
-.word-list-table .q-table__top,
-.word-list-table .q-table__bottom,
-.word-list-table thead tr:first-child th {
-  /* bg color is important for th; just specify one */
-  background-color: white;
-}
-
-.word-list-table thead tr th {
-  position: sticky;
-  z-index: 1;
-}
-
-.word-list-table thead tr:first-child th {
-  top: 0;
-}
-
-/* this is when the loading indicator appears */
-.word-list-table.q-table--loading thead tr:last-child th {
-  /* height of all previous header rows */
-  top: 48px;
-}
-
-/* prevent scrolling behind sticky top row on focus */
-.word-list-table tbody {
-  /* height of all previous header rows */
-  scroll-margin-top: 48px;
-}
 /*スマホ用 */
 @media only screen and (max-width: 400px) {
   .word-list-table {
