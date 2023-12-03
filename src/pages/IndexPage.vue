@@ -250,6 +250,22 @@
             </q-card-section>
           </q-card-section>
         </q-card>
+
+        <!--Album-->
+        <q-card class="index-page-card">
+          <img
+            src="https://pbs.twimg.com/media/F_Xt-HYaIAAiVIm?format=jpg"
+            style="cursor: pointer"
+            @click="router.replace('/holomemory')"
+          />
+
+          <q-card-section>
+            <div class="text-h6">memory</div>
+            <q-card-section class="q-pt-none">
+              ホロライブの記念配信をまとめたよ
+            </q-card-section>
+          </q-card-section>
+        </q-card>
       </div>
     </div>
   </q-page>

@@ -147,6 +147,14 @@
 
             <q-item-section class="text-h6"> オリ曲 </q-item-section>
           </q-item>
+          <!--memory-->
+          <q-item clickable v-ripple @click="router.replace('/holomemory')">
+            <div class="menu-icon-image">
+              <img src="../assets/youtube_icon.png" height="48" />
+            </div>
+
+            <q-item-section class="text-h6"> 記念 </q-item-section>
+          </q-item>
         </q-item-section>
 
         <q-separator />
