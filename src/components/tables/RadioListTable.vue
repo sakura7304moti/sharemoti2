@@ -14,17 +14,17 @@
     :rows-per-page-options="[0]"
     :filter="filter"
     :filter-method="filteringData"
-    class="radio-list-table"
+    class="table-base scroll-table"
     ><!--sub 1/3 オプション-->
     <template v-slot:top-right>
-      <div class="row q-gutter-md" style="width: 700px">
-        <div>
+      <div class="row q-gutter-md table-base-header">
+        <div class="table-base-filter">
           <q-input
             dense
             debounce="300"
             v-model="filter.text"
             placeholder="検索"
-            style="width: 200px"
+            class="table-base-filter-input"
             align="left"
           >
             <template v-slot:append>
@@ -42,23 +42,23 @@
             </template>
           </q-input>
         </div>
-        <div>
-          <q-select
-            v-model="filter.date"
-            :options="dateList"
-            dense
-            stack-label
-            label="日付"
-            transition-show="jump-up"
-            transition-hide="jump-up"
-            style="width: 150px"
-            clearable
-          />
-        </div>
       </div>
-      <div v-if="playName != '' && playUrl != ''" class="row q-gutter-md">
-        <audio controls :src="playUrl" autoplay />
-        <q-field borderless class="q-pt-md" style="height: 18px">{{
+      <div class="q-pt-sm">
+        <q-select
+          v-model="filter.date"
+          :options="dateList"
+          dense
+          stack-label
+          label="日付"
+          transition-show="jump-up"
+          transition-hide="jump-up"
+          style="width: 150px"
+          clearable
+        />
+      </div>
+      <div v-if="playName != '' && playUrl != ''" class="row">
+        <audio controls :src="playUrl" autoplay class="q-pt-sm" />
+        <q-field borderless class="q-pt-sm q-pb-sm" style="height: 18px">{{
           playName
         }}</q-field>
       </div>
@@ -67,15 +67,15 @@
     <!-- sub 2/3  ヘッダー-->
     <template v-slot:header="props">
       <q-tr :props="props">
-        <q-th style="width: 50px">再生</q-th>
+        <q-th style="width: 50px"><div class="q-pt-md">再生</div> </q-th>
         <q-th v-for="col in props.cols" :key="col.name" :props="props">
-          <div v-if="col.label == 'タイトル'" style="width: 70px">
+          <div v-if="col.label == 'タイトル'" class="table-base-main-column">
             {{ col.label }}
           </div>
-          <div v-if="col.label == '日時'" style="width: 150px">
+          <div v-if="col.label == '日時'" class="table-base-main-column">
             {{ col.label }}
           </div>
-          <div v-if="col.label == 'ファイル名'">
+          <div v-if="col.label == 'ファイル名'" class="table-base-sub-column">
             {{ col.label }}
           </div>
         </q-th>
