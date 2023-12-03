@@ -13,17 +13,17 @@
     :pagination="{ rowsPerPage: 0 }"
     :rows-per-page-options="[0]"
     :filter="condition"
-    class="voice-list-table"
+    class="table-base scroll-table"
     ><!--sub 1/3 オプション-->
     <template v-slot:top-right>
-      <div class="row q-gutter-md" style="width: 700px">
+      <div class="row q-gutter-md table-base-header">
         <div>
           <q-input
             dense
             debounce="300"
             v-model="condition"
             placeholder="検索"
-            style="width: 200px"
+            class="table-base-filter-input"
             align="left"
           >
             <template v-slot:append>
@@ -41,7 +41,7 @@
             </template>
           </q-input>
         </div>
-        <div v-if="playName != '' && playUrl != ''">
+        <div v-if="playName != '' && playUrl != ''" class="row">
           <audio controls :src="playUrl" autoplay />
           <q-field borderless style="height: 18px">{{ playName }}</q-field>
         </div>

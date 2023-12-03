@@ -1,181 +1,171 @@
 <template>
-  <div class="row q-gutter-md">
-    <!--画面左側-->
-    <div>
-      <q-table
-        :title="tableName"
-        :rows="records"
-        :columns="columns"
-        row-key="word"
-        :style="{ height: tableHeight }"
-        separator="cell"
-        rows-per-page-label="表示行数"
-        no-results-label="見つからなかった..."
-        no-data-label="見つからなかった..."
-        :pagination="{ rowsPerPage: 0 }"
-        :rows-per-page-options="[0]"
-        :filter="condition"
-        class="table-base scroll-table"
-      >
-        <!--sub 1/3 オプション-->
-        <template v-slot:top-right>
-          <div class="row q-gutter-md table-base-header">
-            <div class="table-base-filter">
-              <q-input
-                dense
-                debounce="300"
-                v-model="condition"
-                placeholder="検索"
-                class="table-base-filter-input"
-                align="left"
-              >
-                <template v-slot:append>
-                  <q-spinner
-                    v-model="isLoading"
-                    v-if="isLoading"
-                    color="primary"
-                    size="md"
-                  />
-                  <q-icon name="search" v-if="condition.length == 0" />
-                  <q-icon name="search" v-else color="primary" />
-                  <div class="text-caption" v-if="records.length > 0">
-                    {{ records.length }}
-                  </div>
-                </template>
-              </q-input>
-            </div>
-            <div>
-              <q-btn
-                label="追加"
-                icon-right="note_add"
-                color="grey-6"
-                @click="saveModalShow = true"
-                outline
-              />
-            </div>
-            <div>
-              <lock-icon
-                v-model="detailEditLock"
-                @event-change="detailEditLock = $event"
-                class="q-pt-sm"
-              />
-            </div>
-          </div>
-        </template>
-        <!-- sub 2/3  ヘッダー-->
-        <template v-slot:header="props">
-          <q-tr :props="props">
-            <q-th v-if="detailEditLock == false"> 編集 </q-th>
-            <q-th v-for="col in props.cols" :key="col.name" :props="props">
-              <div
-                v-if="col.label == '名言' || col.label == '詳細'"
-                class="table-base-main-column"
-              >
-                {{ col.label }}
-              </div>
-              <div
-                v-if="
-                  col.label == '作成日' ||
-                  col.label == '更新日' ||
-                  col.label == ''
-                "
-                class="table-base-sub-column"
-              >
-                {{ col.label }}
-              </div>
-            </q-th>
-          </q-tr>
-        </template>
-        <!-- sub 3/3  アイテム-->
-        <template v-slot:body="props">
-          <q-tr :props="props">
-            <q-td v-if="detailEditLock == false">
-              <a
-                href="#"
-                @click.prevent="
-                  console.log(props.row.word);
-                  onEditClick(props.row);
-                "
-                ><q-icon name="edit_note" color="secondary" size="md"></q-icon
-              ></a>
-            </q-td>
-            <q-td
-              v-for="col in props.cols"
-              :key="col.name"
-              :props="props"
-              style="
-                text-align: left;
-                white-space: pre-wrap;
-                word-wrap: break-word;
-              "
-            >
-              {{ col.value }}
-            </q-td>
-          </q-tr>
-        </template>
-      </q-table>
-    </div>
-    <!--追加画面-->
-    <q-dialog v-model="saveModalShow">
-      <q-card style="max-width: 800px">
-        <q-card-section>
-          <div class="q-pa-md">
-            <div class="text-subtitle1 row q-gutter-md">
-              <div style="margin-right: auto">新規追加</div>
-              <q-btn
-                text-color="primary"
-                @click="saveModalShow = false"
-                round
-                flat
-                label="閉じる"
-              />
-            </div>
-            <div class="row q-gutter-md q-pa-md">
-              <q-input
-                label="名言"
-                type="textarea"
-                v-model="insertCondition.word"
-                class="table-base-form-model"
-                dense
-                outlined
-                stack-label
-                style="width: 250px; height: 150px"
-                clearable
-              />
-
-              <q-input
-                label="詳細(省略可)"
-                type="textarea"
-                v-model="insertCondition.desc"
-                class="table-base-form-model"
-                dense
-                outlined
-                stack-label
-                style="width: 400px; height: 150px"
-                clearable
-              />
-            </div>
-            <div class="row q-gutter-md">
-              <q-btn
-                @click.prevent="
-                  insertRecord(insertCondition.word, insertCondition.desc)
-                "
-                label="追加"
+  <!--画面左側-->
+  <q-table
+    :title="tableName"
+    :rows="records"
+    :columns="columns"
+    row-key="word"
+    :style="{ height: tableHeight }"
+    separator="cell"
+    rows-per-page-label="表示行数"
+    no-results-label="見つからなかった..."
+    no-data-label="見つからなかった..."
+    :pagination="{ rowsPerPage: 0 }"
+    :rows-per-page-options="[0]"
+    :filter="condition"
+    class="table-base scroll-table"
+  >
+    <!--sub 1/3 オプション-->
+    <template v-slot:top-right>
+      <div class="row q-gutter-md table-base-header">
+        <div class="table-base-filter">
+          <q-input
+            dense
+            debounce="300"
+            v-model="condition"
+            placeholder="検索"
+            class="table-base-filter-input"
+            align="left"
+          >
+            <template v-slot:append>
+              <q-spinner
+                v-model="isLoading"
+                v-if="isLoading"
                 color="primary"
-                outline
-                icon="note_add"
-                :loading="isSaveLoading"
+                size="md"
               />
-            </div>
-
-            <div class="text-negative text-caption">
-              {{ insertErr }}
-            </div>
+              <q-icon name="search" v-if="condition.length == 0" />
+              <q-icon name="search" v-else color="primary" />
+              <div class="text-caption" v-if="records.length > 0">
+                {{ records.length }}
+              </div>
+            </template>
+          </q-input>
+        </div>
+        <div>
+          <q-btn
+            label="追加"
+            icon-right="note_add"
+            color="grey-6"
+            @click="saveModalShow = true"
+            outline
+          />
+        </div>
+        <div>
+          <lock-icon
+            v-model="detailEditLock"
+            @event-change="detailEditLock = $event"
+            class="q-pt-sm"
+          />
+        </div>
+      </div>
+    </template>
+    <!-- sub 2/3  ヘッダー-->
+    <template v-slot:header="props">
+      <q-tr :props="props">
+        <q-th v-if="detailEditLock == false"> 編集 </q-th>
+        <q-th v-for="col in props.cols" :key="col.name" :props="props">
+          <div
+            v-if="col.label == '名言' || col.label == '詳細'"
+            class="table-base-main-column"
+          >
+            {{ col.label }}
           </div>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
-  </div>
+          <div
+            v-if="
+              col.label == '作成日' || col.label == '更新日' || col.label == ''
+            "
+            class="table-base-sub-column"
+          >
+            {{ col.label }}
+          </div>
+        </q-th>
+      </q-tr>
+    </template>
+    <!-- sub 3/3  アイテム-->
+    <template v-slot:body="props">
+      <q-tr :props="props">
+        <q-td v-if="detailEditLock == false">
+          <a
+            href="#"
+            @click.prevent="
+              console.log(props.row.word);
+              onEditClick(props.row);
+            "
+            ><q-icon name="edit_note" color="secondary" size="md"></q-icon
+          ></a>
+        </q-td>
+        <q-td
+          v-for="col in props.cols"
+          :key="col.name"
+          :props="props"
+          style="text-align: left; white-space: pre-wrap; word-wrap: break-word"
+        >
+          {{ col.value }}
+        </q-td>
+      </q-tr>
+    </template>
+  </q-table>
+  <!--追加画面-->
+  <q-dialog v-model="saveModalShow">
+    <q-card style="max-width: 800px">
+      <q-card-section>
+        <div class="q-pa-md">
+          <div class="text-subtitle1 row q-gutter-md">
+            <div style="margin-right: auto">新規追加</div>
+            <q-btn
+              text-color="primary"
+              @click="saveModalShow = false"
+              round
+              flat
+              label="閉じる"
+            />
+          </div>
+          <div class="row q-gutter-md q-pa-md">
+            <q-input
+              label="名言"
+              type="textarea"
+              v-model="insertCondition.word"
+              class="table-base-form-model"
+              dense
+              outlined
+              stack-label
+              style="width: 250px; height: 150px"
+              clearable
+            />
+
+            <q-input
+              label="詳細(省略可)"
+              type="textarea"
+              v-model="insertCondition.desc"
+              class="table-base-form-model"
+              dense
+              outlined
+              stack-label
+              style="width: 400px; height: 150px"
+              clearable
+            />
+          </div>
+          <div class="row q-gutter-md">
+            <q-btn
+              @click.prevent="
+                insertRecord(insertCondition.word, insertCondition.desc)
+              "
+              label="追加"
+              color="primary"
+              outline
+              icon="note_add"
+              :loading="isSaveLoading"
+            />
+          </div>
+
+          <div class="text-negative text-caption">
+            {{ insertErr }}
+          </div>
+        </div>
+      </q-card-section>
+    </q-card>
+  </q-dialog>
 
   <!--更新ダイアログ-->
   <q-dialog v-model="editModalShow">
