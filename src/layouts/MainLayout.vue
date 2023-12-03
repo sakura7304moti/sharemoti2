@@ -208,6 +208,7 @@ export default defineComponent({
 });
 </script>
 <style>
+@import '../css/q-table.css';
 .menu-icon-image {
   width: 52px;
 }

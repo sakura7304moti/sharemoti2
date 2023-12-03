@@ -1,186 +1,175 @@
 <template>
-  <div class="row q-gutter-md">
-    <!--画面左側-->
-    <div>
-      <q-table
-        :title="tableName"
-        :rows="records"
-        :columns="columns"
-        row-key="id"
-        :style="{ height: tableHeight }"
-        separator="cell"
-        rows-per-page-label="表示行数"
-        no-results-label="見つからなかった..."
-        no-data-label="見つからなかった..."
-        :pagination="{ rowsPerPage: 0 }"
-        :rows-per-page-options="[0]"
-        :filter="filterCondition"
-        :filter-method="filteringData"
-        class="name-list-table"
-      >
-        <!--sub 1/3 オプション-->
-        <template v-slot:top-right>
-          <div class="row q-gutter-md" style="width: 800px">
-            <div style="width: 65%" class="row q-gutter-md">
-              <q-input
-                dense
-                debounce="300"
-                v-model="filterCondition.query"
-                placeholder="検索"
-                style="width: 200px"
-                align="left"
-              >
-                <template v-slot:append>
-                  <q-spinner
-                    v-model="isLoading"
-                    v-if="isLoading"
-                    color="primary"
-                    size="md"
-                  />
-                  <q-icon
-                    name="search"
-                    v-if="
-                      (filterCondition.query ?? '').length == 0 ||
-                      filterCondition.query == null
-                    "
-                  />
-                  <q-icon name="search" v-else color="primary" />
-                  <div class="text-caption" v-if="records.length">
-                    {{ records.length }}
-                  </div>
-                </template>
-              </q-input>
-              <ssbu-name-select v-model="filterCondition.charName" />
-            </div>
-
-            <div class="row q-gutter-md">
-              <div>
-                <q-btn
-                  label="追加"
-                  icon-right="note_add"
-                  color="grey-6"
-                  @click="saveModalShow = true"
-                  outline
-                />
-              </div>
-              <div>
-                <lock-icon
-                  v-model="detailEditLock"
-                  @event-change="detailEditLock = $event"
-                  class="q-pt-sm"
-                />
-              </div>
-            </div>
-          </div>
-        </template>
-        <!-- sub 2/3  ヘッダー-->
-        <template v-slot:header="props">
-          <q-tr :props="props">
-            <q-th v-if="detailEditLock == false"> 編集 </q-th>
-            <q-th v-for="col in props.cols" :key="col.name" :props="props">
-              <div
-                v-if="col.label == 'あだ名' || col.label == 'キャラ名'"
-                style="width: 200px"
-              >
-                {{ col.label }}
-              </div>
-              <div v-else style="width: 100px">
-                {{ col.label }}
-              </div>
-            </q-th>
-          </q-tr>
-        </template>
-
-        <!-- sub 3/3  アイテム-->
-        <template v-slot:body="props">
-          <q-tr :props="props">
-            <q-td v-if="detailEditLock == false">
-              <a
-                href="#"
-                @click.prevent="
-                  console.log(props.row.word);
-                  onEditClick(props.row);
-                "
-                ><q-icon name="edit_note" color="secondary" size="md"></q-icon
-              ></a>
-            </q-td>
-            <q-td
-              v-for="col in props.cols"
-              :key="col.name"
-              :props="props"
-              style="white-space: normal; text-align: left"
-            >
-              {{ col.value }}
-            </q-td>
-          </q-tr>
-        </template>
-      </q-table>
-    </div>
-    <!--追加画面-->
-    <q-dialog v-model="saveModalShow" position="top">
-      <q-card style="max-width: 700px">
-        <q-card-section>
-          <div>
-            <div class="text-subtitle1 row q-gutter-md">
-              <div class="text-h5" style="margin-right: auto">新規追加</div>
-              <q-btn icon="close" @click="saveModalShow = false" round flat />
-            </div>
-            <div class="row q-gutter-md q-pa-md q-pb-lg">
-              <div>
-                <q-input
-                  label="あだ名"
-                  v-model="insertCondition.key"
-                  class="form-model"
-                  stack-label
-                  style="width: 250px"
-                  clearable
-                  dense
-                />
-              </div>
-              <div>
-                <ssbu-name-select v-model="insertCondition.val" />
-              </div>
-            </div>
-            <div
-              v-if="
-                records.filter((it) => it.val == insertCondition.val).length > 0
-              "
-            >
-              <div class="text-subtitle1">追加済</div>
-              <li
-                v-for="n in records.filter(
-                  (it) => it.val == insertCondition.val
-                )"
-                :key="n.key"
-              >
-                {{ n.key }}
-              </li>
-            </div>
-
-            <div class="row q-gutter-md q-pt-md">
-              <q-btn
-                @click.prevent="
-                  insertRecord(insertCondition.key, insertCondition.val)
-                "
-                label="追加"
+  <q-table
+    :title="tableName"
+    :rows="records"
+    :columns="columns"
+    row-key="id"
+    :style="{ height: tableHeight }"
+    separator="cell"
+    rows-per-page-label="表示行数"
+    no-results-label="見つからなかった..."
+    no-data-label="見つからなかった..."
+    :pagination="{ rowsPerPage: 0 }"
+    :rows-per-page-options="[0]"
+    :filter="filterCondition"
+    :filter-method="filteringData"
+    class="table-base scroll-table"
+  >
+    <!--sub 1/3 オプション-->
+    <template v-slot:top-right>
+      <div class="row q-gutter-md table-base-header">
+        <div class="row q-gutter-md table-base-filter">
+          <q-input
+            dense
+            debounce="300"
+            v-model="filterCondition.query"
+            placeholder="検索"
+            class="table-base-filter-input"
+            align="left"
+          >
+            <template v-slot:append>
+              <q-spinner
+                v-model="isLoading"
+                v-if="isLoading"
                 color="primary"
-                outline
-                icon="note_add"
-                :loading="isSaveLoading"
-                :disable="
-                  insertCondition.key == '' || insertCondition.val == ''
+                size="md"
+              />
+              <q-icon
+                name="search"
+                v-if="
+                  (filterCondition.query ?? '').length == 0 ||
+                  filterCondition.query == null
                 "
               />
-            </div>
+              <q-icon name="search" v-else color="primary" />
+              <div class="text-caption" v-if="records.length">
+                {{ records.length }}
+              </div>
+            </template>
+          </q-input>
 
-            <div class="text-negative text-caption">
-              {{ insertErr }}
+          <ssbu-name-select v-model="filterCondition.charName" />
+        </div>
+        <div class="q-pt-md">
+          <q-btn
+            label="追加"
+            icon-right="note_add"
+            color="grey-6"
+            @click="saveModalShow = true"
+            outline
+          />
+        </div>
+        <div class="q-pt-md">
+          <lock-icon
+            v-model="detailEditLock"
+            @event-change="detailEditLock = $event"
+            class="q-pt-sm"
+          />
+        </div>
+      </div>
+    </template>
+    <!-- sub 2/3  ヘッダー-->
+    <template v-slot:header="props">
+      <q-tr :props="props">
+        <q-th v-if="detailEditLock == false"> 編集 </q-th>
+        <q-th v-for="col in props.cols" :key="col.name" :props="props">
+          <div
+            v-if="col.label == 'あだ名' || col.label == 'キャラ名'"
+            class="table-base-main-column"
+          >
+            {{ col.label }}
+          </div>
+          <div v-else class="table-base-sub-column">
+            {{ col.label }}
+          </div>
+        </q-th>
+      </q-tr>
+    </template>
+
+    <!-- sub 3/3  アイテム-->
+    <template v-slot:body="props">
+      <q-tr :props="props">
+        <q-td v-if="detailEditLock == false">
+          <a
+            href="#"
+            @click.prevent="
+              console.log(props.row.word);
+              onEditClick(props.row);
+            "
+            ><q-icon name="edit_note" color="secondary" size="md"></q-icon
+          ></a>
+        </q-td>
+        <q-td
+          v-for="col in props.cols"
+          :key="col.name"
+          :props="props"
+          style="white-space: normal; text-align: left"
+        >
+          {{ col.value }}
+        </q-td>
+      </q-tr>
+    </template>
+  </q-table>
+  <!--追加画面-->
+  <q-dialog v-model="saveModalShow" position="top">
+    <q-card style="max-width: 700px">
+      <q-card-section>
+        <div>
+          <div class="text-subtitle1 row q-gutter-md">
+            <div class="text-h5" style="margin-right: auto">新規追加</div>
+            <q-btn icon="close" @click="saveModalShow = false" round flat />
+          </div>
+          <div class="row q-gutter-md q-pa-md q-pb-lg">
+            <div>
+              <q-input
+                label="あだ名"
+                v-model="insertCondition.key"
+                class="table-base-table-base-form-model"
+                stack-label
+                style="width: 250px"
+                clearable
+                dense
+              />
+            </div>
+            <div>
+              <ssbu-name-select v-model="insertCondition.val" />
             </div>
           </div>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
-  </div>
+          <div
+            v-if="
+              records.filter((it) => it.val == insertCondition.val).length > 0
+            "
+          >
+            <div class="text-subtitle1">追加済</div>
+            <li
+              v-for="n in records.filter((it) => it.val == insertCondition.val)"
+              :key="n.key"
+            >
+              {{ n.key }}
+            </li>
+          </div>
+
+          <div class="row q-gutter-md q-pt-md">
+            <q-btn
+              @click.prevent="
+                insertRecord(insertCondition.key, insertCondition.val)
+              "
+              label="追加"
+              color="primary"
+              outline
+              icon="note_add"
+              :loading="isSaveLoading"
+              :disable="insertCondition.key == '' || insertCondition.val == ''"
+            />
+          </div>
+
+          <div class="text-negative text-caption">
+            {{ insertErr }}
+          </div>
+        </div>
+      </q-card-section>
+    </q-card>
+  </q-dialog>
 
   <!--更新ダイアログ-->
   <q-dialog v-model="editModalShow">
@@ -198,7 +187,7 @@
             <q-input
               label="あだ名"
               v-model="updateCondition.key"
-              class="form-model"
+              class="table-base-table-base-form-model"
               dense
               outlined
               stack-label
@@ -207,7 +196,7 @@
             <q-input
               label="キャラ名"
               v-model="updateCondition.val"
-              class="form-model"
+              class="table-base-table-base-form-model"
               dense
               outlined
               stack-label
@@ -216,12 +205,14 @@
             />
           </div>
           <ul
+            class="name-list-ul"
             v-if="
               records.filter((it) => it.val == updateCondition.val).length > 0
             "
           >
             <div class="text-h6">登録済みのあだ名</div>
             <li
+              class="name-list-li"
               v-for="n in records.filter((it) => it.val == updateCondition.val)"
               :key="n.key"
             >
@@ -439,65 +430,15 @@ interface DataState {
 }
 </script>
 <style>
-/*input 入力の横幅 */
-.form-model {
-  width: 200px;
-  height: 40px;
-}
-/*テーブルのサイズ */
-.search-table {
-  word-break: break-word;
-  max-height: 600px;
-}
-.search-table q-markup-table {
-  table-layout: fixed; /* テーブルのレイアウト方式を固定に設定 */
-  width: 100%; /* テーブルの幅を100%に設定 */
-}
-.search-table td {
-  word-wrap: break-word; /* テキストの自動改行を設定 */
-  white-space: normal; /* 空白文字の扱いを設定 */
-}
 /*箇条書き */
-ul {
+.namelist-ul {
   background: #fcfcfc; /*背景色*/
   padding: 0.5em 0.5em 0.5em 2em; /*ボックス内の余白*/
   border: solid 3px gray; /*線の種類 太さ 色*/
 }
 
-li {
+.namelist-li {
   line-height: 1.5; /*文の行高*/
   padding: 0.5em 0; /*前後の文との余白*/
-}
-/*テーブルのstyle */
-.name-list-table {
-  max-width: 800px;
-}
-
-.name-list-table .q-table__top,
-.name-list-table .q-table__bottom,
-.name-list-table thead tr:first-child th {
-  /* bg color is important for th; just specify one */
-  background-color: white;
-}
-
-.name-list-table thead tr th {
-  position: sticky;
-  z-index: 1;
-}
-
-.name-list-table thead tr:first-child th {
-  top: 0;
-}
-
-/* this is when the loading indicator appears */
-.name-list-table.q-table--loading thead tr:last-child th {
-  /* height of all previous header rows */
-  top: 48px;
-}
-
-/* prevent scrolling behind sticky top row on focus */
-.name-list-table tbody {
-  /* height of all previous header rows */
-  scroll-margin-top: 48px;
 }
 </style>

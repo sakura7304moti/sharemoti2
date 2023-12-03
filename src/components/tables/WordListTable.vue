@@ -15,18 +15,18 @@
         :pagination="{ rowsPerPage: 0 }"
         :rows-per-page-options="[0]"
         :filter="condition"
-        class="word-list-table scroll-table"
+        class="table-base scroll-table"
       >
         <!--sub 1/3 オプション-->
         <template v-slot:top-right>
-          <div class="row q-gutter-md word-list-table-header">
-            <div class="word-list-table-filter">
+          <div class="row q-gutter-md table-base-header">
+            <div class="table-base-filter">
               <q-input
                 dense
                 debounce="300"
                 v-model="condition"
                 placeholder="検索"
-                class="word-list-table-filter-input"
+                class="table-base-filter-input"
                 align="left"
               >
                 <template v-slot:append>
@@ -69,7 +69,7 @@
             <q-th v-for="col in props.cols" :key="col.name" :props="props">
               <div
                 v-if="col.label == '名言' || col.label == '詳細'"
-                class="word-list-table-main-column"
+                class="table-base-main-column"
               >
                 {{ col.label }}
               </div>
@@ -79,7 +79,7 @@
                   col.label == '更新日' ||
                   col.label == ''
                 "
-                class="word-list-table-sub-column"
+                class="table-base-sub-column"
               >
                 {{ col.label }}
               </div>
@@ -135,7 +135,7 @@
                 label="名言"
                 type="textarea"
                 v-model="insertCondition.word"
-                class="form-model"
+                class="table-base-form-model"
                 dense
                 outlined
                 stack-label
@@ -147,7 +147,7 @@
                 label="詳細(省略可)"
                 type="textarea"
                 v-model="insertCondition.desc"
-                class="form-model"
+                class="table-base-form-model"
                 dense
                 outlined
                 stack-label
@@ -199,7 +199,7 @@
               label="名言"
               type="textarea"
               v-model="updateCondition.word"
-              class="form-model"
+              class="table-base-form-model"
               dense
               outlined
               stack-label
@@ -210,7 +210,7 @@
               label="詳細(省略可)"
               type="textarea"
               v-model="updateCondition.desc"
-              class="form-model"
+              class="table-base-form-model"
               dense
               outlined
               stack-label
@@ -364,59 +364,3 @@ export default defineComponent({
   },
 });
 </script>
-<style>
-@import '../../css/q-table.css';
-/*input 入力の横幅 */
-.form-model {
-  width: 200px;
-  height: 40px;
-}
-/*テーブルのstyle */
-.word-list-table {
-  max-width: 800px;
-}
-
-.word-list-table-header {
-  width: 800px;
-}
-
-.word-list-table-main-column {
-  width: 200px;
-}
-
-.word-list-table-sub-column {
-  width: 100px;
-}
-
-.word-list-table-filter {
-  width: 70%;
-}
-
-.word-list-table-filter-input {
-  width: 200px;
-}
-
-/*スマホ用 */
-@media only screen and (max-width: 400px) {
-  .word-list-table {
-    max-width: 350px;
-  }
-  .word-list-table-header {
-    max-width: 350px;
-  }
-  .word-list-table-main-column {
-    width: 50px;
-  }
-
-  .word-list-table-sub-column {
-    width: 30px;
-  }
-  .word-list-table-filter {
-    width: 50%;
-  }
-
-  .word-list-table-filter-input {
-    width: 170px;
-  }
-}
-</style>

@@ -26,3 +26,56 @@
   /* height of all previous header rows */
   scroll-margin-top: 48px;
 }
+
+/*テーブルのベース*/
+.table-base {
+  max-width: 800px;
+}
+.table-base-header {
+  width: 800px;
+}
+
+.table-base-main-column {
+  width: 200px;
+}
+
+.table-base-sub-column {
+  width: 100px;
+}
+
+.table-base-filter {
+  width: 70%;
+}
+
+.table-base-filter-input {
+  width: 200px;
+}
+
+.table-base-form-model {
+  width: 200px;
+  height: 40px;
+}
+
+/*テーブルのベース(スマホ用) */
+@media only screen and (max-width: 400px) {
+  .table-base {
+    max-width: 350px;
+  }
+  .table-base-header {
+    max-width: 350px;
+  }
+  .table-base-main-column {
+    width: 50px;
+  }
+
+  .table-base-sub-column {
+    width: 30px;
+  }
+  .table-base-filter {
+    width: 50%;
+  }
+
+  .table-base-filter-input {
+    width: 170px;
+  }
+}

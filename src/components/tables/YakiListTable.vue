@@ -13,18 +13,18 @@
     :rows-per-page-options="[0]"
     :filter="filterCondition"
     :filter-method="filteringData"
-    class="yaki-list-table"
+    class="table-base scroll-table"
   >
     <!--sub 1/3 オプション-->
     <template v-slot:top-right>
-      <div class="row q-gutter-md" style="width: 800px">
-        <div style="width: 75%" class="row q-gutter-md">
+      <div class="row q-gutter-md table-base-header">
+        <div class="row q-gutter-md table-base-filter">
           <q-input
             dense
             debounce="300"
             v-model="filterCondition.word"
             placeholder="検索"
-            style="width: 200px"
+            class="table-base-filter-input"
             align="left"
           >
             <template v-slot:append>
@@ -49,23 +49,21 @@
           </q-input>
           <yaki-select v-model="filterCondition.yaki" />
         </div>
-        <div class="row q-gutter-md">
-          <div>
-            <q-btn
-              label="追加"
-              icon-right="note_add"
-              color="grey-6"
-              @click="saveModalShow = true"
-              outline
-            />
-          </div>
-          <div>
-            <lock-icon
-              v-model="detailEditLock"
-              @event-change="detailEditLock = $event"
-              class="q-pt-sm"
-            />
-          </div>
+        <div class="q-pt-md">
+          <q-btn
+            label="追加"
+            icon-right="note_add"
+            color="grey-6"
+            @click="saveModalShow = true"
+            outline
+          />
+        </div>
+        <div class="q-pt-md">
+          <lock-icon
+            v-model="detailEditLock"
+            @event-change="detailEditLock = $event"
+            class="q-pt-sm"
+          />
         </div>
       </div>
     </template>
@@ -74,10 +72,10 @@
       <q-tr :props="props">
         <q-th v-if="detailEditLock == false"> 編集 </q-th>
         <q-th v-for="col in props.cols" :key="col.name" :props="props">
-          <div v-if="col.label == '条約'" style="width: 200px">
+          <div v-if="col.label == '条約'" class="table-base-main-column">
             {{ col.label }}
           </div>
-          <div v-else style="width: 100px">
+          <div v-else class="table-base-sub-column">
             {{ col.label }}
           </div>
         </q-th>
@@ -115,27 +113,29 @@
         <div class="q-pa-md">
           <div class="text-subtitle1 row q-gutter-md">
             <div style="margin-right: auto">新規追加</div>
-            <q-btn icon="close" @click="saveModalShow = false" round flat />
+            <q-btn
+              label="閉じる"
+              text-color="primary"
+              @click="saveModalShow = false"
+              round
+              flat
+            />
           </div>
-          <hr />
-          <div class="row q-gutter-md" style="height: 150px">
-            <div style="height: 150px">
-              <q-input
-                label="条約名"
-                type="textarea"
-                v-model="insertCondition.word"
-                class="form-model"
-                dense
-                outlined
-                stack-label
-                style="width: 250px"
-                clearable
-              />
-            </div>
+          <div class="row q-gutter-md q-pa-md">
+            <q-input
+              label="条約名"
+              type="textarea"
+              v-model="insertCondition.word"
+              class="table-base-form-model"
+              dense
+              outlined
+              stack-label
+              style="width: 250px; height: 150px"
+              clearable
+            />
             <yaki-select v-model="insertCondition.yaki" />
           </div>
-          <hr />
-          <div class="row q-gutter-md">
+          <div class="q-pt-md">
             <q-btn
               @click.prevent="
                 insertRecord(insertCondition.word, insertCondition.yaki)
@@ -166,36 +166,31 @@
         <div class="q-pa-md">
           <div class="row q-gutter-md">
             <div class="text-h6" style="margin-right: auto">更新・削除</div>
-            <q-btn icon="close" @click="editModalShow = false" round flat />
+            <q-btn
+              label="閉じる"
+              text-color="primary"
+              @click="editModalShow = false"
+              round
+              flat
+            />
           </div>
 
-          <hr />
           <!--inputs-->
-          <div class="row q-gutter-md" style="height: 150px">
+          <div class="row q-gutter-md q-pa-md">
             <q-input
               label="条約"
               type="textarea"
               v-model="updateCondition.word"
-              class="form-model"
+              class="table-base-form-model"
               dense
               outlined
               stack-label
-              style="width: 250px"
+              style="width: 250px; height: 150px"
               readonly
             />
-            <q-select
-              label="種類"
-              :options="selecter"
-              v-model="updateCondition.yaki"
-              class="form-model"
-              dense
-              stack-label
-              style="width: 250px"
-            />
+            <yaki-select v-model="updateCondition.yaki" />
           </div>
-          <!--buttons-->
-          <hr />
-          <div class="row q-gutter-md">
+          <div class="row q-gutter-md q-pt-md">
             <q-btn
               @click.prevent="
                 updateRecord(updateCondition.word, updateCondition.yaki)
@@ -389,55 +384,3 @@ interface DataState {
   yaki: string;
 }
 </script>
-<style>
-/*input 入力の横幅 */
-.form-model {
-  width: 200px;
-  height: 40px;
-}
-/*テーブルのサイズ */
-.search-table {
-  word-break: break-word;
-  max-height: 600px;
-}
-.search-table q-markup-table {
-  table-layout: fixed; /* テーブルのレイアウト方式を固定に設定 */
-  width: 100%; /* テーブルの幅を100%に設定 */
-}
-.search-table td {
-  word-wrap: break-word; /* テキストの自動改行を設定 */
-  white-space: normal; /* 空白文字の扱いを設定 */
-}
-/*スクロール */
-.yaki-list-table {
-  max-width: 800px;
-}
-
-.yaki-list-table .q-table__top,
-.yaki-list-table .q-table__bottom,
-.yaki-list-table thead tr:first-child th {
-  /* bg color is important for th; just specify one */
-  background-color: white;
-}
-
-.yaki-list-table thead tr th {
-  position: sticky;
-  z-index: 1;
-}
-
-.yaki-list-table thead tr:first-child th {
-  top: 0;
-}
-
-/* this is when the loading indicator appears */
-.yaki-list-table.q-table--loading thead tr:last-child th {
-  /* height of all previous header rows */
-  top: 48px;
-}
-
-/* prevent scrolling behind sticky top row on focus */
-.yaki-list-table tbody {
-  /* height of all previous header rows */
-  scroll-margin-top: 48px;
-}
-</style>
