@@ -1,4 +1,4 @@
-import { ScraperAPIClient } from "./ScraperBaseApi";
+import { ScraperAPIClient } from './ScraperBaseApi';
 export class HoloSongApi extends ScraperAPIClient {
   public searchAlbum(): Promise<AlbumRecord | null> {
     const url = '/holosong/album';

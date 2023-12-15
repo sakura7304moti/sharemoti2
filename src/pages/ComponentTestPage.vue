@@ -1,16 +1,15 @@
 <template>
-  <q-page class="">
-    <holo-hashtag-select v-model="filter" />
-  </q-page>
+  <q-page class=""> </q-page>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import HoloNameSelect from 'src/components/selects/HoloNameSelect.vue';
+import api from 'src/api/scraper/HoloArchiveApi';
 export default defineComponent({
   name: 'component-test',
-  component: { 'holo-hashtag-select': HoloNameSelect },
   setup() {
     const pageHeight = ref(document.documentElement.scrollHeight * 0.85);
+    api.search().then((it) => console.log('archive', it));
+    api.channels().then((it) => console.log('channels', it));
     return {
       filter: ref(''),
       pageHeight,

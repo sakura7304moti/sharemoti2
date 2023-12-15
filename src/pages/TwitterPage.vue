@@ -2,7 +2,7 @@
   <q-page class="">
     <div class="q-pb-md">
       <div v-if="condition.mode == 'holo'" class="row q-gutter-md">
-        <div class="text-h5" style="width: 150px">HoloTwitter</div>
+        <div class="holo-page-title" style="width: 150px">twitter</div>
         <div>
           <a href="#" @click.prevent="condition.mode = ''"
             ><img src="../assets/holo_icon.jpg" style="height: 30px"
@@ -10,7 +10,7 @@
         </div>
       </div>
       <div v-else class="row q-gutter-md">
-        <div class="text-h5" style="width: 150px">Twitter</div>
+        <div class="holo-page-title" style="width: 150px">twitter</div>
         <div>
           <a href="#" @click.prevent="condition.mode = 'holo'">
             <img

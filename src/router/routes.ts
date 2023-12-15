@@ -85,24 +85,24 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/twitter',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/HoloLayout.vue'),
     children: [{ path: '', component: () => import('pages/TwitterPage.vue') }],
   },
   {
     path: '/holosong',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/HoloLayout.vue'),
     children: [{ path: '', component: () => import('pages/HoloSongPage.vue') }],
   },
   {
     path: '/holoalbum',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/HoloLayout.vue'),
     children: [
       { path: '', component: () => import('pages/HoloAlbumPage.vue') },
     ],
   },
   {
     path: '/holomemory',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/HoloLayout.vue'),
     children: [
       { path: '', component: () => import('pages/HoloMemoryPage.vue') },
     ],

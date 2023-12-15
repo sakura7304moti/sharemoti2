@@ -2,7 +2,7 @@
   <q-page class="">
     <div>
       <!--1/5 タイトル-->
-      <div class="text-h5 q-pb-md">ホロライブ記念配信まとめ</div>
+      <div class="holo-page-title q-pb-md">記念配信まとめ</div>
       <div id="holo-page-loading" v-if="isLoading" class="row q-gutter-md">
         <q-spinner color="primary" size="3em" />
         <div class="text-subtitle1 text-primary">検索中...</div>

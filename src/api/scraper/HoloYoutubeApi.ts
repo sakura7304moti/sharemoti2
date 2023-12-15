@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ScraperAPIClient } from "./ScraperBaseApi";
+import { ScraperAPIClient } from './ScraperBaseApi';
 
 export class HoloYoutubeApi extends ScraperAPIClient {
   public search(): Promise<HoloYoutubeResponse | null> {

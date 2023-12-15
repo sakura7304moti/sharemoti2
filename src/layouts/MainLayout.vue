@@ -194,7 +194,6 @@
 </template>
 
 <script lang="ts">
-import { time } from 'console';
 import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
