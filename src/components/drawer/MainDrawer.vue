@@ -1,45 +1,13 @@
 <template>
-  <!--ヘッダー-->
-  <q-header elevated class="bg-dark">
-    <q-toolbar>
-      <q-btn
-        flat
-        dense
-        round
-        icon="menu"
-        aria-label="Menu"
-        @click="toggleLeftDrawer"
-      />
-
-      <q-toolbar-title>
-        <a
-          @click.prevent="router.replace('/')"
-          class="text-white"
-          style="cursor: pointer"
-          >韓国のおばあちゃんち<q-tooltip
-            :delay="1000"
-            anchor="center right"
-            self="center left"
-            :offset="[10, 10]"
-            >リビングに帰る</q-tooltip
-          ></a
-        >
-      </q-toolbar-title>
-    </q-toolbar>
-  </q-header>
-
   <!--サイドメニュー-->
   <q-drawer v-model="leftDrawerOpen" class="q-pa-md bg-grey-4" bordered>
     <q-list>
       <q-item-section>
-        <div class="text-h6">Main</div>
+        <div class="text-h6 text-grey-7">おばあちゃんち</div>
         <!--名言集-->
         <q-item clickable v-ripple @click="router.replace('/wordList')">
           <div class="menu-icon-image">
-            <img
-              src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/yosao.png"
-              width="48"
-            />
+            <img src="src/assets/ichiro2.jpg" width="48" />
           </div>
           <q-item-section class="text-h6"> 名言集 </q-item-section>
         </q-item>
@@ -47,10 +15,7 @@
         <!--あだ名一覧-->
         <q-item clickable v-ripple @click="router.replace('/nameList')">
           <div class="menu-icon-image">
-            <img
-              src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/ichiro.png"
-              width="48"
-            />
+            <img src="src/assets/ichiro.png" width="48" />
           </div>
           <q-item-section class="text-h6"> あだ名一覧 </q-item-section>
         </q-item>
@@ -58,10 +23,7 @@
         <!--焼き直し条約-->
         <q-item clickable v-ripple @click="router.replace('/yaki')">
           <div class="menu-icon-image">
-            <img
-              src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/yaki_kururu.jpg"
-              width="48"
-            />
+            <img src="src/assets/yaki_kururu.jpg" width="48" />
           </div>
           <q-item-section class="text-h6"> 焼き直し条約 </q-item-section>
         </q-item>
@@ -69,10 +31,7 @@
         <!--俳句王決定戦-->
         <q-item clickable v-ripple @click="router.replace('/haiku')">
           <div class="menu-icon-image">
-            <img
-              src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/senno_rikyu_icon.png"
-              width="48"
-            />
+            <img src="src/assets/senno_rikyu_icon.png" width="48" />
           </div>
           <q-item-section class="text-h6"> 俳句王決定戦 </q-item-section>
         </q-item>
@@ -80,34 +39,25 @@
         <!--学校一覧-->
         <q-item clickable v-ripple @click="router.replace('/school')">
           <div class="menu-icon-image">
-            <img
-              src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/shatyo.png"
-              width="48"
-            />
+            <img src="src/assets/shatyo.png" width="48" />
           </div>
           <q-item-section class="text-h6"> 学校一覧 </q-item-section>
         </q-item>
       </q-item-section>
       <q-separator />
       <q-item-section>
-        <div class="text-h6">File</div>
+        <div class="text-h6 text-grey-7">お土産</div>
         <!--カラオケ-->
         <q-item clickable v-ripple @click="router.replace('/karaoke')">
           <div class="menu-icon-image">
-            <img
-              src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/karaoke_boy.jpg"
-              width="48"
-            />
+            <img src="src/assets/karaoke_boy.jpg" width="48" />
           </div>
           <q-item-section class="text-h6"> カラオケ音楽堂 </q-item-section>
         </q-item>
         <!--ボイス-->
         <q-item clickable v-ripple @click="router.replace('/voice')">
           <div class="menu-icon-image">
-            <img
-              src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/kinen.jpg"
-              width="48"
-            />
+            <img src="src/assets/kinen.jpg" width="48" />
           </div>
           <q-item-section class="text-h6"> ボイス販売所 </q-item-section>
         </q-item>
@@ -124,20 +74,14 @@
         <!--オム子レイディオ-->
         <q-item clickable v-ripple @click="router.replace('/radio')">
           <div class="menu-icon-image">
-            <img
-              src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/omuko_icon2.jpg"
-              width="48"
-            />
+            <img src="src/assets/omuko_icon2.jpg" width="48" />
           </div>
           <q-item-section class="text-h6"> オム子レイディオ </q-item-section>
         </q-item>
         <!--画像一覧-->
         <q-item clickable v-ripple @click="router.replace('/img')">
           <div class="menu-icon-image">
-            <img
-              src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/ichiro2.jpg"
-              width="48"
-            />
+            <img src="src/assets/ichiro2.jpg" width="48" />
           </div>
           <q-item-section class="text-h6"> 画像まとめ </q-item-section>
         </q-item>
@@ -145,14 +89,11 @@
 
       <q-separator />
       <q-item-section>
-        <div class="text-h6">Scraper</div>
+        <div class="text-h6 text-grey-7">おまけ</div>
         <!--Twitter-->
         <q-item clickable v-ripple @click="router.replace('/twitter')">
           <div class="menu-icon-image">
-            <img
-              src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/Logo_of_Twitter.jpg"
-              width="48"
-            />
+            <img src="src/assets/Logo_of_Twitter.jpg" width="48" />
           </div>
 
           <q-item-section class="text-h6"> twitter </q-item-section>
@@ -160,10 +101,7 @@
         <!--youtube-->
         <q-item clickable v-ripple @click="router.replace('/holosong')">
           <div class="menu-icon-image">
-            <img
-              src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/youtube_icon.png"
-              width="48"
-            />
+            <img src="src/assets/youtube_icon.png" width="48" />
           </div>
 
           <q-item-section class="text-h6"> 歌みた </q-item-section>
@@ -172,38 +110,31 @@
         <q-item clickable v-ripple @click="router.replace('/holoalbum')">
           <div class="menu-icon-image">
             <img
-              src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/holo_icon.jpg"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Hololive_triangles_logo.svg/1200px-Hololive_triangles_logo.svg.png"
               height="48"
             />
           </div>
 
           <q-item-section class="text-h6"> オリ曲 </q-item-section>
         </q-item>
-
         <!--memory-->
         <q-item clickable v-ripple @click="router.replace('/holomemory')">
           <div class="menu-icon-image">
-            <img
-              src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/holo_icon.jpg"
-              height="48"
-            />
+            <img src="src/assets/youtube_icon.png" height="48" />
           </div>
 
-          <q-item-section class="text-h6"> 記念 </q-item-section>
+          <q-item-section class="text-h6"> 記念配信 </q-item-section>
         </q-item>
       </q-item-section>
 
       <q-separator />
 
       <q-item-section>
-        <div class="text-h6">Other</div>
+        <div class="text-h6 text-grey-7">その他</div>
         <!--共有URLまとめ-->
         <q-item clickable v-ripple @click="router.replace('/info')">
           <div class="menu-icon-image">
-            <img
-              src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/google_drive_icon.png"
-              width="48"
-            />
+            <img src="src/assets/google_drive_icon.png" width="48" />
           </div>
           <q-item-section class="text-h6"> お茶の間 </q-item-section>
         </q-item>
@@ -212,7 +143,7 @@
         <q-item clickable v-ripple @click="router.replace('/')">
           <div class="menu-icon-image">
             <img
-              src="https://raw.githubusercontent.com/sakura7304moti/sharemoti2/master/src/assets/obachan.jpg"
+              src="src/assets/obachan.jpg"
               width="48"
               style="
                 border-radius: 50%; /* 角丸半径を50%にする(=円形にする) */
@@ -228,20 +159,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'layout-drawer',
-  setup() {
-    const leftDrawerOpen = ref(false);
+  props: {
+    modelValue: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  setup(props) {
+    const leftDrawerOpen = computed(() => props.modelValue);
     const router = useRouter();
 
     return {
       leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
       router,
     };
   },

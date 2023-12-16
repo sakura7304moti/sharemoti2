@@ -88,6 +88,10 @@ export default defineComponent({
         title: '学校',
         url: '/school',
       },
+      {
+        title: 'お茶の間',
+        url: '/info',
+      },
     ] as PageState[]);
 
     const filePages = ref([
