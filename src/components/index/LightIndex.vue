@@ -4,17 +4,29 @@
     <!--main-->
     <q-card style="width: 400px">
       <q-card-section>
-        <div class="text-h6">おばあちゃんち</div>
+        <div class="text-h6 text-grey">
+          おばあちゃんち<q-icon
+            name="description"
+            class="q-pl-sm text-primary"
+          />
+        </div>
         <div class="q-pa-md">
-          <div v-for="state in mainPages" :key="state.url" class="q-pb-sm">
+          <div
+            v-for="state in mainPages"
+            :key="state.url"
+            class="q-pb-sm light-index-div"
+            @click.prevent="router.replace(state.url)"
+          >
             <q-btn
               :label="state.title"
-              @click="router.replace(state.url)"
               align="left"
               text-color="black"
               color="green-2"
-              class="light-index-button"
-            />
+              class="light-index-item"
+              flat
+            >
+            </q-btn>
+            <q-separator />
           </div>
         </div>
       </q-card-section>
@@ -23,17 +35,26 @@
     <!--file-->
     <q-card style="width: 400px">
       <q-card-section>
-        <div class="text-h6">お土産</div>
+        <div class="text-h6 text-grey">
+          お土産<q-icon name="task" class="q-pl-sm text-secondary" />
+        </div>
         <div class="q-pa-md">
-          <div v-for="state in filePages" :key="state.url" class="q-pb-sm">
+          <div
+            v-for="state in filePages"
+            :key="state.url"
+            class="q-pb-sm light-index-div"
+            @click.prevent="router.replace(state.url)"
+          >
             <q-btn
               :label="state.title"
-              @click="router.replace(state.url)"
               align="left"
               text-color="black"
               color="blue-2"
-              class="light-index-button"
-            />
+              class="light-index-item"
+              flat
+            >
+            </q-btn>
+            <q-separator />
           </div>
         </div>
       </q-card-section>
@@ -42,17 +63,26 @@
     <!--file-->
     <q-card style="width: 400px">
       <q-card-section>
-        <div class="text-h6">おまけ</div>
+        <div class="text-h6 text-grey">
+          おまけ<q-icon name="audio_file" class="q-pl-sm text-warning" />
+        </div>
         <div class="q-pa-md">
-          <div v-for="state in scraperPages" :key="state.url" class="q-pb-sm">
+          <div
+            v-for="state in scraperPages"
+            :key="state.url"
+            class="q-pb-sm light-index-div"
+            @click="router.replace(state.url)"
+          >
             <q-btn
               :label="state.title"
-              @click="router.replace(state.url)"
               align="left"
               text-color="black"
               color="yellow-2"
-              class="light-index-button"
-            />
+              class="light-index-item"
+              flat
+            >
+            </q-btn>
+            <q-separator />
           </div>
         </div>
       </q-card-section>
@@ -149,13 +179,14 @@ interface PageState {
 }
 </script>
 <style>
-.light-index-button {
+/*テキスト */
+.light-index-item {
   width: 100%;
   font-size: 16px;
   line-height: 3em;
   text-decoration: none;
   font-weight: 600;
   padding: 0 14px;
-  transition: 0.2s;
+  color: black;
 }
 </style>
