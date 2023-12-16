@@ -1,32 +1,37 @@
 <template>
   <q-layout>
     <!--ヘッダー-->
-    <q-header elevated class="bg-dark">
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+    <q-header elevated class="bg-dark row">
+      <div>
+        <q-toolbar>
+          <q-btn
+            flat
+            dense
+            round
+            icon="menu"
+            aria-label="Menu"
+            @click="toggleLeftDrawer"
+          />
 
-        <q-toolbar-title>
-          <a
-            @click.prevent="router.replace('/')"
-            class="text-white"
-            style="cursor: pointer"
-            >韓国のおばあちゃんち<q-tooltip
-              :delay="1000"
-              anchor="center right"
-              self="center left"
-              :offset="[10, 10]"
-              >リビングに帰る</q-tooltip
-            ></a
-          >
-        </q-toolbar-title>
-      </q-toolbar>
+          <q-toolbar-title>
+            <a
+              @click.prevent="router.replace('/')"
+              class="text-white"
+              style="cursor: pointer"
+              >韓国のおばあちゃんち<q-tooltip
+                :delay="1000"
+                anchor="center right"
+                self="center left"
+                :offset="[10, 10]"
+                >リビングに帰る</q-tooltip
+              ></a
+            >
+          </q-toolbar-title>
+        </q-toolbar>
+      </div>
+      <div style="margin: 0 0 0 auto; padding-right: 16px; padding-top: 5px">
+        <page-settings></page-settings>
+      </div>
     </q-header>
 
     <!--サイドメニュー-->
@@ -194,11 +199,15 @@
 </template>
 
 <script lang="ts">
+import PageSetting from 'src/components/PageSetting.vue';
 import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'MainLayout',
+  components: {
+    'page-settings': PageSetting,
+  },
 
   setup() {
     const leftDrawerOpen = ref(false);
