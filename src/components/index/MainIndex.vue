@@ -239,7 +239,7 @@
         </q-card-section>
       </q-card>
 
-      <!--Album-->
+      <!--Memory-->
       <q-card class="index-page-card">
         <img
           src="https://pbs.twimg.com/media/F_Xt-HYaIAAiVIm?format=jpg"
@@ -251,6 +251,22 @@
           <div class="text-h6">memory</div>
           <q-card-section class="q-pt-none">
             ホロライブの記念配信をまとめたよ
+          </q-card-section>
+        </q-card-section>
+      </q-card>
+
+      <!--Archive-->
+      <q-card class="index-page-card">
+        <img
+          src="https://pbs.twimg.com/media/F3E-ZdNboAA8Qmo?format=jpg"
+          style="cursor: pointer"
+          @click="router.replace('/holoarchive')"
+        />
+
+        <q-card-section>
+          <div class="text-h6">archive</div>
+          <q-card-section class="q-pt-none">
+            ホロライブのYouTube動画をまとめたよ
           </q-card-section>
         </q-card-section>
       </q-card>

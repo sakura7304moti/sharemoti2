@@ -125,6 +125,15 @@
 
           <q-item-section class="text-h6"> 記念配信 </q-item-section>
         </q-item>
+
+        <!--memory-->
+        <q-item clickable v-ripple @click="router.replace('/holoarchive')">
+          <div class="menu-icon-image">
+            <img src="src/assets/youtube_icon.png" height="48" />
+          </div>
+
+          <q-item-section class="text-h6"> アーカイブ </q-item-section>
+        </q-item>
       </q-item-section>
 
       <q-separator />

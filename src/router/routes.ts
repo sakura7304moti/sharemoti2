@@ -115,6 +115,13 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/holoarchive',
+    component: () => import('layouts/HoloLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/HoloArchivePage.vue') },
+    ],
+  },
+  {
     path: '/test',
     component: () => import('layouts/MainLayout.vue'),
     children: [

@@ -137,6 +137,10 @@ export default defineComponent({
         title: '記念配信',
         url: '/holomemoriy',
       },
+      {
+        title: 'アーカイブ',
+        url: '/holoarchive',
+      },
     ] as PageState[]);
 
     return {
