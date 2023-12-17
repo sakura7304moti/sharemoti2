@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import api from 'src/api/scraper/HoloArchiveApi';
 import { useQuasar } from 'quasar';
 
@@ -10,14 +10,87 @@ export function useHoloArchiveModel() {
   const movie = ref({
     records: [] as Movie[],
   } as MovieState);
+  const filterMovie = computed(() => filteringData(movie.value.records));
   const load = ref({
     channel: false,
     movie: false,
   } as LoadState);
 
+  const filter = ref({
+    channelId: '',
+    fromDate: '',
+    toDate: '',
+    movieType: '',
+    title: '',
+  } as FilterState);
+  const beforeFilter = ref({
+    channelId: '',
+    fromDate: '',
+    toDate: '',
+    movieType: '',
+    title: '',
+  } as FilterState);
+  const page = ref({
+    pageNo: 1,
+    pageCount: 0,
+    pageSize: 20,
+  } as PageState);
+
   const quasar = useQuasar();
 
-  /*function */
+  /*filter function */
+  const filteringData = function (rows: readonly Movie[]) {
+    let letRows = rows;
+
+    //絞り込み
+    if (filter.value.channelId != '' && filter.value.channelId != undefined) {
+      letRows = letRows.filter((it) => it.channelId == filter.value.channelId);
+    }
+
+    if (filter.value.fromDate != '' && filter.value.fromDate != undefined) {
+      letRows = letRows.filter(
+        (it) => it.date >= new Date(filter.value.fromDate)
+      );
+    }
+
+    if (filter.value.toDate != '' && filter.value.toDate != undefined) {
+      letRows = letRows.filter(
+        (it) => it.date <= new Date(filter.value.fromDate)
+      );
+    }
+
+    if (filter.value.title != '' && filter.value.title != undefined) {
+      letRows = letRows.filter((it) => it.title.includes(filter.value.title));
+    }
+
+    if (filter.value.movieType != '' && filter.value.movieType != undefined) {
+      letRows = letRows.filter((it) => it.movieType == filter.value.movieType);
+    }
+
+    //ページ情報更新
+    if (!isEqualsFilter()) {
+      page.value.pageNo = 1;
+    }
+    page.value.pageCount = Math.ceil(letRows.length / page.value.pageSize);
+    const startIndex = Math.max(page.value.pageNo - 1, 0) * page.value.pageSize;
+    return letRows.slice(startIndex, startIndex + page.value.pageSize);
+  };
+
+  const isEqualsFilter = function () {
+    if (
+      filter.value.channelId == beforeFilter.value.channelId &&
+      filter.value.fromDate == beforeFilter.value.fromDate &&
+      filter.value.toDate == beforeFilter.value.toDate &&
+      filter.value.title == beforeFilter.value.title &&
+      filter.value.movieType == beforeFilter.value.movieType
+    ) {
+      return true;
+    } else {
+      false;
+    }
+  };
+
+  /*api function */
   const getChannelState = async function () {
     load.value.channel = true;
     await api
@@ -57,7 +130,16 @@ export function useHoloArchiveModel() {
           console.log('movie', response);
           movie.value.records.splice(0);
           response.records.forEach((it) => {
-            movie.value.records.push(it);
+            movie.value.records.push({
+              id: it.id,
+              url: it.url,
+              title: it.title,
+              date: new Date(it.date.split(' ')[0]),
+              channelId: it.channelId,
+              viewCount: it.viewCount,
+              thumbnailUrl: it.thumbnailUrl,
+              movieType: it.movieType,
+            });
           });
         } else {
           quasar.notify({
@@ -79,9 +161,13 @@ export function useHoloArchiveModel() {
   return {
     channel,
     movie,
+    filterMovie,
     load,
+    filter,
+    page,
     getChannelState,
     getMovieState,
+    filteringData,
   };
 }
 
@@ -89,6 +175,20 @@ export function useHoloArchiveModel() {
 interface LoadState {
   channel: boolean;
   movie: boolean;
+}
+
+interface FilterState {
+  channelId: string;
+  fromDate: string;
+  toDate: string;
+  movieType: string;
+  title: string;
+}
+
+interface PageState {
+  pageNo: number;
+  pageCount: number;
+  pageSize: number;
 }
 
 /*Api Response */
@@ -104,7 +204,7 @@ interface Movie {
   id: string;
   url: string;
   title: string;
-  date: string;
+  date: Date;
   channelId: string;
   viewCount: number;
   thumbnailUrl: string;
