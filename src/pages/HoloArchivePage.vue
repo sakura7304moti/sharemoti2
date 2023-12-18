@@ -1,28 +1,19 @@
 <template>
   <q-page class="">
     <div class="holo-page-title q-pb-md">アーカイブまとめ</div>
+    <search-box />
   </q-page>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useHoloArchiveModel } from 'src/models/HoloArchivePageModels';
+import SearchBox from 'src/components/holoarchive/SearchBox.vue';
 export default defineComponent({
   name: 'holo-archive',
+  components: {
+    'search-box': SearchBox,
+  },
   setup() {
-    const {
-      channel,
-      movie,
-      filterMovie,
-      load,
-      filter,
-      page,
-      getChannelState,
-      getMovieState,
-      filteringData,
-    } = useHoloArchiveModel();
-    getChannelState();
-    getMovieState();
-    return { channel, movie, filterMovie, load, filter, page, filteringData };
+    return {};
   },
 });
 </script>

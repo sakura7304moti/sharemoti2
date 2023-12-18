@@ -66,6 +66,7 @@ export function useHoloArchiveModel() {
     if (filter.value.movieType != '' && filter.value.movieType != undefined) {
       letRows = letRows.filter((it) => it.movieType == filter.value.movieType);
     }
+    //todo この後letRowsをchannelId , dateのキーでソートする
 
     //ページ情報更新
     if (!isEqualsFilter()) {
