@@ -147,23 +147,39 @@
             minimal
           />
         </div>
+
+        <div>
+          <q-btn icon="search" @click.prevent="search" />
+        </div>
+      </div>
+
+      <!--Page-->
+      <div class="q-pt-md">
+        <q-pagination
+          v-model="page.pageNo"
+          :max="page.pageCount"
+          max-pages="5"
+          direction-links
+          @click="search"
+        />
       </div>
     </q-card-section>
   </q-card>
 </template>
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import { useHoloArchiveModel } from 'src/models/HoloArchivePageModels';
 import HoloChannelList from '../selects/HoloChannelList.vue';
+import { useHoloArchiveStore } from 'src/stores/HoloArchiveStore';
 export default defineComponent({
   name: 'holo-archive',
   components: {
     'holo-channel-select': HoloChannelList,
   },
   setup() {
-    const { movie, filter, filterMovie, page, filteringData, getMovieState } =
-      useHoloArchiveModel();
-    getMovieState();
+    const store = useHoloArchiveStore();
+    store.getMovies();
+    const filter = ref(store.filter);
+    const page = ref(store.page);
 
     const movieTypeOptions = [
       {
@@ -193,16 +209,18 @@ export default defineComponent({
       view.value.toDate ? 'primary' : 'black'
     );
 
+    const search = function () {
+      store.filteringData();
+    };
+
     return {
-      movie,
       filter,
       page,
-      filteringData,
-      filterMovie,
       movieTypeOptions,
       view,
       fromDateSelected,
       toDateSelected,
+      search,
     };
   },
 });
@@ -217,8 +235,8 @@ interface viewState {
 </script>
 <style>
 #holo-archive-search-box {
-  height: 300px;
-  width: 800px;
+  height: 260px;
+  width: 400px;
 }
 .holo-archive-date-select {
   width: 100px;
