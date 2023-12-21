@@ -11,32 +11,71 @@
  * Boot files are your "main.js"
  **/
 
-import { createApp } from 'vue';
-import { createPinia } from 'pinia';
 
-import '@quasar/extras/roboto-font/roboto-font.css';
+import { createApp } from 'vue'
 
-import '@quasar/extras/material-icons/material-icons.css';
+
+
+
+
+
+
+import '@quasar/extras/roboto-font/roboto-font.css'
+
+import '@quasar/extras/material-icons/material-icons.css'
+
+
+
 
 // We load Quasar stylesheet file
-import 'quasar/dist/quasar.sass';
+import 'quasar/dist/quasar.sass'
 
-import 'src/css/app.scss';
 
-import createQuasarApp from './app.js';
-import quasarUserOptions from './quasar-user-options.js';
 
-console.info('[Quasar] Running SPA.');
 
-const publicPath = `/`;
+import 'src/css/app.scss'
 
-async function start({ app, router }) {
-  const pinia = createPinia();
 
-  app.use(router);
-  app.use(pinia);
+import createQuasarApp from './app.js'
+import quasarUserOptions from './quasar-user-options.js'
 
-  app.mount('#q-app');
+
+
+
+
+
+console.info('[Quasar] Running SPA.')
+
+
+const publicPath = `/`
+
+async function start ({
+  app,
+  router
+  
+}) {
+  
+
+  
+
+  app.use(router)
+  
+
+  
+
+    
+
+    
+      app.mount('#q-app')
+    
+
+    
+
+  
+
 }
 
-createQuasarApp(createApp, quasarUserOptions).then(start);
+createQuasarApp(createApp, quasarUserOptions)
+
+  .then(start)
+

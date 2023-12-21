@@ -124,29 +124,6 @@
             </div>
           </div>
         </div>
-        <!--toDate select-->
-        <div>
-          <q-date
-            v-if="view.toDate"
-            v-model="filter.toDate"
-            title="toDate"
-            mask="YYYY-MM-DD"
-            @update:model-value="view.toDate = false"
-            minimal
-          />
-        </div>
-
-        <!--fromDate select-->
-        <div>
-          <q-date
-            v-if="view.fromDate"
-            v-model="filter.fromDate"
-            title="fromDate"
-            mask="YYYY-MM-DD"
-            @update:model-value="view.fromDate = false"
-            minimal
-          />
-        </div>
 
         <div>
           <q-btn icon="search" @click.prevent="search" />
@@ -161,6 +138,29 @@
           max-pages="5"
           direction-links
           @click="search"
+        />
+      </div>
+      <!--toDate select-->
+      <div>
+        <q-date
+          v-if="view.toDate"
+          v-model="filter.toDate"
+          title="toDate"
+          mask="YYYY-MM-DD"
+          @update:model-value="view.toDate = false"
+          minimal
+        />
+      </div>
+
+      <!--fromDate select-->
+      <div>
+        <q-date
+          v-if="view.fromDate"
+          v-model="filter.fromDate"
+          title="fromDate"
+          mask="YYYY-MM-DD"
+          @update:model-value="view.fromDate = false"
+          minimal
         />
       </div>
     </q-card-section>

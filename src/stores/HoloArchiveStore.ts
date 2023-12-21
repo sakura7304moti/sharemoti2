@@ -6,6 +6,7 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
     return {
       fullRecords: ref([] as Movie[]),
       pageRecords: ref([] as Movie[]),
+      playMovie: ref(''),
       filter: ref({
         channelId: '',
         fromDate: '',
@@ -23,8 +24,9 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
       page: ref({
         pageNo: 1,
         pageCount: 0,
-        pageSize: 20,
+        pageSize: 30,
       } as PageState),
+      channels: ref([] as Channel[]),
     };
   },
   getters: {
@@ -48,6 +50,7 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
        * アーカイブを取得
        */
       this.fullRecords.splice(0);
+      this.getChannels();
       api.GetMovie().then((response) => {
         if (response) {
           response.records.forEach((it) => {
@@ -57,6 +60,9 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
               title: it.title,
               date: new Date(it.date.split(' ')[0]),
               channelId: it.channelId,
+              avatarUrl: this.channels.filter(
+                (c) => c.channelId == it.channelId
+              )[0].avatarUrl,
               viewCount: it.viewCount,
               thumbnailUrl: it.thumbnailUrl,
               movieType: it.movieType,
@@ -65,10 +71,21 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
         }
       });
     },
+    getChannels: function () {
+      /**
+       * チャンネルを取得
+       */
+      this.channels.splice(0);
+      api.GetChannel().then((response) => {
+        if (response) {
+          response.records.forEach((it) => this.channels.push(it));
+        }
+      });
+    },
     filteringData: function () {
       let letRows = this.fullRecords;
       this.pageRecords.splice(0);
-
+      console.log('filter condition', this.filter);
       //絞り込み
       if (this.filter.channelId != '' && this.filter.channelId != undefined) {
         letRows = letRows.filter((it) => it.channelId == this.filter.channelId);
@@ -82,12 +99,18 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
 
       if (this.filter.toDate != '' && this.filter.toDate != undefined) {
         letRows = letRows.filter(
-          (it) => it.date <= new Date(this.filter.fromDate)
+          (it) => it.date <= new Date(this.filter.toDate)
         );
       }
 
       if (this.filter.title != '' && this.filter.title != undefined) {
-        letRows = letRows.filter((it) => it.title.includes(this.filter.title));
+        letRows = letRows.filter((it) => {
+          try {
+            return it.title.includes(this.filter.title);
+          } catch (e) {
+            return false;
+          }
+        });
       }
 
       if (this.filter.movieType != '' && this.filter.movieType != undefined) {
@@ -98,6 +121,13 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
       if (this.isPageReset) {
         this.page.pageNo = 1;
       }
+
+      //検索情報を保存
+      this.beforeFilter.channelId = this.filter.channelId;
+      this.beforeFilter.fromDate = this.filter.fromDate;
+      this.beforeFilter.toDate = this.filter.toDate;
+      this.beforeFilter.title = this.filter.title;
+      this.beforeFilter.movieType = this.filter.movieType;
 
       //ページ情報更新
       this.page.pageCount = Math.ceil(letRows.length / this.page.pageSize);
@@ -122,16 +152,10 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
         })
         .slice(startIndex, startIndex + this.page.pageSize)
         .forEach((it) => this.pageRecords.push(it));
-
-      this.saveFilter;
     },
-    saveFilter: function () {
-      //前回の検索結果を保存する
-      this.beforeFilter.channelId = this.filter.channelId;
-      this.beforeFilter.fromDate = this.filter.fromDate;
-      this.beforeFilter.toDate = this.filter.toDate;
-      this.beforeFilter.title = this.filter.title;
-      this.beforeFilter.movieType = this.filter.movieType;
+    setPlayMovie: function (url: string) {
+      console.log('play', url);
+      this.playMovie = url;
     },
   },
 });
@@ -141,6 +165,7 @@ interface Movie {
   title: string;
   date: Date;
   channelId: string;
+  avatarUrl: string;
   viewCount: number;
   thumbnailUrl: string;
   movieType: 'movie' | 'live' | 'short';
@@ -156,6 +181,13 @@ interface PageState {
   pageNo: number;
   pageCount: number;
   pageSize: number;
+}
+interface Channel {
+  channelId: string;
+  channelName: string;
+  description: string;
+  headerUrl: string;
+  avatarUrl: string;
 }
 /**
  * State

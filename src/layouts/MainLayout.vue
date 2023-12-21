@@ -55,6 +55,7 @@ import LightDrawer from 'src/components/drawer/LightDrawer.vue';
 import { LocalStrageObject } from 'src/utils/localStrageSupport';
 import { computed, defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { createPinia, setActivePinia } from 'pinia';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -66,6 +67,7 @@ export default defineComponent({
 
   setup() {
     const opened = ref(false);
+    setActivePinia(createPinia());
     const leftDrawerOpen = computed(() => opened.value);
     const router = useRouter();
     const model = new LocalStrageObject();

@@ -52,6 +52,14 @@ export const useViewSupport = function () {
   /*
    *日付を日本時間のyyyy-mm-ddにフォーマット
    */
+  function displayDateByDate(inputDate: Date): string {
+    // 7時間後の日時
+    const resultDate = addHours(inputDate, 7);
+
+    // yyyy-mm-ddの形式に変換
+    const resultString = formatDate(resultDate);
+    return resultString;
+  }
   function displayDate(date: string): string {
     const inputDate = new Date(date);
 
@@ -68,7 +76,13 @@ export const useViewSupport = function () {
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-  return { fileDownload, imageDownload, displayDate, formatDate };
+  return {
+    fileDownload,
+    imageDownload,
+    displayDate,
+    displayDateByDate,
+    formatDate,
+  };
 };
 
 /*日付操作用 */
