@@ -24,7 +24,7 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
       page: ref({
         pageNo: 1,
         pageCount: 0,
-        pageSize: 30,
+        pageSize: 20,
       } as PageState),
       channels: ref([] as Channel[]),
     };

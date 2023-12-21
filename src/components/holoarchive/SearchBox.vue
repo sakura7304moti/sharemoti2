@@ -133,6 +133,7 @@
       <!--Page-->
       <div class="q-pt-md">
         <q-pagination
+          v-if="page.pageCount > 0"
           v-model="page.pageNo"
           :max="page.pageCount"
           max-pages="5"
