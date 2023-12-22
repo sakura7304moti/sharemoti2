@@ -1,41 +1,29 @@
 # 韓国のおばあちゃんち (sharemoti)
+よく来たわね。ゆっくりして行きなさい。
 
-おばあちゃんだよー
+## Todo
+- お茶の間の出し物をコンポーネント化
+- ヤーキー速報をお茶の間に追加
 
-## Install the dependencies
-```bash
-yarn
-# or
-npm install
-```
+## 部屋一覧
+### おばあちゃんち
+- 名言集
+- あだ名一覧
+- 焼き直し条約
+- 俳句王
+- 学校
+- お茶の間
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
+### お土産
+- カラオケ
+- ボイス
+- スマブラ
+- オム子レイディオ
+- 画像
 
-
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
-
-
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+### おまけ
+- twitter
+- 歌みた
+- オリ曲
+- 記念配信
+- アーカイブ
