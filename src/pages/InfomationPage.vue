@@ -2,71 +2,78 @@
   <q-page class="">
     <div id="page-main">
       <div class="text-h5 q-pb-md">お茶の間</div>
-      <!--ネタ要素満載-->
-      <div class="row q-gutter-md">
-        <!--与謝野晶子による焼き直し劇場-->
-        <div class="neta-talk" style="padding-right: 100px">
-          <div class="row q-gutter-md q-pb-md">
-            <div>
-              <img
-                src="../assets/yosao.png"
-                height="130"
-                width="140"
-                id="oba-profile"
-              />
-              <div class="profile-name">
-                未来から来た与謝野晶子<q-btn
-                  @click.prevent.stop="selectWord()"
-                  icon="autorenew"
-                  color="primary"
-                  size="md"
-                  outline
-                  dense
-                />
-              </div>
-            </div>
-            <balloon-left :text="word" style="height: 120px" />
-          </div>
-          <div class="row q-gutter-md">
-            <div>
-              <img src="../assets/obachan.jpg" height="130" id="oba-profile" />
-              <div class="profile-name">韓国のおばあちゃん</div>
-            </div>
-            <balloon-left :text="obamessage" style="height: 120px" />
-          </div>
-        </div>
-      </div>
-      <!--ガノンヤーキー川柳-->
 
-      <div class="row q-gutter-md q-pt-md" style="height: 500px">
-        <div class="q-pr-md">
-          <q-btn
-            @click.prevent.stop="selectHaiku()"
-            icon="autorenew"
-            color="black"
-            size="md"
-            class=""
-            outline
-            dense
-          />
-        </div>
-        <div class="haiku-box-big">
-          <div style="font-family: HinaMincho-Regular; font-size: 36px">
-            2023年やーきー川柳<br /><b>最優秀作品</b>
+      <!--ネタ要素満載-->
+      <div style="display: flex; flex-wrap: wrap">
+        <!--与謝野晶子による焼き直し劇場-->
+        <div class="row q-gutter-md">
+          <div class="neta-talk" style="padding-right: 100px">
+            <div class="row q-gutter-md q-pb-md">
+              <div>
+                <img
+                  src="../assets/yosao.png"
+                  height="130"
+                  width="140"
+                  id="oba-profile"
+                />
+                <div class="profile-name">
+                  未来から来た与謝野晶子<q-btn
+                    @click.prevent.stop="selectWord()"
+                    icon="autorenew"
+                    color="primary"
+                    size="md"
+                    outline
+                    dense
+                  />
+                </div>
+              </div>
+              <balloon-left :text="word" style="height: 120px" />
+            </div>
+            <div class="row q-gutter-md">
+              <div>
+                <img
+                  src="../assets/obachan.jpg"
+                  height="130"
+                  id="oba-profile"
+                />
+                <div class="profile-name">韓国のおばあちゃん</div>
+              </div>
+              <balloon-left :text="obamessage" style="height: 120px" />
+            </div>
           </div>
-          <div
-            style="
-              writing-mode: vertical-rl;
-              font-family: haiku;
-              font-size: 32px;
-              margin-left: auto;
-            "
-          >
-            <div style="margin-right: 100px">{{ haiku.first }}</div>
-            <div style="margin-right: 20px">{{ haiku.second }}</div>
-            <div style="margin-right: 20px">{{ haiku.third }}</div>
-            <div style="margin-right: 20px">
-              {{ haiku.poster }}
+        </div>
+
+        <!--ガノンヤーキー川柳-->
+        <div class="row q-gutter-md q-pt-md" style="height: 500px">
+          <div class="q-pr-md">
+            <q-btn
+              @click.prevent.stop="selectHaiku()"
+              icon="autorenew"
+              color="black"
+              size="md"
+              class=""
+              outline
+              dense
+            />
+          </div>
+          <div class="haiku-box-big">
+            <div style="font-family: HinaMincho-Regular; font-size: 36px">
+              2023年やーきー川柳<br /><b>最優秀作品</b>
+            </div>
+            <div
+              style="
+                writing-mode: vertical-rl;
+                font-family: haiku;
+                font-size: 32px;
+                margin-left: auto;
+              "
+            >
+              <div style="margin-right: 100px">{{ haiku.first }}</div>
+              <div style="margin-right: 20px">{{ haiku.second }}</div>
+              <div style="margin-right: 20px">{{ haiku.third }}</div>
+              <div style="margin-right: 20px">
+                {{ haiku.poster }}
+              </div>
             </div>
           </div>
         </div>
