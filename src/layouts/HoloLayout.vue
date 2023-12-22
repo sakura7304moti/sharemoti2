@@ -36,9 +36,11 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { createPinia, setActivePinia } from 'pinia';
 export default defineComponent({
   name: 'holo-layout',
   setup() {
+    setActivePinia(createPinia());
     const route = useRoute();
     const router = useRouter();
     const nowPathName = computed(() => route.path);
@@ -58,6 +60,10 @@ export default defineComponent({
       {
         url: '/holomemory',
         title: 'memory',
+      },
+      {
+        url: '/holoarchive',
+        title: 'archive',
       },
       {
         url: '/',

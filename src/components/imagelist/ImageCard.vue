@@ -56,6 +56,21 @@
             @deleted="deleteNotify"
           />
         </div>
+        <div>
+          <q-btn
+            round
+            dense
+            icon="image"
+            @click.prevent="fullDisplay = true"
+            text-color="grey"
+          /><a
+            :href="downloadUrl"
+            class="q-pl-xs q-pr-md text-grey"
+            style="text-decoration: none"
+            @click.prevent="fullDisplay = true"
+            >全画面表示</a
+          >
+        </div>
       </div>
 
       <!--日付-->
@@ -74,6 +89,45 @@
       </div>
     </q-card-section>
   </q-card>
+
+  <q-dialog
+    v-model="fullDisplay"
+    :maximized="maximizedToggle"
+    transition-show="slide-up"
+    transition-hide="slide-down"
+  >
+    <q-card class="text-white">
+      <q-bar>
+        <q-space />
+
+        <q-btn
+          dense
+          flat
+          icon="minimize"
+          @click="maximizedToggle = false"
+          :disable="!maximizedToggle"
+        >
+          <q-tooltip v-if="maximizedToggle">小さくする</q-tooltip>
+        </q-btn>
+        <q-btn
+          dense
+          flat
+          icon="crop_square"
+          @click="maximizedToggle = true"
+          :disable="maximizedToggle"
+        >
+          <q-tooltip v-if="!maximizedToggle">最大化</q-tooltip>
+        </q-btn>
+        <q-btn dense flat icon="close" v-close-popup>
+          <q-tooltip>閉じる</q-tooltip>
+        </q-btn>
+      </q-bar>
+
+      <q-card-section>
+        <img :src="downloadUrl" style="max-width: 90%; max-height: 90%" />
+      </q-card-section>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script lang="ts">
@@ -126,6 +180,8 @@ export default defineComponent({
       deleteView,
       deleteNotify,
       cardSize,
+      fullDisplay: ref(false),
+      maximizedToggle: ref(false),
     };
   },
 });

@@ -177,12 +177,17 @@ export function useHoloSongModel() {
 
 function subModel() {
   const getVideoId = function (url: string) {
-    const v = url.split('v=')[1];
-    if (v != undefined) {
-      return v;
+    // YouTubeの動画IDを抽出する正規表現
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+
+    if (match && match[2].length == 11) {
+      // YouTubeのサムネイルURLを生成
+      return match[2];
     } else {
-      const s = url.split('/')[url.split('/').length - 1];
-      return s;
+      // 適切なURLが得られなかった場合はnullを返す
+      return '';
     }
   };
 
