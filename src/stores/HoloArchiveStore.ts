@@ -86,10 +86,8 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
       });
     },
     filteringData: function () {
-      console.log('called');
       let letRows = this.fullRecords;
       this.pageRecords.splice(0);
-      console.log('filter condition', this.filter);
       //絞り込み
       if (this.filter.channelId != '' && this.filter.channelId != undefined) {
         letRows = letRows.filter((it) => it.channelId == this.filter.channelId);
@@ -120,6 +118,8 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
       if (this.filter.movieType != '' && this.filter.movieType != undefined) {
         letRows = letRows.filter((it) => it.movieType == this.filter.movieType);
       }
+
+      console.log(letRows);
 
       //ページ情報更新
       if (this.isPageReset) {
