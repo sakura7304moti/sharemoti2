@@ -212,6 +212,8 @@ export default defineComponent({
 
     const search = function () {
       store.filteringData();
+      const element = document.getElementById('holo-archive-cards');
+      element?.scroll({ top: 0 });
     };
 
     return {

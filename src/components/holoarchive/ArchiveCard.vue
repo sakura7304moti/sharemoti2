@@ -17,7 +17,7 @@
     </div>
     <div style="width: 80%">
       <div class="text-weight-bold">{{ state.title }}</div>
-      <div class="text-grey" style="width: 100%">
+      <div style="width: 100%">
         {{ displayDateByDate(state.date) }}
       </div>
     </div>

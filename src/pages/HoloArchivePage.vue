@@ -3,8 +3,8 @@
     <div class="holo-page-title q-pb-md" style="display: none">
       アーカイブまとめ
     </div>
-    <div class="row">
-      <div>
+    <div style="display: flex">
+      <div style="width: 640px">
         <YouTube
           v-if="playUrl != ''"
           :src="playUrl"
@@ -12,27 +12,20 @@
           ref="youtube"
           :vars="{ autoplay: 1, rel: 0 }"
         />
+        <div class="q-pt-md"></div>
+        <search-box />
       </div>
-      <div>
+      <div style="flex-grow: 1">
         <div style="display: flex; flex-wrap: wrap">
-          <div style="width: 30%; min-width: 400px">
-            <search-box />
-          </div>
           <div
-            v-if="playUrl == ''"
             style="
               display: flex;
-              width: 70%;
               flex-wrap: wrap;
               overflow-y: auto;
               height: 80vh;
             "
+            id="holo-archive-cards"
           >
-            <div v-for="state in records" :key="state.id" class="q-pa-md">
-              <archive-card :data-state="state" />
-            </div>
-          </div>
-          <div v-else style="overflow-y: auto; height: 80vh">
             <div v-for="state in records" :key="state.id" class="q-pa-md">
               <archive-card :data-state="state" />
             </div>

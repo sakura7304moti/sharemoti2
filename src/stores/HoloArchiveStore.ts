@@ -24,7 +24,7 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
       page: ref({
         pageNo: 1,
         pageCount: 0,
-        pageSize: 20,
+        pageSize: 200,
       } as PageState),
       channels: ref([] as Channel[]),
     };
@@ -64,7 +64,10 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
                 (c) => c.channelId == it.channelId
               )[0].avatarUrl,
               viewCount: it.viewCount,
-              thumbnailUrl: it.thumbnailUrl,
+              thumbnailUrl: it.thumbnailUrl.replace(
+                'maxresdefault',
+                'mqdefault'
+              ),
               movieType: it.movieType,
             });
           });
@@ -83,6 +86,7 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
       });
     },
     filteringData: function () {
+      console.log('called');
       let letRows = this.fullRecords;
       this.pageRecords.splice(0);
       console.log('filter condition', this.filter);
