@@ -192,7 +192,7 @@ function subModel() {
   };
 
   const getImageLink = function (url: string) {
-    const baseUrl = 'https://img.youtube.com/vi/query/maxresdefault.jpg';
+    const baseUrl = 'https://img.youtube.com/vi/query/mqdefault.jpg';
     return baseUrl.replace('query', getVideoId(url));
   };
 
