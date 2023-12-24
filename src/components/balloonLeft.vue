@@ -25,8 +25,7 @@ export default defineComponent({
   display: inline-block;
   margin: 1.5em 0 1.5em 15px;
   padding: 7px 10px;
-  min-width: 120px;
-  max-width: 100%;
+  width: 300px;
   color: #555;
   font-size: 16px;
   background: #fff;
@@ -60,5 +59,8 @@ export default defineComponent({
   margin: 0;
   padding: 0;
   white-space: pre-wrap;
+  text-align: left;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 </style>

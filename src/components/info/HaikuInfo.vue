@@ -1,38 +1,66 @@
 <template>
-  <!--ガノンヤーキー川柳-->
-  <div class="row q-gutter-md q-pt-md" style="height: 500px">
-    <div class="q-pr-md">
-      <q-btn
-        @click.prevent.stop="selectHaiku()"
-        icon="autorenew"
-        color="black"
-        size="sm"
-        class=""
-        outline
-        dense
-      />
-    </div>
-    <div class="haiku-box-big">
-      <div style="font-family: HinaMincho-Regular; font-size: 36px">
-        2023年やーきー川柳<br /><b>最優秀作品</b>
-      </div>
+  <q-card style="width: 900px">
+    <q-card-section>
       <div
         style="
-          writing-mode: vertical-rl;
-          font-family: haiku;
-          font-size: 32px;
-          margin-left: auto;
+          font-family: HinaMincho-Regular;
+          font-size: 36px;
+          padding-bottom: 16px;
         "
       >
-        <div style="margin-right: 100px">{{ haiku.first }}</div>
-        <div style="margin-right: 20px">{{ haiku.second }}</div>
-        <div style="margin-right: 20px">{{ haiku.third }}</div>
-        <div style="margin-right: 20px">
-          {{ haiku.poster }}
-        </div>
+        {{ new Date().getFullYear() }}年やーきー川柳 最優秀作品
       </div>
-    </div>
-  </div>
+      <!--ガノンヤーキー川柳-->
+      <div style="display: flex; flex-wrap: wrap">
+        <div class="q-pr-md q-pt-lg">
+          <q-btn
+            @click.prevent.stop="selectHaiku()"
+            icon="autorenew"
+            color="black"
+            size="sm"
+            class=""
+            outline
+            dense
+          />
+        </div>
+        <div class="haiku-box-big">
+          <div
+            style="
+              font-family: HinaMincho-Regular;
+              font-size: 36px;
+              padding-bottom: px;
+            "
+          >
+            {{ new Date().getFullYear() }}年やーきー川柳<br /><b>最優秀作品</b>
+          </div>
+          <div
+            style="
+              writing-mode: vertical-rl;
+              font-family: haiku;
+              font-size: 32px;
+              margin-left: auto;
+            "
+          >
+            <div style="margin-right: 100px">{{ haiku.first }}</div>
+            <div style="margin-right: 20px">{{ haiku.second }}</div>
+            <div style="margin-right: 20px">{{ haiku.third }}</div>
+            <div style="margin-right: 20px">
+              {{ haiku.poster }}
+            </div>
+          </div>
+        </div>
+        <di>
+          <img
+            src="src/assets/senno_rikyu.png"
+            style="padding-top: 100px; height: 400px; filter: grayscale(80%)"
+          />
+          <div class="text-subtitle1 text-weight-bold">
+            そこにわびさびはあるんか?
+          </div>
+        </di>
+      </div>
+    </q-card-section>
+  </q-card>
 </template>
 
 <script lang="ts">
@@ -98,7 +126,7 @@ interface Haiku {
 }
 /*haiku-box-big */
 .haiku-box-big {
-  width: 400px;
+  width: 370px;
   margin: 2em 0;
   position: relative;
   padding: 0.5em 1.5em;
