@@ -27,6 +27,7 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
         pageSize: 200,
       } as PageState),
       channels: ref([] as Channel[]),
+      loading: ref(false),
     };
   },
   getters: {
@@ -45,13 +46,14 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
     },
   },
   actions: {
-    getMovies: function () {
+    getMovies: async function () {
       /**
        * アーカイブを取得
        */
+      this.loading = true;
       this.fullRecords.splice(0);
       this.getChannels();
-      api.GetMovie().then((response) => {
+      await api.GetMovie().then((response) => {
         if (response) {
           response.records.forEach((it) => {
             this.fullRecords.push({
@@ -71,8 +73,10 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
               movieType: it.movieType,
             });
           });
+          this.filteringData();
         }
       });
+      this.loading = false;
     },
     getChannels: function () {
       /**
@@ -86,6 +90,9 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
       });
     },
     filteringData: function () {
+      if (this.fullRecords.length == 0) {
+        this.getMovies();
+      }
       let letRows = this.fullRecords;
       this.pageRecords.splice(0);
       //絞り込み
@@ -118,8 +125,6 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
       if (this.filter.movieType != '' && this.filter.movieType != undefined) {
         letRows = letRows.filter((it) => it.movieType == this.filter.movieType);
       }
-
-      console.log(letRows);
 
       //ページ情報更新
       if (this.isPageReset) {
@@ -156,7 +161,9 @@ export const useHoloArchiveStore = defineStore('holo-archive', {
         })
         .slice(startIndex, startIndex + this.page.pageSize)
         .forEach((it) => this.pageRecords.push(it));
+      console.log('page records', this.pageRecords);
     },
+
     setPlayMovie: function (url: string) {
       console.log('play', url);
       this.playMovie = url;

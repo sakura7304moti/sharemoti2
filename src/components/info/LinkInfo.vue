@@ -12,7 +12,10 @@
               rel="noopener"
             >
               <div>
-                <img src="src/assets/google_drive_icon.png" class="info-icon" />
+                <img
+                  src="../../assets/google_drive_icon.png"
+                  class="info-icon"
+                />
               </div>
               <div class="text-subtitle1">Googleドライブ</div>
             </a>
@@ -25,7 +28,7 @@
               rel="noopener"
             >
               <div>
-                <img src="src/assets/notion_icon.png" class="info-icon" />
+                <img src="../../assets/notion_icon.png" class="info-icon" />
               </div>
               <div class="text-subtitle1">Notion</div>
             </a>

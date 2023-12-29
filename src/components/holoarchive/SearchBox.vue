@@ -10,6 +10,7 @@
             label="title"
             stack-label
             style="width: 200px"
+            :disable="isLoading"
           />
         </div>
 
@@ -32,6 +33,7 @@
             label="type"
             stack-label
             clearable
+            :disable="isLoading"
           />
         </div>
       </div>
@@ -126,7 +128,12 @@
         </div>
 
         <div>
-          <q-btn icon="search" @click.prevent="search" :loading="isLoading" />
+          <q-btn
+            icon="search"
+            @click.prevent="search"
+            :loading="isLoading"
+            text-color="primary"
+          />
         </div>
       </div>
 
@@ -181,7 +188,7 @@ export default defineComponent({
     store.getMovies();
     const filter = ref(store.filter);
     const page = ref(store.page);
-    const isLoading = ref(false);
+    const isLoading = computed(() => store.loading);
 
     const movieTypeOptions = [
       {
@@ -212,13 +219,11 @@ export default defineComponent({
     );
 
     const search = function () {
-      isLoading.value = true;
       context.emit('search-start'); //検索開始したことを知らせる
 
       store.filteringData();
       const element = document.getElementById('holo-archive-cards');
       element?.scroll({ top: 0 });
-      isLoading.value = false;
       context.emit('search-end'); //検索完了したことを知らせる
     };
 

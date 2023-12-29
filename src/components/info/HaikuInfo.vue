@@ -51,7 +51,7 @@
         </div>
         <di>
           <img
-            src="src/assets/senno_rikyu.png"
+            src="../../assets/senno_rikyu.png"
             style="padding-top: 100px; height: 400px; filter: grayscale(80%)"
           />
           <div class="text-subtitle1 text-weight-bold">

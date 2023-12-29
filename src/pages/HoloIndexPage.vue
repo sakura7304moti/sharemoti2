@@ -2,7 +2,7 @@
   <q-page class=""> </q-page>
 </template>
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue';
+import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 export default defineComponent({
   name: 'holo-page-index',

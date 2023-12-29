@@ -49,7 +49,7 @@
         <div class="row q-gutter-md">
           <div>
             <img
-              src="src/assets/yosao.png"
+              src="../../assets/yosao.png"
               height="130"
               width="140"
               id="oba-profile"
@@ -65,7 +65,7 @@
 
         <div class="row q-gutter-md">
           <div>
-            <img src="src/assets/obachan.jpg" height="130" id="oba-profile" />
+            <img src="../../assets/obachan.jpg" height="130" id="oba-profile" />
             <div class="profile-name">韓国のおばあちゃん</div>
           </div>
           <balloon-left :text="obamessage" style="height: 120px" />

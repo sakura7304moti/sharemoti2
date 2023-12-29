@@ -128,7 +128,7 @@
   </q-page>
 </template>
 <script lang="ts">
-import { DefineComponent, defineComponent, ref } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { useSchoolListModel } from 'src/models/SchoolListModels';
 import lockIcon from 'src/components/LockIcon.vue';
 export default defineComponent({
