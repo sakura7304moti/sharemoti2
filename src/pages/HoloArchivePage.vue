@@ -27,7 +27,11 @@
             id="holo-archive-cards"
           >
             <div v-for="state in records" :key="state.id" class="q-pa-md">
-              <archive-card :data-state="state" />
+              <archive-card
+                :data-state="state"
+                @search-start="searchStart"
+                @search-end="searchEnd"
+              />
             </div>
           </div>
         </div>
@@ -52,8 +56,17 @@ export default defineComponent({
     const store = useHoloArchiveStore();
     const records = computed(() => store.pageRecords);
     const playUrl = computed(() => store.playMovie);
+    const isLoading = ref(false);
 
-    return { records, playUrl };
+    const searchStart = function () {
+      isLoading.value = true;
+    };
+
+    const searchEnd = function () {
+      isLoading.value = false;
+    };
+
+    return { records, playUrl, isLoading, searchStart, searchEnd };
   },
 });
 </script>

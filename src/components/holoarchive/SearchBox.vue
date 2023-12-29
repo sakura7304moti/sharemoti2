@@ -126,7 +126,7 @@
         </div>
 
         <div>
-          <q-btn icon="search" @click.prevent="search" />
+          <q-btn icon="search" @click.prevent="search" :loading="isLoading" />
         </div>
       </div>
 
@@ -168,7 +168,7 @@
   </q-card>
 </template>
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent, ref, SetupContext } from 'vue';
 import HoloChannelList from '../selects/HoloChannelList.vue';
 import { useHoloArchiveStore } from 'src/stores/HoloArchiveStore';
 export default defineComponent({
@@ -176,11 +176,12 @@ export default defineComponent({
   components: {
     'holo-channel-select': HoloChannelList,
   },
-  setup() {
+  setup(_, context: SetupContext) {
     const store = useHoloArchiveStore();
     store.getMovies();
     const filter = ref(store.filter);
     const page = ref(store.page);
+    const isLoading = ref(false);
 
     const movieTypeOptions = [
       {
@@ -211,12 +212,18 @@ export default defineComponent({
     );
 
     const search = function () {
+      isLoading.value = true;
+      context.emit('search-start'); //検索開始したことを知らせる
+
       store.filteringData();
       const element = document.getElementById('holo-archive-cards');
       element?.scroll({ top: 0 });
+      isLoading.value = false;
+      context.emit('search-end'); //検索完了したことを知らせる
     };
 
     return {
+      isLoading,
       filter,
       page,
       movieTypeOptions,
