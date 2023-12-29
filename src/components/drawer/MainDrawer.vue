@@ -7,7 +7,7 @@
         <!--名言集-->
         <q-item clickable v-ripple @click="router.replace('/wordList')">
           <div class="menu-icon-image">
-            <img src="src/assets/ichiro2.jpg" width="48" />
+            <img src="../../assets/ichiro2.jpg" width="48" />
           </div>
           <q-item-section class="text-h6"> 名言集 </q-item-section>
         </q-item>
@@ -15,7 +15,7 @@
         <!--あだ名一覧-->
         <q-item clickable v-ripple @click="router.replace('/nameList')">
           <div class="menu-icon-image">
-            <img src="src/assets/ichiro.png" width="48" />
+            <img src="../../assets/ichiro.png" width="48" />
           </div>
           <q-item-section class="text-h6"> あだ名一覧 </q-item-section>
         </q-item>
@@ -23,7 +23,7 @@
         <!--焼き直し条約-->
         <q-item clickable v-ripple @click="router.replace('/yaki')">
           <div class="menu-icon-image">
-            <img src="src/assets/yaki_kururu.jpg" width="48" />
+            <img src="../../assets/yaki_kururu.jpg" width="48" />
           </div>
           <q-item-section class="text-h6"> 焼き直し条約 </q-item-section>
         </q-item>
@@ -31,7 +31,7 @@
         <!--俳句王決定戦-->
         <q-item clickable v-ripple @click="router.replace('/haiku')">
           <div class="menu-icon-image">
-            <img src="src/assets/senno_rikyu_icon.png" width="48" />
+            <img src="../../assets/senno_rikyu_icon.png" width="48" />
           </div>
           <q-item-section class="text-h6"> 俳句王決定戦 </q-item-section>
         </q-item>
@@ -39,7 +39,7 @@
         <!--学校一覧-->
         <q-item clickable v-ripple @click="router.replace('/school')">
           <div class="menu-icon-image">
-            <img src="src/assets/shatyo.png" width="48" />
+            <img src="../../assets/shatyo.png" width="48" />
           </div>
           <q-item-section class="text-h6"> 学校一覧 </q-item-section>
         </q-item>
@@ -50,14 +50,14 @@
         <!--カラオケ-->
         <q-item clickable v-ripple @click="router.replace('/karaoke')">
           <div class="menu-icon-image">
-            <img src="src/assets/karaoke_boy.jpg" width="48" />
+            <img src="../../assets/karaoke_boy.jpg" width="48" />
           </div>
           <q-item-section class="text-h6"> カラオケ音楽堂 </q-item-section>
         </q-item>
         <!--ボイス-->
         <q-item clickable v-ripple @click="router.replace('/voice')">
           <div class="menu-icon-image">
-            <img src="src/assets/kinen.jpg" width="48" />
+            <img src="../../assets/kinen.jpg" width="48" />
           </div>
           <q-item-section class="text-h6"> ボイス販売所 </q-item-section>
         </q-item>
@@ -74,14 +74,14 @@
         <!--オム子レイディオ-->
         <q-item clickable v-ripple @click="router.replace('/radio')">
           <div class="menu-icon-image">
-            <img src="src/assets/omuko_icon2.jpg" width="48" />
+            <img src="../../assets/omuko_icon2.jpg" width="48" />
           </div>
           <q-item-section class="text-h6"> オム子レイディオ </q-item-section>
         </q-item>
         <!--画像一覧-->
         <q-item clickable v-ripple @click="router.replace('/img')">
           <div class="menu-icon-image">
-            <img src="src/assets/ichiro2.jpg" width="48" />
+            <img src="../../assets/ichiro2.jpg" width="48" />
           </div>
           <q-item-section class="text-h6"> 画像まとめ </q-item-section>
         </q-item>
@@ -93,7 +93,7 @@
         <!--Twitter-->
         <q-item clickable v-ripple @click="router.replace('/twitter')">
           <div class="menu-icon-image">
-            <img src="src/assets/Logo_of_Twitter.jpg" width="48" />
+            <img src="../../assets/Logo_of_Twitter.jpg" width="48" />
           </div>
 
           <q-item-section class="text-h6"> twitter </q-item-section>
@@ -101,7 +101,7 @@
         <!--youtube-->
         <q-item clickable v-ripple @click="router.replace('/holosong')">
           <div class="menu-icon-image">
-            <img src="src/assets/youtube_icon.png" width="48" />
+            <img src="../../assets/youtube_icon.png" width="48" />
           </div>
 
           <q-item-section class="text-h6"> 歌みた </q-item-section>
@@ -120,7 +120,7 @@
         <!--memory-->
         <q-item clickable v-ripple @click="router.replace('/holomemory')">
           <div class="menu-icon-image">
-            <img src="src/assets/youtube_icon.png" height="48" />
+            <img src="../../assets/youtube_icon.png" height="48" />
           </div>
 
           <q-item-section class="text-h6"> 記念配信 </q-item-section>
@@ -129,7 +129,7 @@
         <!--memory-->
         <q-item clickable v-ripple @click="router.replace('/holoarchive')">
           <div class="menu-icon-image">
-            <img src="src/assets/youtube_icon.png" height="48" />
+            <img src="../../assets/youtube_icon.png" height="48" />
           </div>
 
           <q-item-section class="text-h6"> アーカイブ </q-item-section>
@@ -143,7 +143,7 @@
         <!--共有URLまとめ-->
         <q-item clickable v-ripple @click="router.replace('/info')">
           <div class="menu-icon-image">
-            <img src="src/assets/google_drive_icon.png" width="48" />
+            <img src="../../assets/google_drive_icon.png" width="48" />
           </div>
           <q-item-section class="text-h6"> お茶の間 </q-item-section>
         </q-item>
@@ -152,7 +152,7 @@
         <q-item clickable v-ripple @click="router.replace('/')">
           <div class="menu-icon-image">
             <img
-              src="src/assets/obachan.jpg"
+              src="../../assets/obachan.jpg"
               width="48"
               style="
                 border-radius: 50%; /* 角丸半径を50%にする(=円形にする) */

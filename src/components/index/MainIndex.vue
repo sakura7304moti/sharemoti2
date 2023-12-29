@@ -7,7 +7,7 @@
       <!--名言集-->
       <q-card class="index-page-card">
         <img
-          src="src/assets/turizao.jpg"
+          src="../../assets/turizao.jpg"
           style="cursor: pointer"
           @click="router.replace('/wordList')"
         />
@@ -23,7 +23,7 @@
       <!--あだ名一覧-->
       <q-card class="index-page-card">
         <img
-          src="src/assets/god_tamori.jpg"
+          src="../../assets/god_tamori.jpg"
           style="cursor: pointer"
           @click="router.replace('/nameList')"
         />
@@ -39,7 +39,7 @@
       <!--焼き直し条約-->
       <q-card class="index-page-card">
         <img
-          src="src/assets/yaki_doi.jpg"
+          src="../../assets/yaki_doi.jpg"
           style="cursor: pointer"
           @click="router.replace('/yaki')"
         />
@@ -55,7 +55,7 @@
       <!--俳句-->
       <q-card class="index-page-card">
         <img
-          src="src/assets/yoshi.jpg"
+          src="../../assets/yoshi.jpg"
           style="cursor: pointer"
           @click="router.replace('/haiku')"
         />
@@ -71,7 +71,7 @@
       <!--学校-->
       <q-card class="index-page-card">
         <img
-          src="src/assets/panda.jpg"
+          src="../../assets/panda.jpg"
           style="cursor: pointer"
           @click="router.replace('/school')"
         />
@@ -87,7 +87,7 @@
       <!--共有リンクまとめ-->
       <q-card class="index-page-card">
         <img
-          src="src/assets/matlix_cleanup.png"
+          src="../../assets/matlix_cleanup.png"
           style="cursor: pointer"
           @click="router.replace('/info')"
         />
@@ -108,7 +108,7 @@
       <!--カラオケ-->
       <q-card class="index-page-card">
         <img
-          src="src/assets/mirai_osho.jpg"
+          src="../../assets/mirai_osho.jpg"
           style="cursor: pointer"
           @click="router.replace('/karaoke')"
         />
@@ -124,7 +124,7 @@
       <!--ボイス-->
       <q-card class="index-page-card">
         <img
-          src="src/assets/itiro.jpg"
+          src="../../assets/itiro.jpg"
           style="cursor: pointer"
           @click="router.replace('/voice')"
         />
@@ -156,7 +156,7 @@
       <!--オム子レイディオ-->
       <q-card class="index-page-card">
         <img
-          src="src/assets/omuko.jpg"
+          src="../../assets/omuko.jpg"
           style="cursor: pointer"
           @click="router.replace('/radio')"
         />
@@ -175,7 +175,7 @@
       <!--画像-->
       <q-card class="index-page-card">
         <img
-          src="src/assets/ichiro2.jpg"
+          src="../../assets/ichiro2.jpg"
           style="cursor: pointer"
           @click="router.replace('/img')"
         />
@@ -195,7 +195,7 @@
       <!--Twitter-->
       <q-card class="index-page-card">
         <img
-          src="src/assets/aqua.jpg"
+          src="../../assets/aqua.jpg"
           style="cursor: pointer"
           @click="router.replace('/twitter')"
         />
@@ -210,7 +210,7 @@
       <!--YouTube-->
       <q-card class="index-page-card">
         <img
-          src="src/assets/shion.jpg"
+          src="../../assets/shion.jpg"
           style="cursor: pointer"
           @click="router.replace('/holosong')"
         />
@@ -226,7 +226,7 @@
       <!--Album-->
       <q-card class="index-page-card">
         <img
-          src="src/assets/koyori.jpg"
+          src="../../assets/koyori.jpg"
           style="cursor: pointer"
           @click="router.replace('/holoalbum')"
         />
