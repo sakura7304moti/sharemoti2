@@ -13,10 +13,11 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "axios": "^1.4.0",
+    "electron-builder": "^24.9.1",
     "pinia": "^2.1.7",
     "quasar": "^2.6.0",
     "sqlite3": "^5.1.6",
-    "vue": "^3.0.0",
+    "vue": "^3.3.0",
     "vue-router": "^4.0.0",
     "vue3-youtube": "^0.1.9"
   },
@@ -33,8 +34,7 @@
     "typescript": "^4.5.4"
   },
   "engines": {
-    "node": "^18 || ^16 || ^14.19",
-    "npm": ">= 6.13.4",
-    "yarn": ">= 1.21.1"
+    "node": "^20 || ^18 || ^16 || ^14.19",
+    "npm": ">= 6.13.4"
   }
 }
