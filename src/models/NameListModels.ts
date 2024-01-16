@@ -1,5 +1,5 @@
 import { QTableColumn, useQuasar } from 'quasar';
-import api, { NameListUpdateRequest } from 'src/api/main/NameListApi';
+import api from 'src/api/main/NameList2Api';
 import { ref } from 'vue';
 
 export function useNameListModel() {
@@ -8,18 +8,19 @@ export function useNameListModel() {
   const editModalShow = ref(false); //更新・削除
 
   const condition = ref({
-    key: '',
-    val: '',
+    name: '',
+    ssbuName: '',
   } as ConditionState);
   const insertCondition = ref({
-    key: '',
-    val: '',
+    name: '',
+    ssbuName: '',
   } as ConditionState);
 
   const updateCondition = ref({
-    key: '',
-    val: '',
-  } as ConditionState);
+    id: -1,
+    name: '',
+    ssbuName: '',
+  } as UpdateCondition);
   const isLoading = ref(false);
   const isSaveLoading = ref(false);
   const isDeleteLoading = ref(false);
@@ -28,15 +29,27 @@ export function useNameListModel() {
 
   const columns = [
     {
-      name: 'key',
+      name: 'name',
       label: 'あだ名',
-      field: 'key',
+      field: 'name',
       sortable: true,
     },
     {
-      name: 'val',
+      name: 'ssbuName',
       label: 'キャラ名',
-      field: 'val',
+      field: 'ssbuName',
+      sortable: true,
+    },
+    {
+      name: 'createAt',
+      label: '作成日',
+      field: 'createAt',
+      sortable: true,
+    },
+    {
+      name: 'updateAt',
+      label: '更新日',
+      field: 'updateAt',
       sortable: true,
     },
   ] as QTableColumn[];
@@ -44,26 +57,22 @@ export function useNameListModel() {
   /*SELECT */
   const search = async function () {
     isLoading.value = true;
-    const request = {
-      key: condition.value.key,
-      val: condition.value.val ?? '',
-    } as ConditionState;
 
     await api
-      .search(request)
+      .search()
       .then((response) => {
         if (response) {
           console.log('response', response);
 
           records.value.splice(0);
           response.records?.forEach((rec) => {
-            if (rec.val != 'その他') {
-              records.value.push({
-                id: (rec.key ?? '') + (rec.val ?? ''),
-                key: rec.key ?? '',
-                val: rec.val ?? '',
-              });
-            }
+            records.value.push({
+              id: rec.id,
+              name: rec.name,
+              ssbuName: rec.ssbuName,
+              createAt: rec.createAt.split(' ')[0],
+              updateAt: rec.updateAt.split(' ')[0],
+            });
           });
           sortRecords();
         }
@@ -82,8 +91,8 @@ export function useNameListModel() {
 
   /*INSERT , UPDATE*/
   const saveDisplayList = ref([] as DataState[]);
-  const sortfn = function (a: ConditionState, b: ConditionState) {
-    if (a.val > b.val) {
+  const sortfn = function (a: DataState, b: DataState) {
+    if (a.createAt < b.createAt) {
       return 1;
     } else {
       return -1;
@@ -99,20 +108,20 @@ export function useNameListModel() {
   };
 
   const insertErr = ref('');
-  const insertRecord = async function (key: string, val: string) {
+  const insertRecord = async function (name: string, ssbuName: string) {
     //バリテーション
     insertErr.value = '';
-    if (key == '') {
+    if (name == '') {
       insertErr.value = 'あだ名を空にはできないよ!';
     }
-    if (records.value.find((it) => it.key == key)) {
+    if (records.value.find((it) => it.name == name)) {
       insertErr.value = '既に同じあだ名が存在してるよ!';
     }
     if (insertErr.value == '') {
       isSaveLoading.value = true;
       const request = {
-        key: key.replace(/\n/g, ''),
-        val: val.replace(/\n/g, ''),
+        name: name.replace(/\n/g, ''),
+        ssbuName: ssbuName.replace(/\n/g, ''),
       } as ConditionState;
       await api
         .insert(request)
@@ -121,19 +130,10 @@ export function useNameListModel() {
             console.log('response', response);
 
             //追加した場合
-            if (response.insert) {
-              records.value.push({
-                id: key + val,
-                key: key,
-                val: val,
-              });
-              saveDisplayList.value.push({
-                id: key + val,
-                key: key,
-                val: val,
-              });
-              insertCondition.value.key = '';
-              insertCondition.value.val = '';
+            if (response.success) {
+              search();
+              insertCondition.value.name = '';
+              insertCondition.value.ssbuName = '';
               quasar.notify({
                 color: 'blue',
                 position: 'top',
@@ -160,29 +160,24 @@ export function useNameListModel() {
 
   const updateErr = ref('');
   const updateBeforeCondition = ref({
-    key: '',
-    val: '',
-  } as ConditionState);
-  const updateRecord = async function (key: string, val: string) {
+    id: -1,
+    name: '',
+    ssbuName: '',
+  } as UpdateCondition);
+  const updateRecord = async function (
+    id: number,
+    name: string,
+    ssbuName: string
+  ) {
     //バリエーション
     updateErr.value = '';
-    const rec = records.value.find((it) => it.val == val);
-    if (!rec) {
-      updateErr.value = '更新するあだ名が見つからなかった...';
-    }
-    if (rec?.key == key) {
-      updateErr.value = 'キャラ名が変わってないから更新しないよ!';
-    }
-
     if (updateErr.value == '') {
       isSaveLoading.value = true;
       const request = {
-        bkey: updateBeforeCondition.value.key.replace(/\n/g, ''),
-        bval: updateBeforeCondition.value.val.replace(/\n/g, ''),
-        key: key.replace(/\n/g, ''),
-        val: val.replace(/\n/g, ''),
-      } as NameListUpdateRequest;
-      console.log('update c', request);
+        id: id,
+        name: name.replace(/\n/g, ''),
+        ssbuName: ssbuName.replace(/\n/g, ''),
+      };
       await api
         .update(request)
         .then((response) => {
@@ -190,19 +185,10 @@ export function useNameListModel() {
             console.log('response', response);
 
             //更新した場合
-            if (response.update) {
-              const index = records.value.findIndex(
-                (it) =>
-                  it.key == updateBeforeCondition.value.key &&
-                  it.val == updateBeforeCondition.value.val
-              );
-              records.value[index] = {
-                id: key + val,
-                key: key,
-                val: val,
-              };
-              insertCondition.value.key = '';
-              insertCondition.value.val = '';
+            if (response.success) {
+              search();
+              insertCondition.value.name = '';
+              insertCondition.value.ssbuName = '';
               quasar.notify({
                 color: 'blue',
                 position: 'top',
@@ -227,31 +213,23 @@ export function useNameListModel() {
 
   /*DELETE */
   const deleteCheckModalShow = ref(false);
-  const deleteRecord = async function (key: string, val: string) {
+  const deleteRecord = async function (id: number) {
     isDeleteLoading.value = true;
-    const request = {
-      key: key.replace(/\n/g, ''),
-      val: val.replace(/\n/g, ''),
-    } as ConditionState;
 
     await api
-      .delete(request)
+      .dell({ id: id })
       .then((response) => {
         if (response) {
           console.log('response', response);
 
           //削除成功した場合
-          if (response.status) {
+          if (response.success) {
             quasar.notify({
               color: 'blue',
               position: 'top',
               message: '削除完了しました',
             });
-            const index = records.value.findIndex((it) => it.key == key);
-            records.value.splice(index, 1);
-            updateCondition.value = {
-              key: '',
-            } as ConditionState;
+            search();
             editModalShow.value = false;
             deleteCheckModalShow.value = false;
           } else {
@@ -275,11 +253,6 @@ export function useNameListModel() {
     isDeleteLoading.value = false;
   };
 
-  /*INIT */
-  const initNameList = async function () {
-    await api.init();
-  };
-
   return {
     condition,
     saveModalShow,
@@ -300,19 +273,26 @@ export function useNameListModel() {
     insertRecord,
     updateErr,
     deleteCheckModalShow,
-    initNameList,
     updateBeforeCondition,
     columns,
   };
 }
 
 interface ConditionState {
-  key: string;
-  val: string;
+  name: string;
+  ssbuName: string;
+}
+
+interface UpdateCondition {
+  id: number;
+  name: string;
+  ssbuName: string;
 }
 
 interface DataState {
-  id: string;
-  key: string;
-  val: string;
+  id: number;
+  name: string;
+  ssbuName: string;
+  createAt: string;
+  updateAt: string;
 }

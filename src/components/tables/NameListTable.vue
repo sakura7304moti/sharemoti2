@@ -123,7 +123,7 @@
             <div>
               <q-input
                 label="あだ名"
-                v-model="insertCondition.key"
+                v-model="insertCondition.name"
                 class="table-base-table-base-form-model"
                 stack-label
                 style="width: 250px"
@@ -132,34 +132,39 @@
               />
             </div>
             <div>
-              <ssbu-name-select v-model="insertCondition.val" />
+              <ssbu-name-select v-model="insertCondition.ssbuName" />
             </div>
           </div>
           <div
             v-if="
-              records.filter((it) => it.val == insertCondition.val).length > 0
+              records.filter((it) => it.ssbuName == insertCondition.ssbuName)
+                .length > 0
             "
           >
             <div class="text-subtitle1">追加済</div>
             <li
-              v-for="n in records.filter((it) => it.val == insertCondition.val)"
-              :key="n.key"
+              v-for="n in records.filter(
+                (it) => it.ssbuName == insertCondition.ssbuName
+              )"
+              :key="n.name"
             >
-              {{ n.key }}
+              {{ n.name }}
             </li>
           </div>
 
           <div class="row q-gutter-md q-pt-md">
             <q-btn
               @click.prevent="
-                insertRecord(insertCondition.key, insertCondition.val)
+                insertRecord(insertCondition.name, insertCondition.ssbuName)
               "
               label="追加"
               color="primary"
               outline
               icon="note_add"
               :loading="isSaveLoading"
-              :disable="insertCondition.key == '' || insertCondition.val == ''"
+              :disable="
+                insertCondition.ssbuName == '' || insertCondition.name == ''
+              "
             />
           </div>
 
@@ -186,37 +191,37 @@
           <div class="row q-gutter-md">
             <q-input
               label="あだ名"
-              v-model="updateCondition.key"
+              v-model="updateCondition.name"
               class="table-base-table-base-form-model"
               dense
               outlined
               stack-label
               style="width: 250px"
+              :hint="'更新前 : ' + updateBeforeCondition.name"
             />
-            <q-input
-              label="キャラ名"
-              v-model="updateCondition.val"
-              class="table-base-table-base-form-model"
-              dense
-              outlined
-              stack-label
-              style="width: 250px"
-              readonly
-            />
+            <div>
+              <ssbu-name-select v-model="updateCondition.ssbuName" />
+              <div class="q-pt-xs text-grey" style="font-size: 11px">
+                {{ '更新前 : ' + updateBeforeCondition.ssbuName }}
+              </div>
+            </div>
           </div>
           <ul
             class="name-list-ul"
             v-if="
-              records.filter((it) => it.val == updateCondition.val).length > 0
+              records.filter((it) => it.ssbuName == updateCondition.ssbuName)
+                .length > 0
             "
           >
             <div class="text-h6">登録済みのあだ名</div>
             <li
               class="name-list-li"
-              v-for="n in records.filter((it) => it.val == updateCondition.val)"
-              :key="n.key"
+              v-for="n in records.filter(
+                (it) => it.ssbuName == updateCondition.ssbuName
+              )"
+              :key="n.name"
             >
-              {{ n.key }}
+              {{ n.name }}
             </li>
           </ul>
           <!--buttons-->
@@ -224,7 +229,11 @@
           <div class="row q-gutter-md">
             <q-btn
               @click.prevent="
-                updateRecord(updateCondition.key, updateCondition.val)
+                updateRecord(
+                  updateCondition.id,
+                  updateCondition.name,
+                  updateCondition.ssbuName
+                )
               "
               label="更新"
               color="primary"
@@ -266,13 +275,11 @@
           <hr />
           <div>次のあだ名を削除してもいいかな？</div>
           <q-field label="あだ名" stack-label>{{
-            updateCondition.key
+            updateCondition.name
           }}</q-field>
           <div class="row q-gutter-md q-pt-sm">
             <q-btn
-              @click.prevent="
-                deleteRecord(updateCondition.key, updateCondition.val)
-              "
+              @click.prevent="deleteRecord(updateCondition.id)"
               label="削除する"
               color="negative"
               outline
@@ -344,16 +351,16 @@ export default defineComponent({
     //追加画面閉じたら初期化
     watch(editModalShow, () => {
       if (editModalShow.value == false) {
-        updateCondition.value.key = '';
-        updateCondition.value.val = '';
+        updateCondition.value.name = '';
+        updateCondition.value.ssbuName = '';
       }
     });
 
     //編集画面閉じたら初期化
     watch(saveModalShow, () => {
       if (saveModalShow.value == false) {
-        insertCondition.value.key = '';
-        insertCondition.value.val = '';
+        insertCondition.value.name = '';
+        insertCondition.value.ssbuName = '';
         saveDisplayList.value.splice(0);
       }
     });
@@ -373,8 +380,8 @@ export default defineComponent({
       ) {
         letRows = letRows.filter(
           (it) =>
-            it.key.includes(filterCondition.value.query ?? '') ||
-            it.val.includes(filterCondition.value.query ?? '')
+            it.name.includes(filterCondition.value.query ?? '') ||
+            it.ssbuName.includes(filterCondition.value.query ?? '')
         );
       }
       if (
@@ -382,7 +389,7 @@ export default defineComponent({
         filterCondition.value.charName != undefined
       ) {
         letRows = letRows.filter(
-          (it) => it.val == (filterCondition.value.charName ?? '')
+          (it) => it.ssbuName == (filterCondition.value.charName ?? '')
         );
       }
       console.log('filter', letRows);
@@ -425,8 +432,10 @@ interface FilterState {
 }
 interface DataState {
   id: string;
-  key: string;
-  val: string;
+  name: string;
+  ssbuName: string;
+  createAt: string;
+  updateAt: string;
 }
 </script>
 <style>

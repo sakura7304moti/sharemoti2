@@ -29,6 +29,9 @@ export class NameList2Api extends MainAPIClient {
   }
 }
 
+const api = new NameList2Api();
+export default api;
+
 /*
  *interfaces
  */
