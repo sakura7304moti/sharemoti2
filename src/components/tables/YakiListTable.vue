@@ -3,7 +3,7 @@
     :title="tableName"
     :rows="records"
     :columns="columns"
-    row-key="word"
+    row-key="id"
     :style="{ height: tableHeight }"
     separator="cell"
     rows-per-page-label="表示行数"
@@ -98,7 +98,7 @@
           v-for="col in props.cols"
           :key="col.name"
           :props="props"
-          style="white-space: normal; text-align: left"
+          style="text-align: left; white-space: pre-wrap; word-wrap: break-word"
         >
           {{ col.value }}
         </q-td>
@@ -186,14 +186,17 @@
               outlined
               stack-label
               style="width: 250px; height: 150px"
-              readonly
             />
             <yaki-select v-model="updateCondition.yaki" />
           </div>
           <div class="row q-gutter-md q-pt-md">
             <q-btn
               @click.prevent="
-                updateRecord(updateCondition.word, updateCondition.yaki)
+                updateRecord(
+                  updateCondition.id,
+                  updateCondition.word,
+                  updateCondition.yaki
+                )
               "
               label="更新"
               color="primary"
@@ -237,9 +240,7 @@
           <q-field label="条約" stack-label>{{ updateCondition.word }}</q-field>
           <div class="row q-gutter-md q-pt-sm">
             <q-btn
-              @click.prevent="
-                deleteRecord(updateCondition.word, updateCondition.yaki)
-              "
+              @click.prevent="deleteRecord(updateCondition.id)"
               label="削除する"
               color="negative"
               outline

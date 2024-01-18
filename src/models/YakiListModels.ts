@@ -1,5 +1,5 @@
 import { QTableColumn, useQuasar } from 'quasar';
-import api from 'src/api/main/YakiListApi';
+import api from 'src/api/main/YakiList2Api';
 import { ref } from 'vue';
 
 export function useYakiListModel() {
@@ -20,6 +20,18 @@ export function useYakiListModel() {
       field: 'yaki',
       sortable: true,
     },
+    {
+      name: 'createAt',
+      label: '作成日',
+      field: 'createAt',
+      sortable: true,
+    },
+    {
+      name: 'updateAt',
+      label: '更新日',
+      field: 'updateAt',
+      sortable: true,
+    },
   ] as QTableColumn[];
   const condition = ref({
     word: '',
@@ -31,9 +43,10 @@ export function useYakiListModel() {
   } as ConditionState);
 
   const updateCondition = ref({
+    id: -1,
     word: '',
     yaki: '',
-  } as ConditionState);
+  } as UpdateCondition);
   const isLoading = ref(false);
   const isSaveLoading = ref(false);
   const isDeleteLoading = ref(false);
@@ -44,9 +57,7 @@ export function useYakiListModel() {
   const search = async function () {
     isLoading.value = true;
     await api
-      .search({
-        text: condition.value.word,
-      })
+      .search()
       .then((response) => {
         if (response) {
           console.log('response', response);
@@ -54,8 +65,11 @@ export function useYakiListModel() {
           records.value.splice(0);
           response.records?.forEach((rec) =>
             records.value.push({
-              word: rec.word ?? '',
-              yaki: rec.yaki ?? '',
+              id: rec.id,
+              word: rec.word,
+              yaki: rec.yaki,
+              createAt: rec.createAt.split(' ')[0],
+              updateAt: rec.updateAt.split(' ')[0],
             })
           );
           sortRecords();
@@ -77,8 +91,8 @@ export function useYakiListModel() {
   };
 
   /*INSERT , UPDATE*/
-  const sortfn = function (a: ConditionState, b: ConditionState) {
-    if (a.word > b.word) {
+  const sortfn = function (a: DataState, b: DataState) {
+    if (a.createAt < b.createAt) {
       return 1;
     } else {
       return -1;
@@ -105,29 +119,25 @@ export function useYakiListModel() {
     if (insertErr.value == '') {
       isSaveLoading.value = true;
       const request = {
-        word: word.replace(/\n/g, ''),
+        word: word,
         yaki: yaki.replace(/\n/g, ''),
       } as ConditionState;
       await api
-        .save(request)
+        .insert(request)
         .then((response) => {
           if (response) {
             console.log('response', response);
 
             //追加した場合
-            if (response.insert) {
-              records.value.push({
-                word: word,
-                yaki: yaki,
-              });
+            if (response.success) {
+              search();
               insertCondition.value.word = '';
               quasar.notify({
                 color: 'blue',
                 position: 'top',
-                message: '追加完了しました',
+                message: '追加完了!',
               });
               sortRecords();
-              //saveModalShow.value = false;
               insertErr.value = '';
             }
           }
@@ -138,7 +148,7 @@ export function useYakiListModel() {
           quasar.notify({
             color: 'red',
             position: 'top',
-            message: 'データの取得に失敗しました',
+            message: 'データの取得に失敗しました...',
           });
         });
       isSaveLoading.value = false;
@@ -146,42 +156,31 @@ export function useYakiListModel() {
   };
 
   const updateErr = ref('');
-  const updateRecord = async function (word: string, yaki: string) {
+  const updateRecord = async function (id: number, word: string, yaki: string) {
     //バリエーション
     updateErr.value = '';
-    const rec = records.value.find((it) => it.word == word);
-    if (!rec) {
-      updateErr.value = '更新する条約が見つからなかった...';
-    }
-    if (rec?.yaki == yaki) {
-      updateErr.value = '詳細が変わってないから更新しないよ!';
-    }
-
     if (updateErr.value == '') {
       isSaveLoading.value = true;
       const request = {
-        word: word.replace(/\n/g, ''),
+        id: id,
+        word: word,
         yaki: yaki.replace(/\n/g, ''),
-      } as ConditionState;
+      };
       await api
-        .save(request)
+        .update(request)
         .then((response) => {
           if (response) {
             console.log('response', response);
 
             //更新した場合
-            if (response.update) {
-              const index = records.value.findIndex((it) => it.word == word);
-              records.value[index] = {
-                word: word,
-                yaki: yaki,
-              };
+            if (response.success) {
+              search();
               insertCondition.value.word = '';
               insertCondition.value.yaki = '';
               quasar.notify({
                 color: 'blue',
                 position: 'top',
-                message: '更新完了しました',
+                message: '更新完了!',
               });
               editModalShow.value = false;
             }
@@ -193,7 +192,7 @@ export function useYakiListModel() {
           quasar.notify({
             color: 'red',
             position: 'top',
-            message: 'データの取得に失敗しました',
+            message: 'データの取得に失敗しました...',
           });
         });
       isSaveLoading.value = false;
@@ -202,31 +201,23 @@ export function useYakiListModel() {
 
   /*DELETE */
   const deleteCheckModalShow = ref(false);
-  const deleteRecord = async function (word: string, yaki: string) {
+  const deleteRecord = async function (id: number) {
     isDeleteLoading.value = true;
-    const request = {
-      word: word.replace(/\n/g, ''),
-      yaki: yaki.replace(/\n/g, ''),
-    } as ConditionState;
 
     await api
-      .delete(request)
+      .dell({ id: id })
       .then((response) => {
         if (response) {
           console.log('response', response);
 
           //削除成功した場合
-          if (response.status) {
+          if (response.success) {
             quasar.notify({
               color: 'blue',
               position: 'top',
               message: '削除完了しました',
             });
-            const index = records.value.findIndex((it) => it.word == word);
-            records.value.splice(index, 1);
-            updateCondition.value = {
-              word: '',
-            } as ConditionState;
+            search();
             editModalShow.value = false;
             deleteCheckModalShow.value = false;
           } else {
@@ -244,7 +235,7 @@ export function useYakiListModel() {
         quasar.notify({
           color: 'red',
           position: 'top',
-          message: 'データの取得に失敗しました',
+          message: 'データの削除に失敗しました',
         });
       });
     isDeleteLoading.value = false;
@@ -279,7 +270,16 @@ interface ConditionState {
   yaki: string;
 }
 
-interface DataState {
+interface UpdateCondition {
+  id: number;
   word: string;
   yaki: string;
+}
+
+interface DataState {
+  id: number;
+  word: string;
+  yaki: string;
+  createAt: string;
+  updateAt: string;
 }
