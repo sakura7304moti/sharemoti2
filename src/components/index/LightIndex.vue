@@ -162,7 +162,7 @@ export default defineComponent({
       },
       {
         title: '記念配信',
-        url: '/holomemoriy',
+        url: '/holomemory',
       },
       {
         title: 'アーカイブ',
