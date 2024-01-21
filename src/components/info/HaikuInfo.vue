@@ -26,15 +26,6 @@
         <div class="haiku-box-big">
           <div
             style="
-              font-family: HinaMincho-Regular;
-              font-size: 36px;
-              padding-bottom: px;
-            "
-          >
-            {{ new Date().getFullYear() }}年やーきー川柳<br /><b>最優秀作品</b>
-          </div>
-          <div
-            style="
               writing-mode: vertical-rl;
               font-family: haiku;
               font-size: 32px;
