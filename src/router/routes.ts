@@ -84,6 +84,13 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: '', component: () => import('pages/SsbuListPage.vue') }],
   },
   {
+    path: '/movieList',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/MovieListPage.vue') },
+    ],
+  },
+  {
     path: '/holo',
     component: () => import('layouts/HoloLayout.vue'),
     children: [
