@@ -118,6 +118,10 @@ export default defineComponent({
         title: '画像',
         url: '/img',
       },
+      {
+        title: '動画',
+        url: '/movie',
+      },
     ] as PageState[]);
 
     const scraperPages = ref([

@@ -85,6 +85,13 @@
           </div>
           <q-item-section class="text-h6"> 画像まとめ </q-item-section>
         </q-item>
+        <!--動画一覧-->
+        <q-item clickable v-ripple @click="router.replace('/movie')">
+          <div class="menu-icon-image">
+            <img src="../../assets/legoman_profile.jpg" width="48" />
+          </div>
+          <q-item-section class="text-h6"> 動画まとめ </q-item-section>
+        </q-item>
       </q-item-section>
 
       <q-separator />

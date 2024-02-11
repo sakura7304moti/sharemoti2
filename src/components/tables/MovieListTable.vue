@@ -3,11 +3,30 @@
     <div class="movielist-left-content">
       <div v-if="playState.url != ''">
         <q-video :src="playState.url" style="width: 569px; height: 320px" />
-        <div class="row q-gutter-xs text-primary">
-          <div>
-            <q-icon name="music_note" color="primary" />
+        <div class="row q-gutter-xs text-h5">
+          <div style="width: 48px">
+            <q-avatar
+              class="q-pt-md"
+              v-if="playState.poster != '' && playState.poster != undefined"
+            >
+              <img
+                v-if="playState.poster == '緑眼鏡掛男'"
+                src="../../assets/yosao.png"
+              />
+              <img v-else src="../../assets/legoman_profile.jpg" />
+            </q-avatar>
           </div>
-          <div>{{ playState.title }}</div>
+          <div
+            class="q-pt-md"
+            style="
+              text-align: left;
+              white-space: pre-wrap;
+              word-wrap: break-word;
+              width: 500px;
+            "
+          >
+            {{ playState.title }}
+          </div>
         </div>
       </div>
 
@@ -67,17 +86,59 @@
               </q-input>
             </div>
             <div>
-              <q-select
-                v-model="filter.poster"
-                :options="posterOptions"
-                dense
-                stack-label
-                label="投稿者"
-                transition-show="jump-up"
-                transition-hide="jump-up"
-                style="width: 150px"
-                clearable
-              />
+              <div class="row q-gutter-xs">
+                <q-avatar
+                  v-if="filter.poster != '' && filter.poster != undefined"
+                >
+                  <img
+                    v-if="filter.poster == '緑眼鏡掛男'"
+                    src="../../assets/yosao.png"
+                  />
+                  <img v-else src="../../assets/legoman_profile.jpg" />
+                </q-avatar>
+                <div v-else style="width: 48px; height: 48px"></div>
+                <q-select
+                  v-model="filter.poster"
+                  :options="posterOptions"
+                  dense
+                  stack-label
+                  label="投稿者"
+                  transition-show="jump-up"
+                  transition-hide="jump-up"
+                  style="width: 150px"
+                  clearable
+                >
+                  <!--開いた時-->
+                  <template v-slot:option="scope">
+                    <q-item
+                      v-bind="scope.itemProps"
+                      class="holo-name-item-selected"
+                    >
+                      <q-avatar>
+                        <img
+                          v-if="scope.opt == '緑眼鏡掛男'"
+                          src="../../assets/yosao.png"
+                        />
+                        <img v-else src="../../assets/legoman_profile.jpg" />
+                      </q-avatar>
+
+                      <q-item-label
+                        class="holo-select-text-container text-bold"
+                      >
+                        {{ scope.opt }}
+                      </q-item-label>
+                    </q-item>
+                  </template>
+
+                  <!--ヒント-->
+                  <template v-slot:hint>
+                    {{ filter.poster }}
+                  </template>
+
+                  <!--カウンター-->
+                  <template v-slot:counter> </template>
+                </q-select>
+              </div>
             </div>
           </div>
         </template>
@@ -128,11 +189,25 @@
               :props="props"
               style="white-space: normal; text-align: left"
             >
-              <div class="text-weight-medium">
+              <div class="text-weight-medium" style="font-weight: 500">
                 {{ col.value }}
               </div>
-              <div class="text-weight-thin">
-                {{ records.find((it) => it.fileName == col.value)?.poster }}
+              <div class="text-weight-thin row g-gutter-md">
+                <div>
+                  <q-avatar size="md">
+                    <img
+                      v-if="
+                        records.find((it) => it.fileName == col.value)
+                          ?.poster == '緑眼鏡掛男'
+                      "
+                      src="../../assets/yosao.png"
+                    />
+                    <img v-else src="../../assets/legoman_profile.jpg" />
+                  </q-avatar>
+                </div>
+                <div class="q-pt-sm q-pl-sm" style="color: gray">
+                  {{ records.find((it) => it.fileName == col.value)?.poster }}
+                </div>
               </div>
             </q-td>
           </q-tr>
@@ -151,7 +226,7 @@ export default defineComponent({
     label: {
       type: String,
       required: false,
-      default: '制作動画まとめ',
+      default: '動画まとめ',
     },
     height: {
       type: Number,
@@ -202,7 +277,7 @@ interface PlayState {
 <style>
 /*テーブルのstyle */
 .movielist-table {
-  max-width: 800px;
+  max-width: 600px;
 }
 
 .movielist-table .q-table__top,
@@ -243,10 +318,10 @@ interface PlayState {
 }
 
 .movielist-right-content {
-  width: 800px;
+  width: 600px;
 }
 
-@media screen and (max-width: 1370px) {
+@media screen and (max-width: 1170px) {
   .movielist-container {
     flex-direction: column;
   }

@@ -84,7 +84,7 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: '', component: () => import('pages/SsbuListPage.vue') }],
   },
   {
-    path: '/movieList',
+    path: '/movie',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/MovieListPage.vue') },

@@ -63,7 +63,7 @@
         <q-card-section>
           <div class="text-h6">俳句王決定戦</div>
           <q-card-section class="q-pt-none">
-            これはもう言わなくてもわかるね？すき家にGOだ
+            東大卒でもこの画像は不合格確定
           </q-card-section>
         </q-card-section>
       </q-card>
@@ -184,6 +184,23 @@
           <div class="text-h6">イチローの国立美術館</div>
           <q-card-section class="q-pt-none">
             なんだこれは、、、なんていい景色なんだ、、、
+          </q-card-section>
+        </q-card-section>
+      </q-card>
+
+      <!--動画-->
+      <q-card class="index-page-card">
+        <img
+          src="../../assets/go_to_daigaku.png"
+          style="cursor: pointer"
+          @click="router.replace('/img')"
+        />
+
+        <q-card-section>
+          <div class="text-h6">動画まとめ</div>
+          <q-card-section class="q-pt-none">
+            王将マンは工大PCで一生懸命編集していますので、寄付をよろしくお願いします。<br />
+            寄付いただいたお金のほとんどは、王将マンの食費に充てられます。
           </q-card-section>
         </q-card-section>
       </q-card>
