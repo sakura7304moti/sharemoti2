@@ -19,7 +19,7 @@ export function useMovieListModel() {
   ] as QTableColumn[];
   const filter = ref({
     fileName: '',
-    poster: '全て',
+    poster: '',
   } as FilterState);
   const posterOptions = ref([] as string[]);
 
@@ -30,7 +30,7 @@ export function useMovieListModel() {
         it.fileName.includes(filter.value.fileName)
       );
     }
-    if (filter.value.poster != '全て' && filter.value.poster != undefined) {
+    if (filter.value.poster != '' && filter.value.poster != undefined) {
       letRows = letRows.filter((it) => it.poster == filter.value.poster);
     }
     return letRows;
@@ -51,10 +51,16 @@ export function useMovieListModel() {
           Array.from(new Set(records.value.map((it) => it.poster))).forEach(
             (it) => posterOptions.value.push(it)
           );
-          posterOptions.value.push('全て');
-          posterOptions.value.reverse();
 
-          records.value.sort((a, b) => a.poster.localeCompare(b.poster));
+          records.value.sort((a, b) => {
+            const posterComparison = b.poster.localeCompare(a.poster);
+            if (posterComparison !== 0) {
+              return posterComparison; // posterが異なればそれでソート
+            }
+            // posterが同じならfileNameでソート
+            return a.fileName.localeCompare(b.fileName);
+          });
+          posterOptions.value.reverse();
         }
       })
       .catch((e) => {

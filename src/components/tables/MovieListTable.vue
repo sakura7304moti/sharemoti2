@@ -1,107 +1,145 @@
 <template>
-  <q-table
-    :title="tableName"
-    v-if="!load.search"
-    :rows="records"
-    :columns="columns"
-    row-key="id"
-    :style="{ height: tableHeight }"
-    separator="cell"
-    rows-per-page-label="表示行数"
-    no-results-label="見つからなかった..."
-    no-data-label="見つからなかった..."
-    :pagination="{ rowsPerPage: 0 }"
-    :rows-per-page-options="[0]"
-    :filter="filter"
-    :filter-method="filteringData"
-    class="table-base scroll-table"
-  >
-    <!--sub 1/3 オプション-->
-    <template v-slot:top-right>
-      <div class="row q-gutter-md table-base-header">
-        <div class="table-base-filter">
-          <q-input
-            dense
-            debounce="300"
-            v-model="filter.fileName"
-            placeholder="検索"
-            class="table-base-filter-input"
-            align="left"
-          >
-            <template v-slot:append>
-              <q-spinner
-                v-model="load.search"
-                v-if="load.search"
-                color="primary"
-                size="md"
-              />
-              <q-icon name="search" v-if="filter.fileName.length == 0" />
-              <q-icon name="search" v-else color="primary" />
-              <div class="text-caption" v-if="records.length > 0">
-                {{ records.length }}
-              </div>
-            </template>
-          </q-input>
+  <div class="movielist-container">
+    <div class="movielist-left-content">
+      <div v-if="playState.url != ''">
+        <q-video :src="playState.url" style="width: 569px; height: 320px" />
+        <div class="row q-gutter-xs text-primary">
+          <div>
+            <q-icon name="music_note" color="primary" />
+          </div>
+          <div>{{ playState.title }}</div>
         </div>
       </div>
-      <div class="q-pt-sm">
-        <q-select
-          v-model="filter.poster"
-          :options="posterOptions"
-          dense
-          stack-label
-          label="投稿者"
-          transition-show="jump-up"
-          transition-hide="jump-up"
-          style="width: 150px"
-          clearable
-        />
+
+      <div v-else>
+        <div class="video-container">
+          <div class="video-placeholder">
+            <!-- 動画再生ボタンアイコン（例: フォントアイコンを使用） -->
+            <i class="play-icon">▶️</i>
+            <div class="text-white">動画はここで再生されるよ</div>
+          </div>
+        </div>
       </div>
-    </template>
+    </div>
+    <div class="movielist-table">
+      <q-table
+        :title="tableName"
+        v-if="!load.search"
+        :rows="records"
+        :columns="columns"
+        row-key="id"
+        :style="{ height: tableHeight }"
+        separator="cell"
+        rows-per-page-label="表示行数"
+        no-results-label="見つからなかった..."
+        no-data-label="見つからなかった..."
+        :pagination="{ rowsPerPage: 0 }"
+        :rows-per-page-options="[0]"
+        :filter="filter"
+        :filter-method="filteringData"
+        class="table-base scroll-table"
+      >
+        <!--sub 1/3 オプション-->
+        <template v-slot:top-right>
+          <div class="row q-gutter-md table-base-header">
+            <div>
+              <q-input
+                dense
+                debounce="300"
+                v-model="filter.fileName"
+                placeholder="検索"
+                class="table-base-filter-input"
+                align="left"
+              >
+                <template v-slot:append>
+                  <q-spinner
+                    v-model="load.search"
+                    v-if="load.search"
+                    color="primary"
+                    size="md"
+                  />
+                  <q-icon name="search" v-if="filter.fileName.length == 0" />
+                  <q-icon name="search" v-else color="primary" />
+                  <div class="text-caption" v-if="records.length > 0">
+                    {{ records.length }}
+                  </div>
+                </template>
+              </q-input>
+            </div>
+            <div>
+              <q-select
+                v-model="filter.poster"
+                :options="posterOptions"
+                dense
+                stack-label
+                label="投稿者"
+                transition-show="jump-up"
+                transition-hide="jump-up"
+                style="width: 150px"
+                clearable
+              />
+            </div>
+          </div>
+        </template>
 
-    <!-- sub 2/3  ヘッダー-->
-    <template v-slot:header="props">
-      <q-tr :props="props">
-        <q-th style="width: 50px"><div class="q-pt-md">再生</div> </q-th>
-        <q-th v-for="col in props.cols" :key="col.name" :props="props">
-          <div v-if="col.label == 'タイトル'" class="table-base-main-column">
-            {{ col.label }}
-          </div>
-          <div v-if="col.label == 'ファイル名'" class="table-base-sub-column">
-            {{ col.label }}
-          </div>
-        </q-th>
-      </q-tr>
-    </template>
+        <!-- sub 2/3  ヘッダー-->
+        <template v-slot:header="props">
+          <q-tr :props="props">
+            <q-th style="width: 50px"><div class="q-pt-md">再生</div> </q-th>
+            <q-th v-for="col in props.cols" :key="col.name" :props="props">
+              <div
+                v-if="col.label == 'タイトル'"
+                class="table-base-main-column"
+              >
+                {{ col.label }}
+              </div>
+              <div
+                v-if="col.label == 'ファイル名'"
+                class="table-base-sub-column"
+              >
+                {{ col.label }}
+              </div>
+            </q-th>
+          </q-tr>
+        </template>
 
-    <!-- sub 3/3  アイテム-->
-    <template v-slot:body="props">
-      <q-tr :props="props">
-        <q-td>
-          <a
-            :href="`${api.apiEndpoint()}/movieList/download?fileName=${
-              props.row.fileName
-            }&poster=${props.row.poster}`"
-            class="play-btn"
-            ><q-icon name="play_circle" color="primary" size="sm"></q-icon
-          ></a>
-        </q-td>
-        <q-td
-          v-for="col in props.cols"
-          :key="col.name"
-          :props="props"
-          style="white-space: normal; text-align: left"
-        >
-          <div class="text-weight-medium">
-            {{ col.value }}
-          </div>
-          <div>
-            {{ records.find((it) => it.fileName == col.value)?.poster }}
-          </div>
-        </q-td>
-      </q-tr>
-    </template>
-  </q-table>
+        <!-- sub 3/3  アイテム-->
+        <template v-slot:body="props">
+          <q-tr :props="props">
+            <q-td>
+              <a
+                :href="`${api.apiEndpoint()}/movieList/download?fileName=${
+                  props.row.fileName
+                }&poster=${props.row.poster}`"
+                class="play-btn"
+                @click.prevent="
+                  playState.url = `${api.apiEndpoint()}/movieList/download?fileName=${
+                    props.row.fileName
+                  }&poster=${props.row.poster}`;
+                  playState.title = props.row.fileName;
+                  playState.poster = props.row.poster;
+                "
+                ><q-icon name="play_circle" color="negative" size="md"></q-icon
+              ></a>
+            </q-td>
+            <q-td
+              v-for="col in props.cols"
+              :key="col.name"
+              :props="props"
+              style="white-space: normal; text-align: left"
+            >
+              <div class="text-weight-medium">
+                {{ col.value }}
+              </div>
+              <div class="text-weight-thin">
+                {{ records.find((it) => it.fileName == col.value)?.poster }}
+              </div>
+            </q-td>
+          </q-tr>
+        </template>
+      </q-table>
+    </div>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
@@ -113,7 +151,7 @@ export default defineComponent({
     label: {
       type: String,
       required: false,
-      default: '完成品一覧',
+      default: '制作動画まとめ',
     },
     height: {
       type: Number,
@@ -133,10 +171,16 @@ export default defineComponent({
       posterOptions,
     } = useMovieListModel();
     search();
+    const playState = ref({
+      url: '',
+      title: '',
+      poster: '',
+    } as PlayState);
 
     return {
       tableName: ref(props.label),
       tableHeight: ref(props.height + 'px'),
+      playState,
       columns,
       quasar,
       records,
@@ -149,4 +193,101 @@ export default defineComponent({
     };
   },
 });
+interface PlayState {
+  url: string;
+  title: string;
+  poster: string;
+}
 </script>
+<style>
+/*テーブルのstyle */
+.movielist-table {
+  max-width: 800px;
+}
+
+.movielist-table .q-table__top,
+.movielist-table .q-table__bottom,
+.movielist-table thead tr:first-child th {
+  /* bg color is important for th; just specify one */
+  background-color: white;
+}
+
+.movielist-table thead tr th {
+  position: sticky;
+  z-index: 1;
+}
+
+.movielist-table thead tr:first-child th {
+  top: 0;
+}
+
+/* this is when the loading indicator appears */
+.movielist-table.q-table--loading thead tr:last-child th {
+  /* height of all previous header rows */
+  top: 48px;
+}
+
+/* prevent scrolling behind sticky top row on focus */
+.movielist-table tbody {
+  /* height of all previous header rows */
+  scroll-margin-top: 48px;
+}
+/*動画とテーブルのstyle */
+.movielist-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.movielist-left-content {
+  width: 570px;
+}
+
+.movielist-right-content {
+  width: 800px;
+}
+
+@media screen and (max-width: 1370px) {
+  .movielist-container {
+    flex-direction: column;
+  }
+
+  .movielist-left-content,
+  .movielist-right-content {
+    width: 100%;
+  }
+}
+
+/*テーブルのstyle */
+.movielist-table-scrollable-container {
+  height: 80vh; /* ページの高さの80%に設定 */
+  overflow-y: auto; /* 縦方向にスクロール可能にする */
+}
+
+/*? */
+.video-container {
+  width: 569px;
+  height: 320px;
+  position: relative;
+  overflow: hidden; /* オーバーフローしたコンテンツを非表示にする */
+}
+
+.video-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000; /* ボタンアイコンの背景色 */
+  opacity: 0.7; /* 不透明度を設定して動画の一部を透過させる */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.play-icon {
+  font-size: 40px;
+  color: #fff; /* ボタンアイコンの色 */
+  cursor: pointer;
+}
+</style>

@@ -17,6 +17,7 @@
     "pinia": "^2.1.7",
     "quasar": "^2.6.0",
     "sqlite3": "^5.1.6",
+    "video.js": "^8.10.0",
     "vue": "^3.3.0",
     "vue-router": "^4.0.0",
     "vue3-youtube": "^0.1.9"
