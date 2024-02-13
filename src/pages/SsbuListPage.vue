@@ -33,12 +33,13 @@
           rows-per-page-label="表示行数"
           no-results-label="見つからなかった..."
           no-data-label="見つからなかった..."
-          :pagination="{ rowsPerPage: 0 }"
-          :rows-per-page-options="[0]"
+          :pagination="{ rowsPerPage: initTablePage }"
+          :rows-per-page-options="pageOption"
           :filter="filter"
           :filter-method="filteringData"
           style="width: 830px"
           class="ssbu-table-scrollable-container"
+          id="ssbu-table"
         >
           <!--sub 1/3 オプション-->
           <template v-slot:top-left>
@@ -190,6 +191,17 @@ export default defineComponent({
     getSsbuNames();
     search();
 
+    /*ちょうどいいくらいのページ数を取得 */
+    const initTablePage = ref(100);
+    initTablePage.value = Math.floor((window.innerHeight * 0.8 - 166) / 51);
+    const pageOption = ref([10, 50, 100, 500] as number[]);
+    if (!pageOption.value.find((it) => it == initTablePage.value)) {
+      pageOption.value.push(initTablePage.value);
+      pageOption.value.sort((a, b) => a - b);
+    }
+
+    pageOption.value.push(0);
+
     return {
       filter,
       filteringData,
@@ -205,6 +217,8 @@ export default defineComponent({
       api,
       playUrl: ref(''),
       playName: ref(''),
+      initTablePage,
+      pageOption,
     };
   },
 });
