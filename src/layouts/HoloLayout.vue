@@ -4,28 +4,30 @@
       background-image: url('https://hololive.hololivepro.com/wp-content/themes/hololive/images/fixed_bg.jpg');
     "
   >
-    <div class="row">
-      <div>
-        <img
-          src="https://hololive.hololivepro.com/wp-content/themes/hololive/images/head_l.png"
-          style="height: 100px"
-        />
-      </div>
-      <div v-for="item in pageList" :key="item.url" class="row q-gutter-md">
+    <q-header>
+      <div class="row">
         <div>
-          <a
-            @click.prevent="router.replace(item.url)"
-            href=""
-            :class="{
-              'holo-layout-text-selected': nowPathName == item.url,
-              'holo-layout-text': nowPathName != item.url,
-            }"
-          >
-            {{ item.title }}
-          </a>
+          <img
+            src="https://hololive.hololivepro.com/wp-content/themes/hololive/images/head_l.png"
+            style="height: 80px"
+          />
+        </div>
+        <div v-for="item in pageList" :key="item.url" class="row q-gutter-md">
+          <div>
+            <a
+              @click.prevent="router.replace(item.url)"
+              href=""
+              :class="{
+                'holo-layout-text-selected': nowPathName == item.url,
+                'holo-layout-text': nowPathName != item.url,
+              }"
+            >
+              {{ item.title }}
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </q-header>
 
     <q-page-container>
       <router-view class="q-pa-md" />
@@ -113,5 +115,8 @@ interface pageState {
   font-size: 32px;
   font-weight: bold;
   line-height: 1.1em;
+}
+.q-layout__section--marginal {
+  background-color: rgba(255, 255, 255, 0);
 }
 </style>

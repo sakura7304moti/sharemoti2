@@ -1,38 +1,58 @@
 <template>
-  <q-select
-    v-model="selectedValue"
-    :options="selectOptions"
-    option-value="hashtag"
-    option-label="hashtag"
-    emit-value
-    map-options
-    dense
-    stack-label
-    :label="selectLabel"
-    :style="{ width: selectWidth + 'px' }"
-    transition-show="jump-up"
-    transition-hide="jump-up"
-  >
-    <template v-slot:append>
-      <q-icon
-        id="holo-select-clear-icon"
-        v-if="selectedValue != ''"
-        name="clear"
-        @click.stop.prevent="selectedValue = ''"
-      />
-    </template>
-    <template v-slot:option="scope">
-      <q-item v-bind="scope.itemProps" class="holo-name-item-selected">
-        <q-avatar>
-          <img :src="scope.opt.url" />
-        </q-avatar>
+  <div class="row q-gutter-xs">
+    <q-select
+      v-model="selectedValue"
+      :options="selectOptions"
+      option-value="hashtag"
+      option-label="hashtag"
+      emit-value
+      map-options
+      dense
+      stack-label
+      :label="selectLabel"
+      :style="{ width: selectWidth + 'px' }"
+      transition-show="jump-up"
+      transition-hide="jump-up"
+    >
+      <template v-slot:append>
+        <q-icon
+          id="holo-select-clear-icon"
+          v-if="selectedValue != ''"
+          name="clear"
+          @click.stop.prevent="selectedValue = ''"
+        />
+      </template>
+      <template v-slot:option="scope">
+        <q-item v-bind="scope.itemProps" class="holo-name-item-selected">
+          <q-avatar>
+            <img :src="scope.opt.url" />
+          </q-avatar>
 
-        <q-item-label class="holo-select-text-container text-bold">
-          {{ scope.opt.hashtag }}
-        </q-item-label>
-      </q-item>
-    </template>
-  </q-select>
+          <q-item-label class="holo-select-text-container text-bold">
+            {{ scope.opt.hashtag }}
+          </q-item-label>
+        </q-item>
+      </template>
+      <template v-slot:selected>
+        <q-chip
+          v-if="selectedValue != ''"
+          dense
+          square
+          color="white"
+          class="q-my-none q-ml-xs q-mr-none"
+        >
+          <q-avatar text-color="white">
+            <q-img
+              :src="
+                selectOptions.find((it) => it.hashtag == selectedValue)?.url
+              "
+            />
+          </q-avatar>
+          {{ selectedValue }}
+        </q-chip>
+      </template>
+    </q-select>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue';

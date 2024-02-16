@@ -1,60 +1,128 @@
 <template>
   <q-page class="">
-    <div class="q-pb-md">
-      <div v-if="condition.mode == 'holo'" class="row q-gutter-md">
-        <div class="holo-page-title" style="width: 150px">twitter</div>
+    <div style="display: flex">
+      <!--入力フォーム-->
+      <div>
         <div>
-          <a href="#" @click.prevent="condition.mode = ''"
-            ><img src="../assets/holo_icon.jpg" style="height: 30px"
-          /></a>
+          <div v-if="condition.mode == 'holo'" class="row q-gutter-md">
+            <div class="holo-page-title" style="width: 150px">twitter</div>
+            <div>
+              <a href="#" @click.prevent="condition.mode = ''"
+                ><img src="../assets/holo_icon.jpg" style="height: 30px"
+              /></a>
+            </div>
+          </div>
+          <div v-else class="row q-gutter-md">
+            <div class="holo-page-title" style="width: 150px">twitter</div>
+            <div>
+              <a href="#" @click.prevent="condition.mode = 'holo'">
+                <img
+                  src="../assets/Logo_of_Twitter.jpg"
+                  style="height: 30px"
+                  @click.prevent="condition.mode = ''"
+                />
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
-      <div v-else class="row q-gutter-md">
-        <div class="holo-page-title" style="width: 150px">twitter</div>
-        <div>
-          <a href="#" @click.prevent="condition.mode = 'holo'">
-            <img
-              src="../assets/Logo_of_Twitter.jpg"
-              style="height: 30px"
-              @click.prevent="condition.mode = ''"
-            />
-          </a>
-        </div>
-      </div>
-    </div>
-    <!--入力フォーム-->
-    <div class="row q-gutter-md">
-      <holo-select
-        v-if="condition.mode == 'holo'"
-        v-model="condition.hashtag"
-        label="hololive fanart"
-      />
-      <q-select
-        label="♡"
-        v-model="condition.minLike"
-        :options="selectItems"
-        emit-value
-        map-options
-        stack-label
-        dense
-        style="height: 40px; width: 80px"
-      />
-      <q-btn
-        color="primary"
-        icon="search"
-        @click="search"
-        :loading="isLoading"
-      />
-      <div class="q-pl-md">
-        <q-btn
-          icon="settings"
-          color="grey"
-          size="sm"
-          round
-          @click="searchOptionShow = true"
+        <holo-select
+          v-if="condition.mode == 'holo'"
+          v-model="condition.hashtag"
+          label="hololive fanart"
         />
+        <div class="row q-gutter-md q-pt-md">
+          <q-select
+            label="♡"
+            v-model="condition.minLike"
+            :options="selectItems"
+            emit-value
+            map-options
+            stack-label
+            dense
+            style="height: 40px; width: 80px"
+          />
+          <q-btn
+            color="primary"
+            icon="search"
+            @click="search"
+            :loading="isLoading"
+          />
+          <div class="q-pl-md">
+            <q-btn
+              icon="settings"
+              color="grey"
+              size="sm"
+              round
+              @click="searchOptionShow = true"
+            />
+          </div>
+        </div>
+        <!--pagi-->
+        <div class="q-pt-sm" v-if="dataState.totalPages > 1">
+          <q-pagination
+            v-model="condition.pageNo"
+            size="md"
+            :max="dataState.totalPages"
+            direction-links
+            input
+            :max-pages="3"
+            @update:model-value="search()"
+            style="width: 250px"
+          />
+        </div>
+      </div>
+
+      <!--gallery-->
+      <div
+        style="display: flex; flex-wrap: wrap; overflow-y: auto; height: 80vh"
+      >
+        <ul class="gallery">
+          <li v-for="r in dataState.records" :key="r.image">
+            <a
+              :href="r.image"
+              @click.prevent.stop="r.displayMenu = !r.displayMenu"
+              class="image-container"
+              :class="{
+                'image-selected': r.displayMenu,
+              }"
+            >
+              <img :src="r.image.replace('&name=orig', '&name=small')" />
+              <div class="button-overlay" v-if="r.displayMenu">
+                <div class="row q-gutter-md button">
+                  <!--Download-->
+                  <q-btn
+                    icon="file_download"
+                    @click.prevent="fileDownload(r.image)"
+                    color="primary"
+                    round
+                    ><q-tooltip :delay="1000">download</q-tooltip></q-btn
+                  >
+                  <!--View-->
+                  <q-btn
+                    icon="image"
+                    @click.prevent="fullScViewClick(r.image)"
+                    color="secondary"
+                    round
+                    ><q-tooltip :delay="1000">image view</q-tooltip></q-btn
+                  >
+                  <!--tweet <link-->
+                  <q-btn
+                    icon="info"
+                    @click.prevent="pageOpenClick(r.url)"
+                    color="black"
+                    round
+                    ><q-tooltip :delay="1000">tweet link</q-tooltip></q-btn
+                  >
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
+
+    <!--botton-->
+    <div class="row q-gutter-md q-pt-md"></div>
 
     <!--search option dialog-->
     <q-dialog v-model="searchOptionShow">
@@ -161,65 +229,6 @@
         </q-card-section>
       </q-card>
     </q-dialog>
-    <!--botton-->
-    <div class="row q-gutter-md q-pt-md"></div>
-
-    <!--pagi-->
-    <div class="q-pt-sm" v-if="dataState.totalPages > 1">
-      <q-pagination
-        v-model="condition.pageNo"
-        direction-links
-        :max="dataState.totalPages"
-        :max-pages="10"
-        @click="search()"
-      />
-    </div>
-
-    <!--gallery-->
-    <div class="q-pt-md">
-      <ul class="gallery q-pt-md">
-        <li v-for="r in dataState.records" :key="r.image">
-          <a
-            :href="r.image"
-            @click.prevent.stop="r.displayMenu = !r.displayMenu"
-            class="image-container"
-            :class="{
-              'image-selected': r.displayMenu,
-            }"
-          >
-            <img :src="r.image" />
-            <div class="button-overlay" v-if="r.displayMenu">
-              <div class="row q-gutter-md button">
-                <!--Download-->
-                <q-btn
-                  icon="file_download"
-                  @click.prevent="fileDownload(r.image)"
-                  color="primary"
-                  round
-                  ><q-tooltip :delay="1000">download</q-tooltip></q-btn
-                >
-                <!--View-->
-                <q-btn
-                  icon="image"
-                  @click.prevent="fullScViewClick(r.image)"
-                  color="secondary"
-                  round
-                  ><q-tooltip :delay="1000">image view</q-tooltip></q-btn
-                >
-                <!--tweet <link-->
-                <q-btn
-                  icon="info"
-                  @click.prevent="pageOpenClick(r.url)"
-                  color="black"
-                  round
-                  ><q-tooltip :delay="1000">tweet link</q-tooltip></q-btn
-                >
-              </div>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </div>
 
     <!--View Modal-->
     <q-dialog
@@ -247,17 +256,6 @@
         </q-card-section>
       </q-card>
     </q-dialog>
-
-    <!--pagi-->
-    <div class="q-pt-md" v-if="dataState.totalPages > 1 && !isLoading">
-      <q-pagination
-        v-model="condition.pageNo"
-        :max="dataState.totalPages"
-        :max-pages="10"
-        @click="search()"
-        direction-links
-      />
-    </div>
   </q-page>
 </template>
 <script lang="ts">
@@ -385,13 +383,13 @@ export default defineComponent({
 /*　横幅900px以下の段組み設定　*/
 @media only screen and (max-width: 900px) {
   .gallery {
-    columns: 3;
+    columns: 2;
   }
 }
 
 @media only screen and (max-width: 768px) {
   .gallery {
-    columns: 2;
+    columns: 1;
   }
 }
 

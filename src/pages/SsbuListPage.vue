@@ -193,14 +193,7 @@ export default defineComponent({
 
     /*ちょうどいいくらいのページ数を取得 */
     const initTablePage = ref(100);
-    initTablePage.value = Math.floor((window.innerHeight * 0.8 - 166) / 51);
-    const pageOption = ref([10, 50, 100, 500] as number[]);
-    if (!pageOption.value.find((it) => it == initTablePage.value)) {
-      pageOption.value.push(initTablePage.value);
-      pageOption.value.sort((a, b) => a - b);
-    }
-
-    pageOption.value.push(0);
+    const pageOption = ref([100, 500, 0] as number[]);
 
     return {
       filter,
