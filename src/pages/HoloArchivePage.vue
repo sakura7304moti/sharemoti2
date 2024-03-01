@@ -54,7 +54,7 @@ export default defineComponent({
   },
   setup() {
     const store = useHoloArchiveStore();
-    const records = computed(() => store.pageRecords);
+    const records = computed(() => store.records);
     const playUrl = computed(() => store.playMovie);
     const isLoading = ref(false);
 

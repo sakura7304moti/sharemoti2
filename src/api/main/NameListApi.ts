@@ -72,6 +72,7 @@ interface SsbuName {
 interface SsbuNameResponse {
   name: string;
   url: string;
+  smallUrl: string;
 }
 
 export interface NameListRequest {

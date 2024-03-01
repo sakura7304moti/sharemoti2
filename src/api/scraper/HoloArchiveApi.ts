@@ -1,9 +1,9 @@
 import { ScraperAPIClient } from './ScraperBaseApi';
 export class HoloArchiveApi extends ScraperAPIClient {
-  public GetMovie(): Promise<MovieState | null> {
+  public SearchMovie(request: MovieSearchState): Promise<MovieState | null> {
     const url = '/holoArchive/search/movie';
     const path = this.combineUrl(url);
-    return this.httpGet<MovieState>(path);
+    return this.httpPost<MovieSearchState, MovieState>(path, request);
   }
 
   public GetChannel(): Promise<ChannelState | null> {
@@ -19,8 +19,19 @@ interface ChannelState {
   records: Array<Channel>;
 }
 
+interface MovieSearchState {
+  title: string;
+  fromDate: string;
+  toDate: string;
+  channelId: string;
+  movieType: string;
+  pageNo: number;
+  pageSize: number;
+}
+
 interface MovieState {
   records: Array<Movie>;
+  totalPages: number;
 }
 
 interface Movie {

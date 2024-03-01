@@ -5,7 +5,7 @@
     </q-avatar>
     <q-select
       v-model="selectedValue"
-      :options="channel.records"
+      :options="channel"
       option-value="channelId"
       option-label="channelName"
       emit-value
@@ -56,7 +56,7 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue';
-import { useHoloArchiveModel } from 'src/models/HoloArchivePageModels';
+import { useHoloArchiveStore } from 'src/stores/HoloArchiveStore';
 export default defineComponent({
   name: 'holo-channel-select',
   props: {
@@ -76,9 +76,10 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const { channel, getChannelState } = useHoloArchiveModel();
-    getChannelState();
+    const store = useHoloArchiveStore();
+    const channel = ref(store.channels);
 
+    store.getChannels();
     // selectedValueをmodelValueに反映
     const selectedValue = ref(props.modelValue);
     watch(selectedValue, (newValue) => {
@@ -89,15 +90,14 @@ export default defineComponent({
     watch(channel, (newOptions) => {
       // conditionが選択肢に含まれていない場合、最初の選択肢を選択
       if (
-        newOptions.records.filter((it) => it.channelId == props.modelValue)
-          .length == 0
+        newOptions.filter((it) => it.channelId == props.modelValue).length == 0
       ) {
         selectedValue.value = '';
       }
     });
 
     const selectAvatarUrl = computed(() => {
-      const items = channel.value.records.filter(
+      const items = channel.value.filter(
         (it) => it.channelId == selectedValue.value
       );
       if (items.length == 1) {
@@ -108,7 +108,7 @@ export default defineComponent({
     });
 
     const selectchannelName = computed(() => {
-      const items = channel.value.records.filter(
+      const items = channel.value.filter(
         (it) => it.channelId == selectedValue.value
       );
       if (items.length == 1) {

@@ -221,7 +221,8 @@ export default defineComponent({
     const search = function () {
       context.emit('search-start'); //検索開始したことを知らせる
 
-      store.filteringData();
+      store.getMovies();
+
       const element = document.getElementById('holo-archive-cards');
       element?.scroll({ top: 0 });
       context.emit('search-end'); //検索完了したことを知らせる
