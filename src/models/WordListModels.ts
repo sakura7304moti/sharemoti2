@@ -68,10 +68,10 @@ export function useWordListModel() {
     const inputDate = new Date(date);
 
     // 7時間後の日時
-    const resultDate = addHours(inputDate, 7);
+    //const resultDate = addHours(inputDate, 7);
 
     // yyyy-mm-ddの形式に変換
-    const resultString = formatDate(resultDate);
+    const resultString = formatDate(inputDate);
     return resultString;
   }
   const search = async function () {
