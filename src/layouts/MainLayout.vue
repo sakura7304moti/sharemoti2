@@ -21,14 +21,11 @@
           トップ
         </div>
         <!--各種ページ-->
-        <div
-          v-for="p in pages"
-          :key="p.id"
-          @mouseover="headerOpen(p.id)"
-          @click="headerOpen(p.id)"
-          class="nav-child"
-        >
-          <q-icon name="expand_more" />{{ p.title }}
+        <div v-for="p in pages" :key="p.id" class="nav-child">
+          <div @mouseover="headerOpen(p.id)" @click="headerOpen(p.id)">
+            <q-icon name="expand_more" />{{ p.title }}
+          </div>
+
           <div v-if="head.id == p.id">
             <div
               v-for="item in callPageList(p.id)"
@@ -51,7 +48,11 @@
         </div>
 
         <!--info-->
-        <div class="nav-child" @mouseover="headerOpen(4)">
+        <div
+          class="nav-child"
+          @mouseover="headerOpen(4)"
+          @click="headerOpen(4)"
+        >
           <q-icon name="expand_more" />その他
 
           <div
@@ -63,6 +64,22 @@
             @click="otherPageClick(item.url)"
           >
             <img :src="item.imgUrl" style="height: 32px" v-if="head.id == 4" />
+          </div>
+          <div
+            class="nav-child-page q-pa-sm"
+            :class="{ 'nav-child-select': head.id == 4 }"
+            style="width: 100px"
+            @click="
+              otherPageClick(
+                'https://www.youtube.com/playlist?list=PLbP5km9K7tgfHKxHvk9nOx7hcbLbnHSuS'
+              )
+            "
+          >
+            <img
+              src="../assets/youtube_icon.png"
+              style="height: 32px"
+              v-if="head.id == 4"
+            />
           </div>
         </div>
       </div>
@@ -136,6 +153,7 @@ export default defineComponent({
 
     const otherPageClick = function (url: string) {
       window.open(url);
+      headerClose();
     };
 
     return {
