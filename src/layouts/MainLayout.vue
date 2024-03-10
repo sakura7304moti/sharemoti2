@@ -68,15 +68,39 @@
             </div>
             <div v-if="head.id == 4">
               <div
-                v-for="item in otherPages"
-                :key="item.url"
                 class="nav-child-page q-pa-sm"
                 :class="{ 'nav-child-select': head.id == 4 }"
                 style="width: 100px"
-                @click="otherPageClick(item.url)"
+                @click="
+                  otherPageClick(
+                    'https://drive.google.com/drive/folders/1XSRGqBx5FeJaOSJj9UtF3e2M7S3Z3PsG?usp=sharing'
+                  )
+                "
               >
-                <img :src="item.imgUrl" style="height: 32px" />
+                <img
+                  src="../assets/google_drive_icon.png"
+                  style="height: 32px"
+                  v-if="head.id == 4"
+                />
               </div>
+
+              <div
+                class="nav-child-page q-pa-sm"
+                :class="{ 'nav-child-select': head.id == 4 }"
+                style="width: 100px"
+                @click="
+                  otherPageClick(
+                    'https://brindle-spring-0d6.notion.site/URL-2998ca28318d430cbdd7d5b7ad034ccf?pvs=4'
+                  )
+                "
+              >
+                <img
+                  src="../assets/notion_icon.png"
+                  style="height: 32px"
+                  v-if="head.id == 4"
+                />
+              </div>
+
               <div
                 class="nav-child-page q-pa-sm"
                 :class="{ 'nav-child-select': head.id == 4 }"
@@ -100,7 +124,7 @@
 
       <!--ヘッダー右側(スマホ用)-->
       <div
-        class="top-menu-button"
+        class="top-menu-button nav-top-mini"
         @click="menuView = !menuView"
         :class="{ active: menuView }"
       >
@@ -386,16 +410,123 @@ body {
   width: calc(100% - 300px);
   height: 100%;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .nav-top {
     display: none;
   }
-  .nav-top-mini {
-    display: block;
+}
+@media (max-width: 700px) {
+  /*========= ボタンのためのCSS ===============*/
+  .top-menu-button {
+    position: fixed;
+    z-index: 9999; /*ボタンを最前面に*/
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+  }
+
+  /*×に変化*/
+  .top-menu-button span {
+    display: inline-block;
+    transition: all 0.4s;
+    position: absolute;
+    left: 14px;
+    height: 3px;
+    border-radius: 2px;
+    background-color: #666;
+    width: 45%;
+  }
+
+  .top-menu-button span:nth-of-type(1) {
+    top: 15px;
+  }
+
+  .top-menu-button span:nth-of-type(2) {
+    top: 23px;
+  }
+
+  .top-menu-button span:nth-of-type(3) {
+    top: 31px;
+  }
+
+  .top-menu-button.active span:nth-of-type(1) {
+    top: 18px;
+    left: 18px;
+    transform: translateY(6px) rotate(-45deg);
+    width: 30%;
+  }
+
+  .top-menu-button.active span:nth-of-type(2) {
+    opacity: 0;
+  }
+
+  .top-menu-button.active span:nth-of-type(3) {
+    top: 30px;
+    left: 18px;
+    transform: translateY(-6px) rotate(45deg);
+    width: 30%;
   }
 }
-.nav-top-mini {
-  display: none;
+/*========= ナビゲーションのためのCSS ===============*/
+
+#g-nav {
+  /*position:fixed;にし、z-indexの数値を大きくして前面へ*/
+  position: fixed;
+  z-index: 2;
+  /*ナビのスタート位置と形状*/
+  top: -120%;
+  left: 0;
+  width: 100%;
+  height: 100vh; /*ナビの高さ*/
+  background: #bdbbbb;
+  /*動き*/
+  transition: all 0.6s;
+  overflow-y: scroll;
+}
+
+/*アクティブクラスがついたら位置を0に*/
+#g-nav.panelactive {
+  top: 0;
+}
+
+/*ナビゲーションの縦スクロール*/
+#g-nav.panelactive #g-nav-list {
+  /*ナビの数が増えた場合縦スクロール*/
+  position: fixed;
+  width: 100%;
+  height: 100vh; /*表示する高さ*/
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+/*ナビゲーション*/
+#g-nav ul {
+  /*ナビゲーション天地中央揃え*/
+  position: absolute;
+  z-index: 999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*リストのレイアウト設定*/
+
+#g-nav li {
+  list-style: none;
+  text-align: center;
+  z-index: 10;
+}
+
+#g-nav li a {
+  color: rgb(51, 51, 51);
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: bold;
 }
 .nav-child {
   color: #333;
@@ -468,116 +599,5 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-}
-/*========= ボタンのためのCSS ===============*/
-.top-menu-button {
-  position: fixed;
-  z-index: 9999; /*ボタンを最前面に*/
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-}
-
-/*×に変化*/
-.top-menu-button span {
-  display: inline-block;
-  transition: all 0.4s;
-  position: absolute;
-  left: 14px;
-  height: 3px;
-  border-radius: 2px;
-  background-color: #666;
-  width: 45%;
-}
-
-.top-menu-button span:nth-of-type(1) {
-  top: 15px;
-}
-
-.top-menu-button span:nth-of-type(2) {
-  top: 23px;
-}
-
-.top-menu-button span:nth-of-type(3) {
-  top: 31px;
-}
-
-.top-menu-button.active span:nth-of-type(1) {
-  top: 18px;
-  left: 18px;
-  transform: translateY(6px) rotate(-45deg);
-  width: 30%;
-}
-
-.top-menu-button.active span:nth-of-type(2) {
-  opacity: 0;
-}
-
-.top-menu-button.active span:nth-of-type(3) {
-  top: 30px;
-  left: 18px;
-  transform: translateY(-6px) rotate(45deg);
-  width: 30%;
-}
-/*========= ナビゲーションのためのCSS ===============*/
-
-#g-nav {
-  /*position:fixed;にし、z-indexの数値を大きくして前面へ*/
-  position: fixed;
-  z-index: 2;
-  /*ナビのスタート位置と形状*/
-  top: -120%;
-  left: 0;
-  width: 100%;
-  height: 100vh; /*ナビの高さ*/
-  background: #bdbbbb;
-  /*動き*/
-  transition: all 0.6s;
-  overflow-y: scroll;
-}
-
-/*アクティブクラスがついたら位置を0に*/
-#g-nav.panelactive {
-  top: 0;
-}
-
-/*ナビゲーションの縦スクロール*/
-#g-nav.panelactive #g-nav-list {
-  /*ナビの数が増えた場合縦スクロール*/
-  position: fixed;
-  width: 100%;
-  height: 100vh; /*表示する高さ*/
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-}
-
-/*ナビゲーション*/
-#g-nav ul {
-  /*ナビゲーション天地中央揃え*/
-  position: absolute;
-  z-index: 999;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/*リストのレイアウト設定*/
-
-#g-nav li {
-  list-style: none;
-  text-align: center;
-  z-index: 10;
-}
-
-#g-nav li a {
-  color: rgb(51, 51, 51);
-  text-decoration: none;
-  padding: 10px;
-  display: block;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: bold;
 }
 </style>
