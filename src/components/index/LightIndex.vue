@@ -20,8 +20,6 @@
             <q-btn
               :label="state.title"
               align="left"
-              text-color="black"
-              color="green-2"
               class="light-index-item"
               flat
             >
@@ -48,8 +46,6 @@
             <q-btn
               :label="state.title"
               align="left"
-              text-color="black"
-              color="blue-2"
               class="light-index-item"
               flat
             >
@@ -76,8 +72,6 @@
             <q-btn
               :label="state.title"
               align="left"
-              text-color="black"
-              color="yellow-2"
               class="light-index-item"
               flat
             >
@@ -195,6 +189,6 @@ interface PageState {
   text-decoration: none;
   font-weight: 600;
   padding: 0 14px;
-  color: black;
+  color: #333;
 }
 </style>
