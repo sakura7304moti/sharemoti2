@@ -1,5 +1,5 @@
 <template>
-  <q-btn icon="settings" @click.prevent="dialogView = true" />
+  <q-btn icon="settings" @click.prevent="dialogView = true" round />
   <q-dialog v-model="dialogView" position="top">
     <q-card>
       <q-card-section>

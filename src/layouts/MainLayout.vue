@@ -1,90 +1,168 @@
 <template>
   <q-layout>
-    <!--ヘッダー-->
-    <div
-      style="height: 60px; padding-top: 16px; padding-left: 24px; display: flex"
-    >
-      <!--ヘッダーの左側-->
-      <div style="font-size: 20px; font-weight: 500; width: 300px">
-        韓国の<br />おばあちゃんち
-      </div>
-
-      <!--ヘッダーの右側-->
-      <div class="nav-top">
+    <q-header style="background-color: rgba(0, 0, 0, 0)">
+      <!--ヘッダー-->
+      <div
+        style="
+          height: 60px;
+          padding-top: 16px;
+          padding-left: 24px;
+          display: flex;
+        "
+      >
+        <!--ヘッダーの左側-->
         <div
-          @click.prevent="
-            router.replace('/');
-            headerClose();
+          style="
+            font-size: 20px;
+            font-weight: 500;
+            width: 300px;
+            color: rgb(51, 51, 51);
           "
-          class="nav-child"
+          class="fadeDown"
         >
-          トップ
+          韓国の<br />おばあちゃんち
         </div>
-        <!--各種ページ-->
-        <div v-for="p in pages" :key="p.id" class="nav-child">
-          <div @mouseover="headerOpen(p.id)" @click="headerOpen(p.id)">
-            <q-icon name="expand_more" />{{ p.title }}
-          </div>
 
-          <div v-if="head.id == p.id">
-            <div
-              v-for="item in callPageList(p.id)"
-              :key="item.url"
-              class="nav-child-page"
-              :class="{ 'nav-child-select': head.id == p.id }"
-            >
+        <!--ヘッダーの右側(PC用)-->
+        <div class="nav-top fadeRight">
+          <div
+            @click.prevent="
+              router.replace('/');
+              headerClose();
+            "
+            class="nav-child"
+          >
+            トップ
+          </div>
+          <!--各種ページ-->
+          <div v-for="p in pages" :key="p.id" class="nav-child">
+            <div @mouseover="headerOpen(p.id)" @click="headerOpen(p.id)">
+              <q-icon name="expand_more" />{{ p.title }}
+            </div>
+
+            <div v-if="head.id == p.id">
               <div
-                @click="
-                  router.replace(item.url);
-                  headerClose();
-                "
+                v-for="item in callPageList(p.id)"
+                :key="item.url"
+                class="nav-child-page"
+                :class="{ 'nav-child-select': head.id == p.id }"
               >
-                <div class="q-pa-sm">
-                  {{ item.title }}
+                <div
+                  @click="
+                    router.replace(item.url);
+                    headerClose();
+                  "
+                >
+                  <div class="q-pa-sm">
+                    {{ item.title }}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!--info-->
-        <div
-          class="nav-child"
-          @mouseover="headerOpen(4)"
-          @click="headerOpen(4)"
-        >
-          <q-icon name="expand_more" />その他
-
-          <div
-            v-for="item in otherPages"
-            :key="item.url"
-            class="nav-child-page q-pa-sm"
-            :class="{ 'nav-child-select': head.id == 4 }"
-            style="width: 100px"
-            @click="otherPageClick(item.url)"
-          >
-            <img :src="item.imgUrl" style="height: 32px" v-if="head.id == 4" />
-          </div>
-          <div
-            class="nav-child-page q-pa-sm"
-            :class="{ 'nav-child-select': head.id == 4 }"
-            style="width: 100px"
-            @click="
-              otherPageClick(
-                'https://www.youtube.com/playlist?list=PLbP5km9K7tgfHKxHvk9nOx7hcbLbnHSuS'
-              )
-            "
-          >
-            <img
-              src="../assets/youtube_icon.png"
-              style="height: 32px"
-              v-if="head.id == 4"
-            />
+          <!--info-->
+          <div class="nav-child">
+            <div @mouseover="headerOpen(4)" @click="headerOpen(4)">
+              <q-icon name="expand_more" />その他
+            </div>
+            <div v-if="head.id == 4">
+              <div
+                v-for="item in otherPages"
+                :key="item.url"
+                class="nav-child-page q-pa-sm"
+                :class="{ 'nav-child-select': head.id == 4 }"
+                style="width: 100px"
+                @click="otherPageClick(item.url)"
+              >
+                <img :src="item.imgUrl" style="height: 32px" />
+              </div>
+              <div
+                class="nav-child-page q-pa-sm"
+                :class="{ 'nav-child-select': head.id == 4 }"
+                style="width: 100px"
+                @click="
+                  otherPageClick(
+                    'https://www.youtube.com/playlist?list=PLbP5km9K7tgfHKxHvk9nOx7hcbLbnHSuS'
+                  )
+                "
+              >
+                <img
+                  src="../assets/youtube_icon.png"
+                  style="height: 32px"
+                  v-if="head.id == 4"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
+      <!--ヘッダー右側(スマホ用)-->
+      <div
+        class="top-menu-button"
+        @click="menuView = !menuView"
+        :class="{ active: menuView }"
+      >
+        <span> </span><span> </span><span></span>
+      </div>
+    </q-header>
+
+    <nav id="g-nav" :class="{ panelactive: menuView }">
+      <div id="g-nav-list">
+        <ul>
+          <li>
+            <a
+              href="#"
+              @click.prevent="
+                router.replace('/');
+                menuView = false;
+              "
+            >
+              トップに戻る
+            </a>
+          </li>
+          <q-separator style="padding-top: 2px" />
+          <li v-for="item in callPageList(1)" :key="item.url">
+            <a
+              href="#"
+              @click.prevent="
+                router.replace(item.url);
+                menuView = false;
+              "
+            >
+              {{ item.title }}
+            </a>
+          </li>
+          <q-separator style="padding-top: 2px" />
+
+          <li v-for="item in callPageList(2)" :key="item.url">
+            <a
+              href="#"
+              @click.prevent="
+                router.replace(item.url);
+                menuView = false;
+              "
+            >
+              {{ item.title }}
+            </a>
+          </li>
+          <q-separator style="padding-top: 2px" />
+
+          <li v-for="item in callPageList(3)" :key="item.url">
+            <a
+              href="#"
+              @click.prevent="
+                router.replace(item.url);
+                menuView = false;
+              "
+            >
+              {{ item.title }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
     <!--ページ-->
     <q-page-container style="position: relative" @click="headerClose()">
       <router-view class="q-pa-md" />
@@ -93,37 +171,18 @@
 </template>
 
 <script lang="ts">
-import PageSetting, { Setting } from 'src/components/PageSetting.vue';
-import MainDrawer from 'src/components/drawer/MainDrawer.vue';
-import LightDrawer from 'src/components/drawer/LightDrawer.vue';
-import { LocalStrageObject } from 'src/utils/localStrageSupport';
 import { computed, defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { createPinia, setActivePinia } from 'pinia';
 
 export default defineComponent({
   name: 'MainLayout',
-  components: {
-    //'page-settings': PageSetting,
-    //'main-drawer': MainDrawer,
-    //'light-drawer': LightDrawer,
-  },
 
   setup() {
     const opened = ref(false);
     setActivePinia(createPinia());
     const leftDrawerOpen = computed(() => opened.value);
     const router = useRouter();
-    const model = new LocalStrageObject();
-    const setting = ref({
-      indexType: 'default',
-      drawerType: 'default',
-    } as Setting);
-
-    const getValue = model.getterValue<Setting>('page-setting');
-    if (getValue) {
-      setting.value = getValue;
-    }
 
     const head = ref({
       id: 0,
@@ -162,7 +221,6 @@ export default defineComponent({
         opened.value = !opened.value;
       },
       router,
-      setting,
       head,
       headerOpen,
       headerClose,
@@ -171,6 +229,7 @@ export default defineComponent({
       pages,
       otherPages,
       otherPageClick,
+      menuView: ref(false),
     };
   },
 });
@@ -327,6 +386,17 @@ body {
   width: calc(100% - 300px);
   height: 100%;
 }
+@media (max-width: 600px) {
+  .nav-top {
+    display: none;
+  }
+  .nav-top-mini {
+    display: block;
+  }
+}
+.nav-top-mini {
+  display: none;
+}
 .nav-child {
   color: #333;
   text-decoration: none;
@@ -356,5 +426,158 @@ body {
   width: 160px;
   cursor: pointer;
 }
-/*animation */
+/* 右から */
+
+.fadeRight {
+  animation-name: fadeRightAnime;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  z-index: 2;
+}
+
+@keyframes fadeRightAnime {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+    z-index: 2;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 2;
+  }
+}
+/* 上から */
+
+.fadeDown {
+  animation-name: fadeDownAnime;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes fadeDownAnime {
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/*========= ボタンのためのCSS ===============*/
+.top-menu-button {
+  position: fixed;
+  z-index: 9999; /*ボタンを最前面に*/
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
+
+/*×に変化*/
+.top-menu-button span {
+  display: inline-block;
+  transition: all 0.4s;
+  position: absolute;
+  left: 14px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: #666;
+  width: 45%;
+}
+
+.top-menu-button span:nth-of-type(1) {
+  top: 15px;
+}
+
+.top-menu-button span:nth-of-type(2) {
+  top: 23px;
+}
+
+.top-menu-button span:nth-of-type(3) {
+  top: 31px;
+}
+
+.top-menu-button.active span:nth-of-type(1) {
+  top: 18px;
+  left: 18px;
+  transform: translateY(6px) rotate(-45deg);
+  width: 30%;
+}
+
+.top-menu-button.active span:nth-of-type(2) {
+  opacity: 0;
+}
+
+.top-menu-button.active span:nth-of-type(3) {
+  top: 30px;
+  left: 18px;
+  transform: translateY(-6px) rotate(45deg);
+  width: 30%;
+}
+/*========= ナビゲーションのためのCSS ===============*/
+
+#g-nav {
+  /*position:fixed;にし、z-indexの数値を大きくして前面へ*/
+  position: fixed;
+  z-index: 2;
+  /*ナビのスタート位置と形状*/
+  top: -120%;
+  left: 0;
+  width: 100%;
+  height: 100vh; /*ナビの高さ*/
+  background: #bdbbbb;
+  /*動き*/
+  transition: all 0.6s;
+  overflow-y: scroll;
+}
+
+/*アクティブクラスがついたら位置を0に*/
+#g-nav.panelactive {
+  top: 0;
+}
+
+/*ナビゲーションの縦スクロール*/
+#g-nav.panelactive #g-nav-list {
+  /*ナビの数が増えた場合縦スクロール*/
+  position: fixed;
+  width: 100%;
+  height: 100vh; /*表示する高さ*/
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+/*ナビゲーション*/
+#g-nav ul {
+  /*ナビゲーション天地中央揃え*/
+  position: absolute;
+  z-index: 999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*リストのレイアウト設定*/
+
+#g-nav li {
+  list-style: none;
+  text-align: center;
+  z-index: 10;
+}
+
+#g-nav li a {
+  color: rgb(51, 51, 51);
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+}
 </style>
