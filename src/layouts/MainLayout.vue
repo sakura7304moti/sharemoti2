@@ -117,6 +117,19 @@
                   v-if="head.id == 4"
                 />
               </div>
+
+              <div
+                class="nav-child-page q-pa-sm"
+                :class="{ 'nav-child-select': head.id == 4 }"
+                style="width: 100px"
+                @click="otherPageClick(nextcloudUrl)"
+              >
+                <img
+                  src="../assets/nextcloud_icon.png"
+                  style="height: 32px"
+                  v-if="head.id == 4"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -232,7 +245,7 @@ export default defineComponent({
     };
 
     /*page */
-    const { callPageList, pages, otherPages } = usePage();
+    const { callPageList, pages, nextcloudUrl } = usePage();
 
     const otherPageClick = function (url: string) {
       window.open(url);
@@ -251,9 +264,9 @@ export default defineComponent({
       headerClick,
       callPageList,
       pages,
-      otherPages,
       otherPageClick,
       menuView: ref(false),
+      nextcloudUrl,
     };
   },
 });
@@ -268,10 +281,6 @@ interface head {
 interface PageState {
   title: string;
   url: string;
-}
-interface PageOtherState {
-  url: string;
-  imgUrl: string;
 }
 
 /*page function */
@@ -353,17 +362,6 @@ function usePage() {
     },
   ] as PageState[]);
 
-  const otherPages = ref([
-    {
-      imgUrl: 'src/assets/google_drive_icon.png',
-      url: 'https://drive.google.com/drive/folders/1XSRGqBx5FeJaOSJj9UtF3e2M7S3Z3PsG?usp=sharing',
-    },
-    {
-      imgUrl: 'src/assets/notion_icon.png',
-      url: 'https://brindle-spring-0d6.notion.site/URL-2998ca28318d430cbdd7d5b7ad034ccf?pvs=4',
-    },
-  ] as PageOtherState[]);
-
   function callPageList(no: number) {
     if (no == 1) return mainPages.value;
     if (no == 2) return filePages.value;
@@ -386,7 +384,14 @@ function usePage() {
     },
   ] as headItem[]);
 
-  return { pages, otherPages, callPageList };
+  const nextcloudUrl = computed(() => {
+    const url = window.location.href; // 現在の URL を取得
+    const parsedUrl = new URL(url);
+    const baseUrl = `${parsedUrl.protocol}//${parsedUrl.host}`; // プロトコルとホスト名を組み合わせる
+    return baseUrl.replace('/#/', '').replace(':9000', '') + ':1000';
+  });
+
+  return { pages, callPageList, nextcloudUrl };
 }
 </script>
 <style>
