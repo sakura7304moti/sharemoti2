@@ -64,21 +64,28 @@
     <template v-slot:header="props">
       <q-tr :props="props">
         <q-th v-if="detailEditLock == false"> 編集 </q-th>
-        <q-th v-for="col in props.cols" :key="col.name" :props="props">
-          <div
-            v-if="col.label == '名言' || col.label == '詳細'"
-            class="table-base-main-column"
-          >
+        <!-- head main-->
+        <q-th
+          v-for="col in props.cols"
+          :key="col.name"
+          :props="props"
+          class="pc-content"
+        >
+          <div v-if="col.label == '名言' || col.label == '詳細'">
             {{ col.label }}
           </div>
           <div
             v-if="
               col.label == '作成日' || col.label == '更新日' || col.label == ''
             "
-            class="table-base-sub-column"
           >
             {{ col.label }}
           </div>
+        </q-th>
+        <!--head sub-->
+        <q-th class="android-content" :props="props"> 名言 </q-th>
+        <q-th class="android-content" style="width: 100px" :props="props">
+          最終更新日
         </q-th>
       </q-tr>
     </template>
@@ -95,13 +102,47 @@
             ><q-icon name="edit_note" color="secondary" size="md"></q-icon
           ></a>
         </q-td>
+        <!--pc表示-->
         <q-td
           v-for="col in props.cols"
           :key="col.name"
           :props="props"
           style="text-align: left; white-space: pre-wrap; word-wrap: break-word"
+          class="pc-content"
         >
           {{ col.value }}
+        </q-td>
+
+        <!--スマホ表示-->
+        <q-td
+          style="text-align: left; white-space: pre-wrap; word-wrap: break-word"
+          class="android-content"
+        >
+          <div style="font-size: 16px">
+            {{ props.cols[0].value }}
+          </div>
+
+          <div
+            style="
+              padding: 0.5em 0.5em;
+              margin: 1em 0;
+              font-weight: bold;
+              color: #6091d3; /*文字色*/
+              background: #fff;
+              border: solid 3px #6091d3; /*線*/
+              border-radius: 10px; /*角の丸み*/
+            "
+            v-if="props.cols[1].value != ''"
+          >
+            {{ props.cols[1].value }}
+          </div>
+        </q-td>
+        <q-td class="android-content">
+          {{
+            props.cols[2].value >= props.cols[3].value
+              ? props.cols[2].value
+              : props.cols[3].value
+          }}
         </q-td>
       </q-tr>
     </template>
