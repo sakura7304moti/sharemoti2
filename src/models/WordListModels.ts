@@ -50,12 +50,66 @@ export function useWordListModel() {
   const detailEditLock = ref(true);
   const records = ref([] as DataState[]);
 
+  /*SORT */
+  const wordSortState = ref('');
+  const wordSort = function () {
+    //言葉の昇順 -> 降順 -> デフォルトの繰り返し
+    //日付のソートはリセットする
+    if (wordSortState.value == '') {
+      dateSortState.value = '';
+      records.value.sort(compare);
+      wordSortState.value = 'up';
+    } else if (wordSortState.value == 'up') {
+      dateSortState.value = '';
+      records.value.sort(compareDown);
+      wordSortState.value = 'down';
+    } else if (wordSortState.value == 'down') {
+      dateSortState.value = '';
+      records.value.sort(compare);
+      wordSortState.value = '';
+    }
+
+    function compare(a: DataState, b: DataState) {
+      return a.word >= b.word ? 1 : -1;
+    }
+
+    function compareDown(a: DataState, b: DataState) {
+      return a.word >= b.word ? -1 : 1;
+    }
+  };
+
+  const dateSortState = ref('');
+  const dateSort = function () {
+    //言葉の昇順 -> 降順 -> デフォルトの繰り返し
+    //言葉のソートはリセットする
+    if (dateSortState.value == '') {
+      wordSortState.value = '';
+      records.value.sort(compare);
+      dateSortState.value = 'up';
+    } else if (dateSortState.value == 'up') {
+      wordSortState.value = '';
+      records.value.sort(compareDown);
+      dateSortState.value = 'down';
+    } else if (dateSortState.value == 'down') {
+      wordSortState.value = '';
+      records.value.sort(compare);
+      dateSortState.value = '';
+    }
+
+    function compare(a: DataState, b: DataState) {
+      const date1 = a.createAt >= a.updateAt ? a.createAt : a.updateAt;
+      const date2 = b.createAt >= b.updateAt ? b.createAt : b.updateAt;
+      return date1 >= date2 ? 1 : -1;
+    }
+
+    function compareDown(a: DataState, b: DataState) {
+      const date1 = a.createAt >= a.updateAt ? a.createAt : a.updateAt;
+      const date2 = b.createAt >= b.updateAt ? b.createAt : b.updateAt;
+      return date1 >= date2 ? -1 : 1;
+    }
+  };
+
   /*SELECT */
-  function addHours(date: Date, hours: number): Date {
-    const result = new Date(date);
-    result.setHours(result.getHours() + hours);
-    return result;
-  }
 
   function formatDate(date: Date): string {
     const year = date.getFullYear();
@@ -103,7 +157,7 @@ export function useWordListModel() {
         quasar.notify({
           color: 'red',
           position: 'top',
-          message: 'データの取得に失敗しました',
+          message: 'データの取得に失敗...',
         });
       });
     isLoading.value = false;
@@ -155,7 +209,7 @@ export function useWordListModel() {
               quasar.notify({
                 color: 'blue',
                 position: 'top',
-                message: '追加完了しました',
+                message: '追加したわよっ！',
               });
               sortRecords();
               //saveModalShow.value = false;
@@ -169,7 +223,7 @@ export function useWordListModel() {
           quasar.notify({
             color: 'red',
             position: 'top',
-            message: 'データの取得に失敗しました',
+            message: 'データの取得に失敗...',
           });
         });
       isSaveLoading.value = false;
@@ -208,7 +262,7 @@ export function useWordListModel() {
               quasar.notify({
                 color: 'blue',
                 position: 'top',
-                message: '更新完了しました',
+                message: '更新した！',
               });
               editModalShow.value = false;
             }
@@ -220,7 +274,7 @@ export function useWordListModel() {
           quasar.notify({
             color: 'red',
             position: 'top',
-            message: 'データの取得に失敗しました',
+            message: 'データの取得に失敗...',
           });
         });
       isSaveLoading.value = false;
@@ -247,7 +301,7 @@ export function useWordListModel() {
             quasar.notify({
               color: 'blue',
               position: 'top',
-              message: '削除完了しました',
+              message: '消したでぇ',
             });
             const index = records.value.findIndex((it) => it.word == word);
             records.value.splice(index, 1);
@@ -260,7 +314,7 @@ export function useWordListModel() {
             quasar.notify({
               color: 'red',
               position: 'top',
-              message: 'データの削除に失敗しました',
+              message: 'データの削除に失敗...',
             });
           }
         }
@@ -297,6 +351,11 @@ export function useWordListModel() {
     updateErr,
     deleteCheckModalShow,
     columns,
+    /*sort */
+    wordSortState,
+    wordSort,
+    dateSortState,
+    dateSort,
   };
 }
 

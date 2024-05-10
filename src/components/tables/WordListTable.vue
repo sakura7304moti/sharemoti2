@@ -83,9 +83,15 @@
           </div>
         </q-th>
         <!--head sub-->
-        <q-th class="android-content" :props="props"> 名言 </q-th>
-        <q-th class="android-content" style="width: 100px" :props="props">
+        <q-th class="android-content" @click="wordSort">
+          名言
+          <q-icon v-if="wordSortState == 'up'" name="arrow_upward" />
+          <q-icon v-if="wordSortState == 'down'" name="arrow_downward" />
+        </q-th>
+        <q-th class="android-content" style="width: 100px" @click="dateSort">
           最終更新日
+          <q-icon v-if="dateSortState == 'up'" name="arrow_upward" />
+          <q-icon v-if="dateSortState == 'down'" name="arrow_downward" />
         </q-th>
       </q-tr>
     </template>
@@ -118,7 +124,7 @@
           style="text-align: left; white-space: pre-wrap; word-wrap: break-word"
           class="android-content"
         >
-          <div style="font-size: 16px">
+          <div style="font-size: 16px; font-weight: 600">
             {{ props.cols[0].value }}
           </div>
 
@@ -127,10 +133,11 @@
               padding: 0.5em 0.5em;
               margin: 1em 0;
               font-weight: bold;
-              color: #6091d3; /*文字色*/
+              color: rgb(51, 51, 51); /*文字色*/
               background: #fff;
-              border: solid 3px #6091d3; /*線*/
+              border: solid 1px rgb(182, 200, 155); /*線*/
               border-radius: 10px; /*角の丸み*/
+              font-weight: 400;
             "
             v-if="props.cols[1].value != ''"
           >
@@ -358,6 +365,11 @@ export default defineComponent({
       updateErr,
       deleteCheckModalShow,
       columns,
+      /*sort */
+      wordSortState,
+      wordSort,
+      dateSortState,
+      dateSort,
     } = useWordListModel();
     search();
 
@@ -391,6 +403,11 @@ export default defineComponent({
       updateErr,
       deleteCheckModalShow,
       columns,
+      /*sort */
+      wordSortState,
+      wordSort,
+      dateSortState,
+      dateSort,
     };
   },
 });
