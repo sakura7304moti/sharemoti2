@@ -71,13 +71,17 @@
           :props="props"
           class="pc-content"
         >
-          <div v-if="col.label == '名言' || col.label == '詳細'">
+          <div
+            v-if="col.label == '名言' || col.label == '詳細'"
+            style="width: 200px"
+          >
             {{ col.label }}
           </div>
           <div
             v-if="
               col.label == '作成日' || col.label == '更新日' || col.label == ''
             "
+            style="width: 100px"
           >
             {{ col.label }}
           </div>
