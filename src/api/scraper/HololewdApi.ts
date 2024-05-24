@@ -1,17 +1,11 @@
-import {  PageResult } from '../BaseApi';
-import { ScraperAPIClient } from "./ScraperBaseApi";
+import { ScraperAPIClient } from './ScraperBaseApi';
 
 export class HololewdApi extends ScraperAPIClient {
-  public search(
-    request: HololewdRequest
-  ): Promise<PageResult<HololewdResponse> | null> {
+  public search(request: HololewdRequest): Promise<HololewdResponse | null> {
     const url = '/hololewd/search';
     const path = this.combineUrl(url);
 
-    return this.httpPost<HololewdRequest, PageResult<HololewdResponse>>(
-      path,
-      request
-    );
+    return this.httpPost<HololewdRequest, HololewdResponse>(path, request);
   }
 
   public holoList(): Promise<Array<string> | null> {
@@ -29,20 +23,18 @@ export default api;
  *interfaces
  */
 export interface HololewdRequest {
-  page_no: number | null;
-  page_size: number | null;
-  full_name: string | null;
-  first_name: string | null;
-  last_name: string | null;
-  min_like: number | null;
-  max_like: number | null;
+  pageNo: number;
+  pageSize: number;
+  flairText: string;
+  minScore: number;
 }
 export interface HololewdResponse {
-  fullName: string;
-  firstName: string;
-  lastName: string;
+  records: HololewdRec[];
+  totalPages: number;
+}
+export interface HololewdRec {
+  flairText: string;
   url: string;
-  images: Array<string>;
-  videos: Array<string>;
-  vote: number;
+  date: string;
+  score: number;
 }

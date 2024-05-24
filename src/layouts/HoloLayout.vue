@@ -103,6 +103,10 @@ export default defineComponent({
         title: 'twitter',
       },
       {
+        url: '/hololewd',
+        title: 'reddit',
+      },
+      {
         url: '/holosong',
         title: 'cover song',
       },

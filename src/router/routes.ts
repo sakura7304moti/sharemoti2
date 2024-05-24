@@ -134,30 +134,16 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/hololewd',
+    component: () => import('layouts/HoloLayout.vue'),
+    children: [{ path: '', component: () => import('pages/HololewdPage.vue') }],
+  },
+  {
     path: '/test',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/ComponentTestPage.vue') },
     ],
-  },
-
-  /*Scraper */
-  {
-    path: '/scraper/',
-    component: () => import('layouts/ScraperLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/ScraperIndexPage.vue') },
-    ],
-  },
-  {
-    path: '/scraper/twitter',
-    component: () => import('layouts/ScraperLayout.vue'),
-    children: [{ path: '', component: () => import('pages/TwitterPage.vue') }],
-  },
-  {
-    path: '/scraper/hololewd',
-    component: () => import('layouts/ScraperLayout.vue'),
-    children: [{ path: '', component: () => import('pages/HololewdPage.vue') }],
   },
 
   // Always leave this as last one,

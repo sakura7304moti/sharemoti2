@@ -5,7 +5,7 @@ export class APIClient {
   public route = useRoute();
 
   public apiEndpoint = function () {
-    const path = location.origin.replace(':9000', ''); //http:xxx
+    const path = location.origin.replace(':9000', '').replace(':2000', ''); //http:xxx
     return path + ':5000';
   };
   public config = {

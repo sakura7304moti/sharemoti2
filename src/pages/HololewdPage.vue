@@ -1,25 +1,27 @@
 <template>
   <q-page class="">
-    <div class="text-h5 q-pb-md">Hololewd Scraper</div>
+    <div class="text-h5 q-pb-sm">Hololewd(R18)</div>
     <!--入力フォーム-->
-    <div class="row q-gutter-md">
+    <div class="row q-gutter-md" style="width: 100%">
       <q-select
-        label="fullNames"
-        v-model="condition.fullName"
+        label="name"
+        v-model="condition.flairText"
         :options="holoList"
         class="form-model"
         dense
         stack-label
         clearable
+        style="width: 50%; max-width: 200px"
       />
       <q-select
-        label="min like"
-        v-model="condition.minLike"
+        label="min♡"
+        v-model="condition.minScore"
         :options="selectItems"
         class="form-model"
         emit-value
         map-options
         dense
+        style="width: 20%; max-width: 100px"
       />
     </div>
 
@@ -33,95 +35,37 @@
         @click="search"
         :loading="isLoading"
       />
-    </div>
-
-    <!--pagi-->
-    <div class="q-pt-sm" v-if="dataState.totalPages > 1">
       <q-pagination
         v-model="condition.pageNo"
         :max="dataState.totalPages"
-        :max-pages="10"
+        direction-links
+        input
+        :max-pages="3"
         @click="search()"
+        v-if="!isLoading && dataState.records.length > 0"
       />
-      <hr />
     </div>
 
-    <!--gallery-->
-    <div class="q-pt-md">
-      <ul class="gallery q-pt-md">
-        <li v-for="r in dataState.records" :key="r.image">
-          <a
-            :href="r.image"
-            @click.prevent.stop="r.displayMenu = !r.displayMenu"
-            class="image-container"
-            :class="{
-              'image-selected': r.displayMenu,
-            }"
-          >
-            <img :src="r.image" />
-            <div class="button-overlay" v-if="r.displayMenu">
-              <div class="row q-gutter-md button">
-                <!--Download-->
-                <q-btn
-                  icon="file_download"
-                  @click.prevent="imageDownload(r.image)"
-                  color="primary"
-                  round
-                  ><q-tooltip :delay="1000">download</q-tooltip></q-btn
-                >
-                <!--View-->
-                <q-btn
-                  icon="image"
-                  @click.prevent="fullScViewClick(r.image)"
-                  color="secondary"
-                  round
-                  ><q-tooltip :delay="1000">image view</q-tooltip></q-btn
-                >
-              </div>
-            </div>
-          </a>
-        </li>
-      </ul>
+    <div v-for="(rec, idx) in dataState.records" :key="idx">
+      <div v-for="img in rec.images" :key="img">
+        <q-card
+          style="max-width: 600px; height: auto; width: 100%; margin-top: 16px"
+        >
+          <img :src="img" />
+        </q-card>
+      </div>
     </div>
-
-    <!--View Modal-->
-    <q-dialog
-      v-model="fullSc"
-      persistent
-      full-height
-      full-width
-      transition-show="slide-up"
-      transition-hide="slide-down"
-    >
-      <q-card>
-        <q-card-section>
-          <q-bar>
-            <q-btn
-              dense
-              flat
-              icon="close"
-              v-close-popup
-              style="margin-left: auto"
-            >
-              <q-tooltip class="bg-white text-primary">Close</q-tooltip>
-            </q-btn>
-          </q-bar>
-          <img :src="fullScreenViewUrl" :height="pageHeight" />
-        </q-card-section>
-      </q-card>
-    </q-dialog>
 
     <!--pagi-->
-    <div class="q-pt-md" v-if="dataState.totalPages > 1 && !isLoading">
-      <hr />
-
+    <div class="q-pt-md" v-if="!isLoading && dataState.records.length > 0">
       <q-pagination
         v-model="condition.pageNo"
         :max="dataState.totalPages"
-        :max-pages="10"
+        direction-links
+        input
+        :max-pages="3"
         @click="search()"
       />
-      <hr />
     </div>
   </q-page>
 </template>

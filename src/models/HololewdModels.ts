@@ -1,5 +1,5 @@
 import { useQuasar } from 'quasar';
-import api, { HololewdRequest } from 'src/api/scraper/HololewdApi';
+import api from 'src/api/scraper/HololewdApi';
 import { selectItem } from 'src/types/selectorType';
 import { ref } from 'vue';
 
@@ -9,20 +9,15 @@ export function useHololewdModel() {
   const condition = ref({
     pageNo: 1,
     pageSize: 20,
-    fullName: '',
-    firstName: '',
-    lastName: '',
-    minLike: 0,
-    maxLike: 0,
+    flairText: '',
+    minScore: 1000,
   } as ConditionState);
+
   const fetchedCondition = ref({
     pageNo: 1,
     pageSize: 20,
-    fullName: '',
-    firstName: '',
-    lastName: '',
-    minLike: 0,
-    maxLike: 0,
+    flairText: '',
+    minScore: 1000,
   } as ConditionState);
 
   const dataState = ref({
@@ -38,10 +33,6 @@ export function useHololewdModel() {
     {
       label: '100',
       value: 100,
-    },
-    {
-      label: '500',
-      value: 500,
     },
     {
       label: '1000',
@@ -89,19 +80,10 @@ export function useHololewdModel() {
   const isLoading = ref(false);
   //検索条件変わっていたらページを1にする
   const compareCondition = function () {
-    if (condition.value.fullName != fetchedCondition.value.fullName) {
+    if (condition.value.flairText != fetchedCondition.value.flairText) {
       condition.value.pageNo = 1;
     }
-    if (condition.value.firstName != fetchedCondition.value.firstName) {
-      condition.value.pageNo = 1;
-    }
-    if (condition.value.lastName != fetchedCondition.value.lastName) {
-      condition.value.pageNo = 1;
-    }
-    if (condition.value.minLike != fetchedCondition.value.minLike) {
-      condition.value.pageNo = 1;
-    }
-    if (condition.value.maxLike != fetchedCondition.value.maxLike) {
+    if (condition.value.minScore != fetchedCondition.value.minScore) {
       condition.value.pageNo = 1;
     }
   };
@@ -110,19 +92,13 @@ export function useHololewdModel() {
     isLoading.value = true;
     dataState.value.records.splice(0);
     compareCondition(); //検索条件変わったらページ数1にする
-    const request = {
-      page_no: condition.value.pageNo,
-      page_size: condition.value.pageSize,
-      full_name: condition.value.fullName ?? '',
-      first_name: condition.value.firstName ?? '',
-      last_name: condition.value.lastName ?? '',
-      min_like: condition.value.minLike,
-      max_like: condition.value.maxLike,
-      displayMenu: false,
-    } as HololewdRequest;
-
     await api
-      .search(request)
+      .search({
+        pageNo: condition.value.pageNo,
+        pageSize: condition.value.pageSize,
+        flairText: condition.value.flairText ?? '',
+        minScore: condition.value.minScore,
+      })
       .then((response) => {
         if (response) {
           console.log('response', response);
@@ -130,27 +106,20 @@ export function useHololewdModel() {
           dataState.value.totalPages = response.totalPages;
 
           response.records.forEach((rec) => {
-            rec.images.forEach((r) => {
-              dataState.value.records.push({
-                fullName: rec.fullName,
-                firstName: rec.firstName,
-                lastName: rec.lastName,
-                url: rec.url,
-                image: r,
-                video: '', //後で追加する
-                vote: rec.vote,
-                displayMenu: false,
-              } as HololewdRecord);
-            });
+            const addRec = {
+              flairText: rec.flairText,
+              images: [],
+              date: rec.date,
+              score: rec.score,
+            } as HololewdRecord;
+            rec.url.split(',').forEach((it) => addRec.images.push(it));
+            dataState.value.records.push(addRec);
           });
 
           const c: ConditionState = JSON.parse(JSON.stringify(condition.value));
           fetchedCondition.value = {
-            fullName: c.fullName,
-            firstName: c.firstName,
-            lastName: c.lastName,
-            minLike: c.minLike,
-            maxLike: c.maxLike,
+            flairText: c.flairText,
+            minScore: c.minScore,
             pageNo: c.pageNo,
             pageSize: c.pageSize,
           };
@@ -186,22 +155,15 @@ export function useHololewdModel() {
 interface ConditionState {
   pageNo: number;
   pageSize: number;
-  fullName: string;
-  firstName: string;
-  lastName: string;
-  minLike: number;
-  maxLike: number;
+  flairText: string;
+  minScore: number;
 }
 
 interface HololewdRecord {
-  fullName: string;
-  firstName: string;
-  lastName: string;
-  url: string;
-  image: string;
-  video: string;
-  vote: number;
-  displayMenu: boolean;
+  flairText: string;
+  images: string[];
+  date: string;
+  score: number;
 }
 interface DataState {
   totalPages: number;

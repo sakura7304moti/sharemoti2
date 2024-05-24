@@ -345,6 +345,10 @@ function usePage() {
       url: '/twitter',
     },
     {
+      title: 'reddit',
+      url: '/hololewd',
+    },
+    {
       title: '歌みた',
       url: '/holosong',
     },
