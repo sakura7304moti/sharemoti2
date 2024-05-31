@@ -59,6 +59,12 @@ export function useSsbuListModel() {
     return letRows;
   };
 
+  const countFolder = function (radioName: string, rows: readonly DataState[]) {
+    let filRow = filteringData(rows);
+    filRow = filRow.filter((it) => it.fileName.includes(radioName));
+    return filRow.length;
+  };
+
   const columns = [
     {
       name: 'charName',
@@ -77,6 +83,12 @@ export function useSsbuListModel() {
       label: '日付',
       field: 'displayDate',
       sortable: true,
+    },
+    {
+      name: 'icon',
+      label: 'アイコン',
+      field: 'icon',
+      sortable: false,
     },
   ] as QTableColumn[];
   const load = ref({
@@ -197,6 +209,8 @@ export function useSsbuListModel() {
               date: it.date,
               displayDate: displayDate,
               year: it.year,
+              icon:
+                ssbuNames.value.find((it) => it.name == charName)?.icon ?? '',
             });
             if (!dateList.value.includes(displayDate)) {
               dateList.value.push(displayDate);
@@ -225,6 +239,7 @@ export function useSsbuListModel() {
   return {
     filter,
     filteringData,
+    countFolder,
     disableFilter,
     selectId,
     columns,
@@ -263,13 +278,13 @@ function useNameModel() {
     return '';
   };
 
-  const ssbuNames = ref([] as string[]);
+  const ssbuNames = ref([] as SsbuNameState[]);
   const getSsbuNames = async function () {
     ssbuNames.value.splice(0);
 
     await nameApi.ssbu_names().then((res) => {
       if (res) {
-        res.records.forEach((it) => ssbuNames.value.push(it.name));
+        res.records.forEach((it) => ssbuNames.value.push(it));
       }
     });
   };
@@ -302,6 +317,7 @@ interface DataState {
   date: string;
   displayDate: string;
   year: string;
+  icon: string;
 }
 
 interface FilterState {
@@ -309,4 +325,10 @@ interface FilterState {
   title: string;
   date: string | null;
   folder: string;
+}
+
+interface SsbuNameState {
+  name: string;
+  url: string;
+  icon: string;
 }
