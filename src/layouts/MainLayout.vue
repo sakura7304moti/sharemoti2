@@ -63,13 +63,13 @@
 
           <!--info-->
           <div class="nav-child">
-            <div @mouseover="headerOpen(4)" @click="headerOpen(4)">
+            <div @mouseover="headerOpen(5)" @click="headerOpen(5)">
               <q-icon name="expand_more" />その他
             </div>
-            <div v-if="head.id == 4">
+            <div v-if="head.id == 5">
               <div
                 class="nav-child-page q-pa-sm"
-                :class="{ 'nav-child-select': head.id == 4 }"
+                :class="{ 'nav-child-select': head.id == 5 }"
                 style="width: 100px"
                 @click="
                   otherPageClick(
@@ -80,13 +80,13 @@
                 <img
                   src="../assets/google_drive_icon.png"
                   style="height: 32px"
-                  v-if="head.id == 4"
+                  v-if="head.id == 5"
                 />
               </div>
 
               <div
                 class="nav-child-page q-pa-sm"
-                :class="{ 'nav-child-select': head.id == 4 }"
+                :class="{ 'nav-child-select': head.id == 5 }"
                 style="width: 100px"
                 @click="
                   otherPageClick(
@@ -97,13 +97,13 @@
                 <img
                   src="../assets/notion_icon.png"
                   style="height: 32px"
-                  v-if="head.id == 4"
+                  v-if="head.id == 5"
                 />
               </div>
 
               <div
                 class="nav-child-page q-pa-sm"
-                :class="{ 'nav-child-select': head.id == 4 }"
+                :class="{ 'nav-child-select': head.id == 5 }"
                 style="width: 100px"
                 @click="
                   otherPageClick(
@@ -114,20 +114,20 @@
                 <img
                   src="../assets/youtube_icon.png"
                   style="height: 32px"
-                  v-if="head.id == 4"
+                  v-if="head.id == 5"
                 />
               </div>
 
               <div
                 class="nav-child-page q-pa-sm"
-                :class="{ 'nav-child-select': head.id == 4 }"
+                :class="{ 'nav-child-select': head.id == 5 }"
                 style="width: 100px"
                 @click="otherPageClick(nextcloudUrl)"
               >
                 <img
                   src="../assets/nextcloud_icon.png"
                   style="height: 32px"
-                  v-if="head.id == 4"
+                  v-if="head.id == 5"
                 />
               </div>
             </div>
@@ -366,10 +366,18 @@ function usePage() {
     },
   ] as PageState[]);
 
+  const subPages = ref([
+    {
+      title: '画像背景除去',
+      url: '/rembg',
+    },
+  ]);
+
   function callPageList(no: number) {
     if (no == 1) return mainPages.value;
     if (no == 2) return filePages.value;
     if (no == 3) return scraperPages.value;
+    if (no == 4) return subPages.value;
     return [] as PageState[];
   }
 
@@ -384,6 +392,10 @@ function usePage() {
     },
     {
       id: 3,
+      title: 'hololive',
+    },
+    {
+      id: 4,
       title: 'おまけ',
     },
   ] as headItem[]);
@@ -395,7 +407,7 @@ function usePage() {
     return baseUrl.replace('/#/', '').replace(':9000', '') + ':1000';
   });
 
-  return { pages, callPageList, nextcloudUrl };
+  return { pages, callPageList, nextcloudUrl, otherClass: 5 };
 }
 </script>
 <style>

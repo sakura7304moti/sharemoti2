@@ -89,16 +89,38 @@
               />
             </div>
           </div>
-          <div id="ssbu-option-mobile">
-            <div class="text-h6">スマブラ切り抜き</div>
+          <div
+            id="ssbu-option-mobile"
+            style="position: fixed; top: 10%; left: 5%"
+          >
+            <div class="text-h6 q-pr-md">スマブラ切り抜き</div>
+            <q-btn
+              icon="search"
+              round
+              size="sm"
+              class="ssbu-mobile"
+              @click="searchOptionDialog = true"
+            />
           </div>
-          <div class="ssbu-mobile q-pt-sm" v-if="playUrlMobile != ''">
+          <div
+            class="ssbu-mobile q-pt-sm"
+            v-if="playUrlMobile != ''"
+            style="height: 240px"
+          >
             <q-video
               :src="playUrlMobile"
               volume="0.5"
-              style="max-width: 90%; width: 100%"
+              style="
+                max-width: 90%;
+                width: 100%;
+                position: fixed;
+                top: 15%;
+                left: 5%;
+                height: 200px;
+              "
             />
           </div>
+          <div v-else style="height: 24px"></div>
         </template>
 
         <!-- sub 2/3  ヘッダー-->
@@ -216,14 +238,6 @@
         </template>
       </q-table>
     </div>
-    <q-btn
-      icon="search"
-      round
-      size="sm"
-      class="ssbu-mobile"
-      style="top: 94%; left: 10%; position: fixed"
-      @click="searchOptionDialog = true"
-    />
 
     <!--スマホ用検索ウィンドウ-->
     <q-dialog v-model="searchOptionDialog" position="bottom">
@@ -335,8 +349,8 @@ export default defineComponent({
     search();
 
     /*ちょうどいいくらいのページ数を取得 */
-    const initTablePage = ref(100);
-    const pageOption = ref([100] as number[]);
+    const initTablePage = ref(50);
+    const pageOption = ref([50] as number[]);
 
     const resetOption = function () {
       filter.value.title = '';

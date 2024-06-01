@@ -139,6 +139,11 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: '', component: () => import('pages/HololewdPage.vue') }],
   },
   {
+    path: '/rembg',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/RembgPage.vue') }],
+  },
+  {
     path: '/test',
     component: () => import('layouts/MainLayout.vue'),
     children: [
