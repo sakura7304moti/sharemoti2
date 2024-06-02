@@ -368,7 +368,7 @@ function usePage() {
 
   const subPages = ref([
     {
-      title: '画像背景除去',
+      title: 'GB自動生成',
       url: '/rembg',
     },
   ]);

@@ -1,6 +1,14 @@
 <template>
   <q-page class="">
-    <div class="text-h6 q-pb-md">画像背景除去</div>
+    <div class="text-h5 q-pb-sm q-pt-md">GB画像自動生成ページ</div>
+    <div class="text-subtitle1">1.まず画像がアニメかどうかを選択して...</div>
+    <div class="row q-gutter-md q-pl-md">
+      <q-radio v-model="isAnime" val="anime" label="Anime" />
+      <q-radio v-model="isAnime" val="" label="other" />
+    </div>
+    <div class="text-subtitle1 q-pt-md">
+      2.ファイルを選択するとGB画像が作成されるよ!
+    </div>
     <div class="row q-gutter-md q-pa-md">
       <q-file
         v-model="file"
@@ -10,7 +18,7 @@
         filled
         bottom-slots
         counter
-        accept=".png,.jpeg,.jpg,image/*"
+        accept=".png,.jpeg,.jpg"
       >
         <template v-slot:prepend>
           <q-icon name="image" @click.stop.prevent />
@@ -36,12 +44,13 @@
 
     <div
       style="width: 100%; max-width: 800px; display: flex; flex-wrap: wrap"
-      class="q-pa-md"
+      class="q-pt-md"
     >
-      <div v-if="postImageUrl" style="width: 100%; max-width: 50%">
+      <div v-if="postImageUrl" style="width: 100%; max-width: 45%">
         <img :src="postImageUrl" style="width: 100%" />
       </div>
-      <div v-if="resultImageUrl" style="width: 100%; max-width: 50%">
+      <div style="width: 100%; max-width: 5%" v-if="resultImageUrl"></div>
+      <div v-if="resultImageUrl" style="width: 100%; max-width: 45%">
         <img
           :src="resultImageUrl"
           style="
@@ -49,7 +58,10 @@
             background-image: url('https://t3.ftcdn.net/jpg/04/71/63/80/360_F_471638092_3MMZ9pE8idFf3b5lFeE9YcTdpCRB4jvF.jpg');
           "
         />
-        <div class="q-pt-sm">
+        <div class="q-pt-xs">
+          <div class="text-subtitle1 q-pt-md">
+            3.いい感じならダウンロードしてね!
+          </div>
           <q-btn
             label="ダウンロードする"
             @click="fileDownload(resultImageUrl)"
@@ -68,6 +80,7 @@ import { RembgApi } from '../api/sub/RembgApi';
 import { APIClient } from 'src/api/BaseApi';
 import { useQuasar } from 'quasar';
 const { fileDownload } = useViewSupport();
+const LOCALSTRAGE_KEY = 'rembg-isanime';
 export default defineComponent({
   name: 'rembg-page',
   setup() {
@@ -85,6 +98,7 @@ export default defineComponent({
     const postImageUrl = ref('');
     const file = ref<File | null>(null);
     const isLoading = ref(false);
+    const isAnime = ref(localStorage.getItem(LOCALSTRAGE_KEY) ?? '');
 
     watch(file, () => {
       if (file.value) {
@@ -100,28 +114,54 @@ export default defineComponent({
       if (file.value) {
         isLoading.value = true;
         startTimer();
-        await api
-          .upload(file.value)
-          .then(async (response) => {
-            if (response) {
-              console.log('response', response);
-              downloadFileName.value = response;
-            } else {
+        localStorage.setItem(LOCALSTRAGE_KEY, isAnime.value);
+        if (isAnime.value == 'anime') {
+          await api
+            .uploadAnime(file.value)
+            .then(async (response) => {
+              if (response) {
+                console.log('response', response);
+                downloadFileName.value = response;
+              } else {
+                quasar.notify({
+                  color: 'red',
+                  position: 'top',
+                  message: 'ごめん！エラーになっちゃった...',
+                });
+              }
+            })
+            .catch((error) => {
+              console.error('Error removing background:', error);
               quasar.notify({
                 color: 'red',
                 position: 'top',
                 message: 'ごめん！エラーになっちゃった...',
               });
-            }
-          })
-          .catch((error) => {
-            console.error('Error removing background:', error);
-            quasar.notify({
-              color: 'red',
-              position: 'top',
-              message: 'ごめん！エラーになっちゃった...',
             });
-          });
+        } else {
+          await api
+            .upload(file.value)
+            .then(async (response) => {
+              if (response) {
+                console.log('response', response);
+                downloadFileName.value = response;
+              } else {
+                quasar.notify({
+                  color: 'red',
+                  position: 'top',
+                  message: 'ごめん！エラーになっちゃった...',
+                });
+              }
+            })
+            .catch((error) => {
+              console.error('Error removing background:', error);
+              quasar.notify({
+                color: 'red',
+                position: 'top',
+                message: 'ごめん！エラーになっちゃった...',
+              });
+            });
+        }
       }
       stopTimer();
       isLoading.value = false;
@@ -146,6 +186,7 @@ export default defineComponent({
 
     return {
       file,
+      isAnime,
       isLoading,
       elapsedTime,
       postImageUrl,
