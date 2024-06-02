@@ -4,7 +4,7 @@
     <div class="text-subtitle1">1.まず画像がアニメかどうかを選択して...</div>
     <div class="row q-gutter-md q-pl-md">
       <q-radio v-model="isAnime" val="anime" label="Anime" />
-      <q-radio v-model="isAnime" val="" label="other" />
+      <q-radio v-model="isAnime" val="" label="Other" />
     </div>
     <div class="text-subtitle1 q-pt-md">
       2.ファイルを選択するとGB画像が作成されるよ!
@@ -33,6 +33,7 @@
 
         <template v-slot:hint> ファイルサイズ </template>
       </q-file>
+
       <div class="q-pt-sm" v-if="isLoading">
         <q-spinner color="brown" size="md" />
         <div class="text-caption text-grey">
