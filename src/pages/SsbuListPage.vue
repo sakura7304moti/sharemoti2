@@ -30,6 +30,7 @@
         :filter="filter"
         :filter-method="filteringData"
         id="ssbu-table"
+        style="max-width: 1000px; width: 100%"
       >
         <!--sub 1/3 オプション-->
         <template v-slot:top-left>
@@ -153,7 +154,8 @@
                 {{ col.label }}
               </div>
 
-              <div v-if="col.label == '日付'" style="width: 50px">
+              <div v-if="col.label == '日付'" style="width: 70px">
+                <!-- ここを調整 -->
                 {{ col.label }}
               </div>
             </q-th>
@@ -407,7 +409,7 @@ export default defineComponent({
 #ssbu-table {
   height: 80vh;
   overflow-y: auto;
-  max-width: 800px;
+  max-width: 1000px; /* ここを調整 */
   width: 100%;
 }
 #ssbu-option-mobile {
@@ -420,8 +422,9 @@ export default defineComponent({
 #ssbu-option-dialog {
   height: 320px;
 }
+
 /*スマホ用 */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
   #ssbu-option-desktop {
     display: none;
   }
@@ -439,7 +442,7 @@ export default defineComponent({
   }
 }
 /*PC用 */
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 1000px) {
   #ssbu-option-mobile {
     display: none;
   }
